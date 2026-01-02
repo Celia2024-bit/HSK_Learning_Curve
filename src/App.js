@@ -5,6 +5,7 @@ import FlashcardMode from './components/FlashcardMode';
 import ReadingMode from './components/ReadingMode';
 import QuizMode from './components/QuizMode';
 import Results from './components/Results';
+import { speakChinese } from './utils/ttsService';
 
 export default function HSKStudyApp() {
   // --- 核心状态 ---
@@ -18,26 +19,6 @@ export default function HSKStudyApp() {
   const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // --- Edge-TTS 语音调用 ---
-  const speakChinese = (text) => {
-    if (window.currentAudio) {
-      window.currentAudio.pause();
-    }
-    // 注意：请确保你的 Python 后端运行在 5001 端口
-    const voice = "zh-CN-XiaoxiaoNeural";
-    const audioUrl = `http://localhost:5001/tts?text=${encodeURIComponent(text)}&voice=${voice}`;
-    
-    const audio = new Audio(audioUrl);
-    window.currentAudio = audio;
-    audio.play().catch(e => {
-      console.warn("TTS 播放失败，请检查后端服务是否启动:", e);
-      // 备选：如果后端没开，使用浏览器自带 TTS
-      const msg = new SpeechSynthesisUtterance(text);
-      msg.lang = 'zh-CN';
-      window.speechSynthesis.speak(msg);
-    });
-  };
 
   // --- 加载数据 ---
   useEffect(() => {
