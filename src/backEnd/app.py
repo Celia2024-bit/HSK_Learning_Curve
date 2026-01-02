@@ -66,6 +66,32 @@ def get_progress():
         with open(PROGRESS_FILE, 'r', encoding='utf-8') as f:
             return json.load(f)
     return {"level": 1, "mode": "menu", "index": 0} # 默认值
+    
+    
+MASTERY_FILE = 'mastery.json'
+
+@app.route('/save_mastery', methods=['POST'])
+def save_mastery():
+    data = request.json
+    # 格式: { "char": "爱", "score": 5 }
+    mastery_data = {}
+    if os.path.exists(MASTERY_FILE):
+        with open(MASTERY_FILE, 'r', encoding='utf-8') as f:
+            mastery_data = json.load(f)
+    
+    mastery_data[data['char']] = data['score']
+    
+    with open(MASTERY_FILE, 'w', encoding='utf-8') as f:
+        json.dump(mastery_data, f, ensure_ascii=False, indent=2)
+    return {"status": "success"}
+
+@app.route('/get_mastery', methods=['GET'])
+def get_mastery():
+    if os.path.exists(MASTERY_FILE):
+        with open(MASTERY_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return {}
+
 
 if __name__ == '__main__':
     # 建议尝试 5001 端口
