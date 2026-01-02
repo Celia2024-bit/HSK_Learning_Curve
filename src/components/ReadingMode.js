@@ -27,7 +27,7 @@ export default function ReadingMode({ data, onBack, onSpeak }) {
       <div className="bg-white rounded-[3rem] p-12 shadow-2xl shadow-indigo-100/50 border border-white relative overflow-hidden">
         <div className="absolute top-0 right-0 p-8">
             <button 
-              onClick={() => onSpeak(current.chinese)}
+              onClick={() => onSpeak(current.chinese, false)}
               className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all"
             >
               <Volume2 size={24} />

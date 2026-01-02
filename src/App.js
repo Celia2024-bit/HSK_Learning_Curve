@@ -110,10 +110,26 @@ export default function App() {
   }, [currentUser, level, quizCount, currentIndex]);
 
   // 6. 修改 TTS 地址
-  const speakChinese = (text) => {
-    const audio = new Audio(`${API_BASE}/tts?text=${encodeURIComponent(text)}`);
-    audio.play();
-  };
+  const speakChinese = async (text, isSlow = true) => {
+      // 核心逻辑：单词模式(Flashcard)用 -20 慢速，阅读模式用 0 正常速度
+      const speed = isSlow ?  -50 :0;
+      const voice = "Mandarin Male (Yunjian)"; // 默认使用你喜欢的男声
+
+      const params = new URLSearchParams({
+        text: text,
+        speed: speed,
+        voice: voice
+      });
+
+      const audioUrl = `${API_BASE}/tts?${params.toString()}`;
+      const audio = new Audio(audioUrl);
+      
+      try {
+        await audio.play();
+      } catch (err) {
+        console.error("播放失败:", err);
+      }
+    };
 
   if (!currentUser) {
     return <Login onLogin={handleLogin} apiUrl={API_BASE} />;
