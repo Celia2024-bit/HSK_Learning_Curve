@@ -204,8 +204,15 @@ export default function HSKStudyApp() {
       )}
 
       {mode === 'results' && (
-        <Results score={score} total={shuffledWords.length} quizAnswers={quizAnswers} onRetry={() => startMode('quiz')} onMenu={() => setMode('menu')} />
-      )}
+      <Results 
+        score={score} 
+        total={shuffledWords.length} 
+        quizAnswers={quizAnswers} 
+        onRetry={() => startMode('quiz')} 
+        onMenu={() => setMode('menu')}
+        onSpeak={speakChinese} // <--- 确保这一行传进去了
+      />
+    )}
     </div>
   );
 }
