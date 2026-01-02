@@ -108,28 +108,28 @@ export default function QuizMode({
           </div>
         </div>
 
-        {/* 底部导航 */}
+        {/* Bottom Navigation */}
         <div className="flex justify-between items-center gap-6">
           <button
             onClick={onPrev}
             disabled={currentIndex === 0}
-            className="flex-1 py-4 bg-white/70 backdrop-blur rounded-2xl font-bold text-gray-500 disabled:opacity-30 hover:bg-white transition-all flex items-center justify-center gap-2 border border-white"
+            className="flex-1 py-4 bg-purple-100 text-purple-700 rounded-2xl font-bold 
+                       hover:bg-purple-200 active:scale-95 disabled:opacity-30 
+                       disabled:bg-gray-100 disabled:text-gray-400 transition-all border border-purple-200"
           >
-            <ChevronLeft size={24} /> Prev
+            PREV
           </button>
 
           <button
-            onClick={() => onNext(isCorrect, { 
-              word, 
-              selected: options.find(o => o.char === selectedChar), 
-              isCorrect 
-            })}
+            onClick={() => onNext(isCorrect, { word, selected: options.find(o => o.char === selectedChar), isCorrect })}
             disabled={selectedChar === null}
-            className="flex-[2] py-4 bg-indigo-600 text-white rounded-2xl font-bold text-xl shadow-lg disabled:opacity-50 hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 active:scale-95"
+            className="flex-[2] py-4 bg-indigo-600 text-white rounded-2xl font-bold text-xl shadow-lg 
+                       hover:bg-indigo-700 active:scale-95 disabled:opacity-50 transition-all"
           >
-            {currentIndex === total - 1 ? 'See Results' : 'Next'} <ChevronRight size={24} />
+            {currentIndex === total - 1 ? 'FINISH' : 'NEXT'}
           </button>
         </div>
+       
       </div>
     </div>
   );

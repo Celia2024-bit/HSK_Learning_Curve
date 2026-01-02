@@ -109,13 +109,16 @@ export default function FlashcardMode({
           <button 
             onClick={handlePrev} 
             disabled={currentIndex === 0} 
-            className="flex-1 py-4 bg-white/80 rounded-2xl font-bold text-gray-400 disabled:opacity-30 shadow-sm hover:bg-white transition-all"
+            className="flex-1 py-4 bg-orange-100 text-orange-700 rounded-2xl font-bold shadow-sm 
+                       hover:bg-orange-200 active:scale-95 disabled:opacity-30 disabled:bg-gray-100 
+                       disabled:text-gray-400 transition-all"
           >
             PREV
           </button>
           <button 
             onClick={handleNext} 
-            className="flex-[2] py-4 bg-orange-500 text-white rounded-2xl font-bold text-xl shadow-xl hover:bg-orange-600 transition-all active:scale-[0.98]"
+            className="flex-[2] py-4 bg-orange-500 text-white rounded-2xl font-bold text-xl shadow-xl 
+                       hover:bg-orange-600 active:scale-95 transition-all"
           >
             {currentIndex === data.length - 1 ? "FINISH" : "NEXT"}
           </button>

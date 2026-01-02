@@ -60,10 +60,23 @@ export default function ReadingMode({ data, currentIndex, setIndex, onBack, onSp
           )}
         </div>
 
+        {/* Bottom Navigation */}
         <div className="mt-8 flex gap-4">
-          <button onClick={handlePrev} disabled={currentIndex === 0} className="flex-1 py-4 bg-white/50 rounded-2xl font-bold text-gray-400 disabled:opacity-30">PREVIOUS</button>
-          <button onClick={handleNext} className="flex-[2] py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg">
-            {currentIndex === data.length - 1 ? "COMPLETE" : "NEXT SENTENCE"}
+          <button 
+            onClick={handlePrev} 
+            disabled={currentIndex === 0} 
+            className="flex-1 py-5 bg-indigo-100 text-indigo-700 rounded-2xl font-bold 
+                       hover:bg-indigo-200 active:scale-95 disabled:opacity-30 disabled:bg-gray-100 
+                       disabled:text-gray-400 border border-indigo-200 transition-all"
+          >
+            PREV
+          </button>
+          <button 
+            onClick={handleNext} 
+            className="flex-[2] py-5 bg-indigo-600 text-white rounded-2xl font-bold text-xl shadow-lg 
+                       hover:bg-indigo-700 active:scale-95 transition-all"
+          >
+            {currentIndex === data.length - 1 ? "FINISH" : "NEXT"}
           </button>
         </div>
       </div>
