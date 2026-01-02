@@ -10,7 +10,8 @@ import { getSmartQuizWords } from './utils/spacedRepetition';
 import sentencesData from './data/sentences.json';
 
 // 1. 定义网络后端基础路径
-const API_BASE = "http://localhost:5000/api/hsk";
+//const API_BASE = "http://localhost:5000/api/hsk";
+const API_BASE = "https://backend-all-6q0a.onrender.com/api/hsk";
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -114,7 +115,9 @@ export default function App() {
     audio.play();
   };
 
-  if (!currentUser) return <Login onLogin={handleLogin} />;
+  if (!currentUser) {
+    return <Login onLogin={handleLogin} apiUrl={API_BASE} />;
+  }
 
   return (
     <div className="min-h-screen pt-20 bg-gray-50">

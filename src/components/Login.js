@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { User, Lock, ArrowRight, UserPlus, LogIn } from 'lucide-react';
 
-export default function Login({ onLogin }) {
+export default function Login({ onLogin, apiUrl }) {
   const [isRegistering, setIsRegistering] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -12,10 +12,13 @@ export default function Login({ onLogin }) {
     if (!username || !password) return alert("Please fill in all fields");
     
     setLoading(true);
-    const endpoint = isRegistering ? '/api/hsk/register' : '/api/hsk/login';
+    
+    // 根据状态选择接口路径
+    const endpoint = isRegistering ? '/register' : '/login';
     
     try {
-      const res = await fetch(`http://localhost:5000${endpoint}`, {
+      // 使用从 App.js 传下来的 apiUrl，不再写死 localhost
+      const res = await fetch(`${apiUrl}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
@@ -26,17 +29,20 @@ export default function Login({ onLogin }) {
       if (res.ok) {
         if (isRegistering) {
           alert("Registration successful! Now you can login.");
-          setIsRegistering(false); // 注册成功后跳回登录页
-          setPassword(''); // 清空密码框
+          setIsRegistering(false); // 注册成功，切换到登录模式
+          setPassword(''); // 清空密码
         } else {
-          // 登录成功，调用 App.js 传进来的登录处理函数
+          // 登录成功，执行 App.js 传入的登录逻辑
           onLogin(username, password);
         }
       } else {
+        // 后端返回的错误（如：用户已存在、密码错误）
         alert(data.message || "Operation failed");
       }
     } catch (error) {
-      alert("Server connection failed. Is app.py running?");
+      // 网络级别的错误（如：Render 还没启动、URL 写错）
+      console.error("Fetch Error:", error);
+      alert("Cannot connect to server. Please ensure the backend is running at: " + apiUrl);
     } finally {
       setLoading(false);
     }
@@ -93,7 +99,7 @@ export default function Login({ onLogin }) {
             disabled={loading}
             className={`w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-lg shadow-xl shadow-indigo-100 hover:bg-indigo-600 transition-all active:scale-[0.98] flex items-center justify-center gap-3 mt-4 ${loading ? 'opacity-70 cursor-wait' : ''}`}
           >
-            {isRegistering ? 'SIGN UP NOW' : 'SIGN IN'}
+            {loading ? 'PROCESSING...' : (isRegistering ? 'SIGN UP NOW' : 'SIGN IN')}
             <ArrowRight size={20} />
           </button>
         </form>
