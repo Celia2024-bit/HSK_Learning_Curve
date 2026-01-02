@@ -133,10 +133,12 @@ export default function HSKStudyApp() {
     <div className="min-h-screen bg-gray-50">
       {mode === 'menu' && (
         <Menu 
-          level={level} setLevel={setLevel} 
-          startMode={startMode} 
-          quizCount={quizCount} setQuizCount={setQuizCount} 
-        />
+            level={level} 
+            setLevel={setLevel} 
+            startMode={startMode} 
+            quizCount={quizCount} 
+            setQuizCount={setQuizCount} // 传递 state 修改函数
+          />
       )}
 
       {mode === 'flashcard' && (
