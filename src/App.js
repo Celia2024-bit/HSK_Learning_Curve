@@ -594,14 +594,20 @@ export default function HSKStudyApp() {
             </button>
           </div>
 
-          <div className="bg-white rounded-3xl shadow-2xl p-12 mb-8 min-h-96">
+          <div className="bg-white rounded-3xl shadow-2xl p-12 mb-8 min-h-96 relative">
+            {/* 新增：语音朗读按钮 */}
+            <button
+              onClick={() => speakChinese(currentSentence.chinese)}
+              className="absolute top-6 right-6 bg-indigo-100 hover:bg-indigo-200 text-indigo-600 p-4 rounded-full transition-all hover:scale-110 shadow-lg"
+              title="Listen to sentence"
+            >
+              <Volume2 size={28} />
+            </button>
+            
             <div className="mb-8">
               <div className="text-5xl font-bold text-indigo-900 mb-6 leading-relaxed text-center">
                 {currentSentence.chinese}
               </div>
-              {/* <div className="text-2xl text-gray-500 mb-8 text-center leading-relaxed">
-                {currentSentence.pinyin}
-              </div> */}
               
               {showAnswer ? (
                 <div className="mt-8 p-8 bg-green-50 rounded-xl animate-fade-in">
@@ -621,6 +627,7 @@ export default function HSKStudyApp() {
               )}
             </div>
           </div>
+
 
           <div className="flex justify-between items-center">
             <button
