@@ -1,5 +1,7 @@
 import asyncio
 import io
+import json
+import os
 import edge_tts
 from flask import Flask, request, send_file
 from flask_cors import CORS
@@ -44,6 +46,26 @@ def tts():
     except Exception as e:
         print(f"TTS Error: {e}")
         return str(e), 500
+        
+PROGRESS_FILE = 'progress.json'
+
+@app.route('/save_progress', methods=['POST'])
+def save_progress():
+    data = request.json
+    # data 格式设计: { "level": 1, "mode": "flashcard", "index": 5 }
+    try:
+        with open(PROGRESS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        return {"status": "success"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}, 500
+
+@app.route('/get_progress', methods=['GET'])
+def get_progress():
+    if os.path.exists(PROGRESS_FILE):
+        with open(PROGRESS_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return {"level": 1, "mode": "menu", "index": 0} # 默认值
 
 if __name__ == '__main__':
     # 建议尝试 5001 端口

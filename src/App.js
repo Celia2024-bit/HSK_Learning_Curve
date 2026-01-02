@@ -8,7 +8,6 @@ import Results from './components/Results';
 import { speakChinese } from './utils/ttsService';
 
 export default function HSKStudyApp() {
-  // --- 核心状态 ---
   const [level, setLevel] = useState(1);
   const [mode, setMode] = useState('menu');
   const [hskData, setHskData] = useState({ 1: [], 2: [], 3: [] });
@@ -20,150 +19,140 @@ export default function HSKStudyApp() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // --- 加载数据 ---
+  // --- 1. 进度持久化逻辑 ---
+  
+  // 保存进度到后端
+  const saveProgress = useCallback(async (currentLevel, currentMode, index) => {
+    try {
+      await fetch('http://localhost:5001/save_progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          level: currentLevel,
+          mode: currentMode,
+          index: index
+        })
+      });
+    } catch (e) {
+      console.warn("进度保存失败", e);
+    }
+  }, []);
+
+  // 加载数据并恢复进度
   useEffect(() => {
-    const loadAllData = async () => {
+    const initApp = async () => {
       try {
         setLoading(true);
-        const [h1, h2, h3, sent] = await Promise.all([
+        // 加载词库和进度
+        const [h1, h2, h3, sent, prog] = await Promise.all([
           fetch('/hsk1.json').then(res => res.json()),
           fetch('/hsk2.json').then(res => res.json()),
           fetch('/hsk3.json').then(res => res.json()),
-          fetch('/sentences.json').then(res => res.ok ? res.json() : { 1: [], 2: [], 3: [] })
+          fetch('/sentences.json').then(res => res.ok ? res.json() : { 1: [], 2: [], 3: [] }),
+          fetch('http://localhost:5001/get_progress').then(res => res.ok ? res.json() : null)
         ]);
 
         setHskData({ 1: h1, 2: h2, 3: h3 });
         setSentences(sent);
+        
+        if (prog) {
+          setLevel(prog.level);
+          // 这里我们只恢复 Level，不强制跳转 Mode，给用户选择权
+          // 如果想彻底恢复到上次刷新的状态，可以在 startMode 里处理
+        }
         setLoading(false);
       } catch (err) {
-        console.error("Data loading failed:", err);
-        setError("无法加载 HSK 数据文件，请检查 public 文件夹下的 json 文件。");
+        setError("初始化失败，请检查后端和 JSON 文件");
         setLoading(false);
       }
     };
-    loadAllData();
+    initApp();
   }, []);
 
-  // --- 启动模式逻辑 ---
-  const startMode = (selectedMode) => {
-    // 根据模式选择数据源 (Reading 模式使用句子，其他使用单词)
+  // --- 2. 模式控制 ---
+  
+  const startMode = async (selectedMode) => {
     const rawData = selectedMode === 'reading' ? sentences[level] : hskData[level];
-    
-    if (!rawData || rawData.length === 0) {
-      alert("当前级别暂无数据");
-      return;
-    }
+    if (!rawData || rawData.length === 0) return alert("暂无数据");
 
-    // 打乱数据
-    const shuffled = [...rawData].sort(() => Math.random() - 0.5);
+    // 获取上次保存的进度（针对该模式）
+    let startIdx = 0;
+    try {
+      const res = await fetch('http://localhost:5001/get_progress');
+      const prog = await res.json();
+      if (prog && prog.mode === selectedMode && prog.level === level) {
+        startIdx = prog.index;
+      }
+    } catch (e) {}
+
+    // 如果是 Quiz 模式，依然打乱；如果是背诵模式，可以按顺序或恢复进度
+    const dataList = selectedMode === 'quiz' ? [...rawData].sort(() => Math.random() - 0.5) : rawData;
     
-    setShuffledWords(shuffled);
-    setCurrentIndex(0);
+    setShuffledWords(dataList);
+    setCurrentIndex(startIdx);
     setScore(0);
     setQuizAnswers([]);
     setMode(selectedMode);
   };
 
-  // --- 答题处理 (专门给 QuizMode 使用) ---
-  const handleQuizAnswer = (isCorrect, answerObj) => {
-    setQuizAnswers(prev => [...prev, answerObj]);
-    if (isCorrect) setScore(prev => prev + 1);
-
-    if (currentIndex < shuffledWords.length - 1) {
-      setCurrentIndex(prev => prev + 1);
-    } else {
-      setMode('results');
-    }
+  const handleIndexChange = (newIndex) => {
+    setCurrentIndex(newIndex);
+    saveProgress(level, mode, newIndex);
   };
 
-  // --- 渲染渲染 ---
-  if (loading) return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-50">
-      <Loader className="animate-spin text-indigo-600 mb-4" size={48} />
-      <p className="text-gray-500 font-medium">正在准备 HSK 词库...</p>
-    </div>
-  );
-
-  if (error) return <div className="p-20 text-red-500 text-center">{error}</div>;
+  // --- 渲染 ---
+  if (loading) return <div className="p-20 text-center">Loading...</div>;
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* 1. 菜单模式 */}
-      {mode === 'menu' && (
-        <Menu 
-          level={level} 
-          setLevel={setLevel} 
-          startMode={startMode} 
-        />
-      )}
+      {mode === 'menu' && <Menu level={level} setLevel={setLevel} startMode={startMode} />}
 
-      {/* 2. 抽卡模式 */}
       {mode === 'flashcard' && (
         <FlashcardMode 
           data={shuffledWords}
           currentIndex={currentIndex}
-          setIndex={setCurrentIndex}
+          setIndex={handleIndexChange}
           onBack={() => setMode('menu')}
           onSpeak={speakChinese}
           level={level}
         />
       )}
 
-      {/* 3. 测验模式 */}
-      {mode === 'quiz' && (
-          <QuizMode 
-            word={shuffledWords[currentIndex]} 
-            allWords={hskData[level]} 
-            currentIndex={currentIndex}
-            total={shuffledWords.length}
-            score={score}
-            onSpeak={speakChinese}
-            // 之前保存过的答案，传给组件回显
-            savedAnswer={quizAnswers[currentIndex]} 
-            onExit={() => setMode('menu')}
-            // 点击 Next 时调用
-            onNext={(isCorrect, answerObj) => {
-              const newAnswers = [...quizAnswers];
-              newAnswers[currentIndex] = answerObj; // 保存或更新当前题目的结果
-              setQuizAnswers(newAnswers);
-              
-              // 更新分数（仅针对新答对的情况，这里逻辑建议在 Results 计算更准，或者在此累加）
-              if (isCorrect && !quizAnswers[currentIndex]) {
-                setScore(prev => prev + 1);
-              }
-
-              if (currentIndex < shuffledWords.length - 1) {
-                setCurrentIndex(prev => prev + 1);
-              } else {
-                setMode('results');
-              }
-            }}
-            // 点击 Prev 时调用
-            onPrev={() => {
-              if (currentIndex > 0) setCurrentIndex(prev => prev - 1);
-            }}
-          />
-        )}
-
-      {/* 4. 阅读练习模式 */}
       {mode === 'reading' && (
         <ReadingMode 
           data={shuffledWords}
+          currentIndex={currentIndex}
+          setIndex={handleIndexChange}
           onBack={() => setMode('menu')}
           onSpeak={speakChinese}
           level={level}
         />
       )}
 
-      {/* 5. 结果显示 */}
-      {mode === 'results' && (
-        <Results 
-          score={score}
+      {mode === 'quiz' && (
+        <QuizMode 
+          word={shuffledWords[currentIndex]} 
+          allWords={hskData[level]} 
+          currentIndex={currentIndex}
           total={shuffledWords.length}
-          quizAnswers={quizAnswers}
-          onRetry={() => startMode('quiz')}
-          onMenu={() => setMode('menu')}
+          score={score}
+          onSpeak={speakChinese}
+          savedAnswer={quizAnswers[currentIndex]} 
+          onExit={() => setMode('menu')}
+          onNext={(isCorrect, ans) => {
+            const newAns = [...quizAnswers];
+            newAns[currentIndex] = ans;
+            setQuizAnswers(newAns);
+            if (isCorrect && !quizAnswers[currentIndex]) setScore(s => s + 1);
+            if (currentIndex < shuffledWords.length - 1) handleIndexChange(currentIndex + 1);
+            else setMode('results');
+          }}
+          onPrev={() => handleIndexChange(currentIndex - 1)}
         />
+      )}
+
+      {mode === 'results' && (
+        <Results score={score} total={shuffledWords.length} quizAnswers={quizAnswers} onRetry={() => startMode('quiz')} onMenu={() => setMode('menu')} />
       )}
     </div>
   );
