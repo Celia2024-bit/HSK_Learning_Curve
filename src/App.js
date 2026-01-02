@@ -9,45 +9,46 @@ import ReadingMode from './components/ReadingMode';
 import { getSmartQuizWords } from './utils/spacedRepetition';
 import sentencesData from './data/sentences.json';
 
+// 1. 定义网络后端基础路径
+const API_BASE = "http://localhost:5000/api/hsk";
+
 export default function App() {
-  // --- 1. 用户与全局状态 ---
   const [currentUser, setCurrentUser] = useState(null);
-  const [mode, setMode] = useState('menu'); // menu, flashcard, quiz, results
+  const [mode, setMode] = useState('menu');
   const [level, setLevel] = useState(1);
   const [quizCount, setQuizCount] = useState(20);
   
-  // --- 2. 数据状态 ---
-  const [allWords, setAllWords] = useState([]);      // 当前 Level 的所有单词
-  const [quizQueue, setQuizQueue] = useState([]);    // 经过算法筛选的题目
-  const [mastery, setMastery] = useState({});        // 熟练度记录 (来自后端)
-  const [currentIndex, setIndex] = useState(0);      // 进度索引
-  const [quizAnswers, setQuizAnswers] = useState([]); // Quiz 答题结果记录
+  const [allWords, setAllWords] = useState([]);      
+  const [quizQueue, setQuizQueue] = useState([]);    
+  const [mastery, setMastery] = useState({});        
+  const [currentIndex, setIndex] = useState(0);      
+  const [quizAnswers, setQuizAnswers] = useState([]); 
   const [score, setScore] = useState(0);
 
-  // --- 3. 数据加载逻辑 ---
+  // 2. 修改数据加载逻辑
   const fetchUserData = async (username) => {
     try {
-      const res = await fetch(`http://localhost:5001/get_user_data?username=${username}`);
+      const res = await fetch(`${API_BASE}/get_user_data?username=${username}`);
       const data = await res.json();
       setMastery(data.mastery || {});
+      // 对应 Supabase 数据库中的字段名
       setLevel(data.progress.level || 1);
-      setQuizCount(data.progress.quizCount || 20);
-      setIndex(data.progress.index || 0);
+      setQuizCount(data.progress.quiz_count || 20); 
+      setIndex(data.progress.current_index || 0);   
     } catch (e) {
       console.error("Failed to load user data:", e);
     }
   };
 
-  // 监听 Level 变化，加载对应的词库
   useEffect(() => {
     import(`./data/hsk-level-${level}.json`)
       .then(m => setAllWords(m.default))
       .catch(e => console.error("Data load error:", e));
   }, [level]);
 
-  // --- 4. 核心交互逻辑 ---
+  // 3. 修改登录逻辑地址
   const handleLogin = async (username, password) => {
-    const res = await fetch('http://localhost:5001/login', {
+    const res = await fetch(`${API_BASE}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
@@ -56,7 +57,7 @@ export default function App() {
       setCurrentUser(username);
       fetchUserData(username);
     } else {
-      alert("Invalid credentials. Try: Username = Password");
+      alert("Invalid credentials.");
     }
   };
 
@@ -77,54 +78,54 @@ export default function App() {
     setMode(newMode);
   };
 
+  // 4. 修改保存熟练度地址
   const updateMasteryRecord = async (char, newFields) => {
     const current = mastery[char] || { score: 1, lastQuiz: null, mistakeCount: 0 };
     const updated = { ...current, ...newFields, lastUpdate: new Date().toISOString() };
     
     setMastery(prev => ({ ...prev, [char]: updated }));
 
-    await fetch('http://localhost:5001/save_mastery', {
+    await fetch(`${API_BASE}/save_mastery`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: currentUser, char, record: updated })
     });
   };
 
+  // 5. 修改保存进度地址
   const saveProgress = useCallback(async (overrides = {}) => {
     if (!currentUser) return;
     const payload = {
       username: currentUser,
-      level,
-      quizCount,
-      index: currentIndex,
-      ...overrides
+      level: overrides.level || level,
+      quizCount: overrides.quizCount || quizCount,
+      index: overrides.index !== undefined ? overrides.index : currentIndex
     };
-    await fetch('http://localhost:5001/save_progress', {
+    await fetch(`${API_BASE}/save_progress`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
   }, [currentUser, level, quizCount, currentIndex]);
 
+  // 6. 修改 TTS 地址
   const speakChinese = (text) => {
-    const audio = new Audio(`http://localhost:5001/tts?text=${encodeURIComponent(text)}`);
+    const audio = new Audio(`${API_BASE}/tts?text=${encodeURIComponent(text)}`);
     audio.play();
   };
 
-  // --- 5. 条件渲染渲染 ---
   if (!currentUser) return <Login onLogin={handleLogin} />;
 
   return (
     <div className="min-h-screen pt-20 bg-gray-50">
       <Header currentUser={currentUser} onLogout={handleLogout} />
-
       <main className="max-w-4xl mx-auto px-4">
         {mode === 'menu' && (
             <Menu 
               level={level} 
-              setLevel={setLevel} 
+              setLevel={(l) => { setLevel(l); saveProgress({ level: l }); }} 
               quizCount={quizCount}
-              setQuizCount={setQuizCount}
+              setQuizCount={(c) => { setQuizCount(c); saveProgress({ quizCount: c }); }}
               startMode={startMode} 
             />
           )}
@@ -159,7 +160,6 @@ export default function App() {
               newAnswers[currentIndex] = answerData;
               setQuizAnswers(newAnswers);
 
-              // 更新 SRS 记录
               const char = quizQueue[currentIndex].char;
               const currentRec = mastery[char] || {};
               updateMasteryRecord(char, {
@@ -179,12 +179,12 @@ export default function App() {
 
         {mode === 'reading' && (
           <ReadingMode 
-            // 将 level 转为字符串以匹配 JSON 的 Key
             data={sentencesData[level.toString()] || []} 
             onBack={() => setMode('menu')}
             onSpeak={speakChinese}
           />
         )}
+        
         {mode === 'results' && (
           <Results 
             score={score} 

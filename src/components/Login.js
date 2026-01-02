@@ -12,10 +12,10 @@ export default function Login({ onLogin }) {
     if (!username || !password) return alert("Please fill in all fields");
     
     setLoading(true);
-    const endpoint = isRegistering ? '/register' : '/login';
+    const endpoint = isRegistering ? '/api/hsk/register' : '/api/hsk/login';
     
     try {
-      const res = await fetch(`http://localhost:5001${endpoint}`, {
+      const res = await fetch(`http://localhost:5000${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
