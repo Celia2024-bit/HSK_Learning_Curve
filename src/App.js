@@ -1,218 +1,201 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Loader } from 'lucide-react';
+import Header from './components/Header';
+import Login from './components/Login';
 import Menu from './components/Menu';
 import FlashcardMode from './components/FlashcardMode';
-import ReadingMode from './components/ReadingMode';
 import QuizMode from './components/QuizMode';
 import Results from './components/Results';
-import { speakChinese } from './utils/ttsService';
-import { getSmartQuizWords } from './utils/spacedRepetition'; // 我们等下创建这个算法文件
+import ReadingMode from './components/ReadingMode';
+import { getSmartQuizWords } from './utils/spacedRepetition';
+import sentencesData from './data/sentences.json';
 
-export default function HSKStudyApp() {
-  // --- 1. 核心状态 ---
+export default function App() {
+  // --- 1. 用户与全局状态 ---
+  const [currentUser, setCurrentUser] = useState(null);
+  const [mode, setMode] = useState('menu'); // menu, flashcard, quiz, results
   const [level, setLevel] = useState(1);
-  const [mode, setMode] = useState('menu');
-  const [hskData, setHskData] = useState({ 1: [], 2: [], 3: [] });
-  const [sentences, setSentences] = useState({ 1: [], 2: [], 3: [] });
-  const [shuffledWords, setShuffledWords] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [quizCount, setQuizCount] = useState(20); // 用户自定义题目数
+  const [quizCount, setQuizCount] = useState(20);
   
-  // mastery 现在是复杂对象: { "爱": { score: 5, lastRead: "...", mistakeCount: 0, ... } }
-  const [mastery, setMastery] = useState({}); 
-  
-  const [quizAnswers, setQuizAnswers] = useState([]);
+  // --- 2. 数据状态 ---
+  const [allWords, setAllWords] = useState([]);      // 当前 Level 的所有单词
+  const [quizQueue, setQuizQueue] = useState([]);    // 经过算法筛选的题目
+  const [mastery, setMastery] = useState({});        // 熟练度记录 (来自后端)
+  const [currentIndex, setIndex] = useState(0);      // 进度索引
+  const [quizAnswers, setQuizAnswers] = useState([]); // Quiz 答题结果记录
   const [score, setScore] = useState(0);
-  const [loading, setLoading] = useState(true);
 
-  // --- 2. 增强型数据持久化 ---
-
-  // 保存进度 (Level/Index)
-  const saveProgress = useCallback(async (currentLevel, currentMode, index) => {
+  // --- 3. 数据加载逻辑 ---
+  const fetchUserData = async (username) => {
     try {
-      await fetch('http://localhost:5001/save_progress', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ level: currentLevel, mode: currentMode, index: index })
-      });
-    } catch (e) { console.warn("Progress sync failed"); }
-  }, []);
-
-  // 核心：更新单词的 SRS 记录
-  const updateMasteryRecord = async (char, updates) => {
-    const oldRecord = mastery[char] || { 
-      score: 1, 
-      lastRead: null, 
-      lastQuiz: null, 
-      lastResult: null, 
-      mistakeCount: 0 
-    };
-
-    const newRecord = {
-      ...oldRecord,
-      ...updates,
-      // 如果这次测验错了，错误计数 +1
-      mistakeCount: updates.lastResult === false 
-        ? (oldRecord.mistakeCount || 0) + 1 
-        : (oldRecord.mistakeCount || 0)
-    };
-
-    // 更新本地状态
-    setMastery(prev => ({ ...prev, [char]: newRecord }));
-
-    // 同步到后端 mastery.json
-    try {
-      await fetch('http://localhost:5001/save_mastery', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ char, record: newRecord })
-      });
-    } catch (e) { console.error("Mastery sync failed", e); }
-  };
-
-  // 初始化加载
-  useEffect(() => {
-    const initApp = async () => {
-      try {
-        setLoading(true);
-        const [h1, h2, h3, sent, prog, mast] = await Promise.all([
-          fetch('/hsk1.json').then(res => res.json()),
-          fetch('/hsk2.json').then(res => res.json()),
-          fetch('/hsk3.json').then(res => res.json()),
-          fetch('/sentences.json').then(res => (res.ok ? res.json() : { 1: [], 2: [], 3: [] })),
-          fetch('http://localhost:5001/get_progress').then(res => res.ok ? res.json() : null),
-          fetch('http://localhost:5001/get_mastery').then(res => res.ok ? res.json() : {})
-        ]);
-
-        setHskData({ 1: h1, 2: h2, 3: h3 });
-        setSentences(sent);
-        setMastery(mast);
-        if (prog) setLevel(prog.level);
-        setLoading(false);
-      } catch (err) {
-        console.error("Init Error:", err);
-        setLoading(false);
-      }
-    };
-    initApp();
-  }, []);
-
-  // --- 3. 智能模式启动 ---
-
-  const startMode = async (selectedMode) => {
-    let dataList;
-    let startIdx = 0;
-
-    if (selectedMode === 'quiz') {
-      // 使用 SRS 算法抽题
-      dataList = getSmartQuizWords(hskData[level], mastery, quizCount);
-    } else {
-      dataList = selectedMode === 'reading' ? sentences[level] : hskData[level];
-      // 尝试恢复非 Quiz 模式的进度
-      try {
-        const res = await fetch('http://localhost:5001/get_progress');
-        const prog = await res.json();
-        if (prog && prog.mode === selectedMode && prog.level === level) {
-          startIdx = prog.index;
-        }
-      } catch (e) {}
+      const res = await fetch(`http://localhost:5001/get_user_data?username=${username}`);
+      const data = await res.json();
+      setMastery(data.mastery || {});
+      setLevel(data.progress.level || 1);
+      setQuizCount(data.progress.quizCount || 20);
+      setIndex(data.progress.index || 0);
+    } catch (e) {
+      console.error("Failed to load user data:", e);
     }
-
-    setShuffledWords(dataList);
-    setCurrentIndex(startIdx);
-    setScore(0);
-    setQuizAnswers([]);
-    setMode(selectedMode);
   };
 
-  // --- 4. 渲染 ---
+  // 监听 Level 变化，加载对应的词库
+  useEffect(() => {
+    import(`./data/hsk-level-${level}.json`)
+      .then(m => setAllWords(m.default))
+      .catch(e => console.error("Data load error:", e));
+  }, [level]);
 
-  if (loading) return <div className="h-screen flex items-center justify-center">Loading...</div>;
+  // --- 4. 核心交互逻辑 ---
+  const handleLogin = async (username, password) => {
+    const res = await fetch('http://localhost:5001/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    if (res.ok) {
+      setCurrentUser(username);
+      fetchUserData(username);
+    } else {
+      alert("Invalid credentials. Try: Username = Password");
+    }
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    setMastery({});
+    setMode('menu');
+  };
+
+  const startMode = (newMode) => {
+    if (newMode === 'quiz') {
+      const selected = getSmartQuizWords(allWords, mastery, quizCount);
+      setQuizQueue(selected);
+      setScore(0);
+      setQuizAnswers([]);
+    }
+    setIndex(0);
+    setMode(newMode);
+  };
+
+  const updateMasteryRecord = async (char, newFields) => {
+    const current = mastery[char] || { score: 1, lastQuiz: null, mistakeCount: 0 };
+    const updated = { ...current, ...newFields, lastUpdate: new Date().toISOString() };
+    
+    setMastery(prev => ({ ...prev, [char]: updated }));
+
+    await fetch('http://localhost:5001/save_mastery', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: currentUser, char, record: updated })
+    });
+  };
+
+  const saveProgress = useCallback(async (overrides = {}) => {
+    if (!currentUser) return;
+    const payload = {
+      username: currentUser,
+      level,
+      quizCount,
+      index: currentIndex,
+      ...overrides
+    };
+    await fetch('http://localhost:5001/save_progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  }, [currentUser, level, quizCount, currentIndex]);
+
+  const speakChinese = (text) => {
+    const audio = new Audio(`http://localhost:5001/tts?text=${encodeURIComponent(text)}`);
+    audio.play();
+  };
+
+  // --- 5. 条件渲染渲染 ---
+  if (!currentUser) return <Login onLogin={handleLogin} />;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {mode === 'menu' && (
-        <Menu 
-            level={level} 
-            setLevel={setLevel} 
-            startMode={startMode} 
-            quizCount={quizCount} 
-            setQuizCount={setQuizCount} // 传递 state 修改函数
+    <div className="min-h-screen pt-20 bg-gray-50">
+      <Header currentUser={currentUser} onLogout={handleLogout} />
+
+      <main className="max-w-4xl mx-auto px-4">
+        {mode === 'menu' && (
+            <Menu 
+              level={level} 
+              setLevel={setLevel} 
+              quizCount={quizCount}
+              setQuizCount={setQuizCount}
+              startMode={startMode} 
+            />
+          )}
+
+        {mode === 'flashcard' && (
+          <FlashcardMode 
+            data={allWords}
+            currentIndex={currentIndex}
+            setIndex={(i) => { setIndex(i); saveProgress({ index: i }); }}
+            onBack={() => setMode('menu')}
+            onSpeak={speakChinese}
+            level={level}
+            currentMastery={mastery[allWords[currentIndex]?.char]?.score}
+            onUpdateMastery={(char, score) => updateMasteryRecord(char, { score })}
           />
-      )}
+        )}
 
-      {mode === 'flashcard' && (
-        <FlashcardMode 
-          data={shuffledWords}
-          currentIndex={currentIndex}
-          setIndex={(idx) => {
-            setCurrentIndex(idx);
-            saveProgress(level, 'flashcard', idx);
-          }}
-          onBack={() => setMode('menu')}
-          onSpeak={speakChinese}
-          level={level}
-          // 传递完整的 record 或默认 1
-          currentMastery={mastery[shuffledWords[currentIndex]?.char]?.score || 1}
-          onUpdateMastery={(char, score) => 
-            updateMasteryRecord(char, { score, lastRead: new Date().toISOString() })
-          }
-        />
-      )}
+        {mode === 'quiz' && (
+          <QuizMode 
+            word={quizQueue[currentIndex]}
+            allWords={allWords}
+            currentIndex={currentIndex}
+            total={quizQueue.length}
+            score={score}
+            onSpeak={speakChinese}
+            onExit={() => setMode('menu')}
+            savedAnswer={quizAnswers[currentIndex]}
+            onPrev={() => setIndex(prev => Math.max(0, prev - 1))}
+            onNext={(isCorrect, answerData) => {
+              if (isCorrect) setScore(s => s + 1);
+              const newAnswers = [...quizAnswers];
+              newAnswers[currentIndex] = answerData;
+              setQuizAnswers(newAnswers);
 
-      {mode === 'reading' && (
-        <ReadingMode 
-          data={shuffledWords}
-          currentIndex={currentIndex}
-          setIndex={(idx) => {
-            setCurrentIndex(idx);
-            saveProgress(level, 'reading', idx);
-          }}
-          onBack={() => setMode('menu')}
-          onSpeak={speakChinese}
-          level={level}
-        />
-      )}
+              // 更新 SRS 记录
+              const char = quizQueue[currentIndex].char;
+              const currentRec = mastery[char] || {};
+              updateMasteryRecord(char, {
+                lastQuiz: new Date().toISOString(),
+                lastResult: isCorrect,
+                mistakeCount: isCorrect ? (currentRec.mistakeCount || 0) : (currentRec.mistakeCount || 0) + 1
+              });
 
-      {mode === 'quiz' && (
-        <QuizMode 
-          word={shuffledWords[currentIndex]} 
-          allWords={hskData[level]} 
-          currentIndex={currentIndex}
-          total={shuffledWords.length}
-          score={score}
-          onSpeak={speakChinese}
-          savedAnswer={quizAnswers[currentIndex]} 
-          onExit={() => setMode('menu')}
-          onNext={(isCorrect, ans) => {
-            const newAns = [...quizAnswers];
-            newAns[currentIndex] = ans;
-            setQuizAnswers(newAns);
-            
-            // Quiz 结束这一题时，记录结果到 SRS
-            updateMasteryRecord(shuffledWords[currentIndex].char, {
-              lastQuiz: new Date().toISOString(),
-              lastResult: isCorrect
-            });
+              if (currentIndex < quizQueue.length - 1) {
+                setIndex(currentIndex + 1);
+              } else {
+                setMode('results');
+              }
+            }}
+          />
+        )}
 
-            if (isCorrect && !quizAnswers[currentIndex]) setScore(s => s + 1);
-            if (currentIndex < shuffledWords.length - 1) setCurrentIndex(currentIndex + 1);
-            else setMode('results');
-          }}
-          onPrev={() => setCurrentIndex(currentIndex - 1)}
-        />
-      )}
-
-      {mode === 'results' && (
-      <Results 
-        score={score} 
-        total={shuffledWords.length} 
-        quizAnswers={quizAnswers} 
-        onRetry={() => startMode('quiz')} 
-        onMenu={() => setMode('menu')}
-        onSpeak={speakChinese} // <--- 确保这一行传进去了
-      />
-    )}
+        {mode === 'reading' && (
+          <ReadingMode 
+            // 将 level 转为字符串以匹配 JSON 的 Key
+            data={sentencesData[level.toString()] || []} 
+            onBack={() => setMode('menu')}
+            onSpeak={speakChinese}
+          />
+        )}
+        {mode === 'results' && (
+          <Results 
+            score={score} 
+            total={quizQueue.length} 
+            quizAnswers={quizAnswers} 
+            onRetry={() => startMode('quiz')}
+            onMenu={() => setMode('menu')}
+            onSpeak={speakChinese}
+          />
+        )}
+      </main>
     </div>
   );
 }

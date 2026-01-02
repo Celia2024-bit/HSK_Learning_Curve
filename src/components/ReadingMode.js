@@ -1,84 +1,75 @@
 import React, { useState } from 'react';
-import { Volume2, ChevronRight, ChevronLeft, Home, Eye } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Volume2, ArrowLeft } from 'lucide-react';
 
-export default function ReadingMode({ data, currentIndex, setIndex, onBack, onSpeak, level }) {
-  const [showAnswer, setShowAnswer] = useState(false);
-  const current = data[currentIndex];
+export default function ReadingMode({ data, onBack, onSpeak }) {
+  const [index, setIndex] = useState(0);
 
-  const handleNext = () => {
-    if (currentIndex < data.length - 1) {
-      setIndex(currentIndex + 1);
-      setShowAnswer(false);
-    } else {
-      onBack();
-    }
-  };
+  // 防错处理：如果没拿到数据，显示加载中或返回
+  if (!data || data.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center p-20">
+        <p className="text-slate-400 mb-4">No sentences found for this level.</p>
+        <button onClick={onBack} className="text-indigo-600 font-bold">Return to Menu</button>
+      </div>
+    );
+  }
 
-  const handlePrev = () => {
-    if (currentIndex > 0) {
-      setIndex(currentIndex - 1);
-      setShowAnswer(false);
-    }
-  };
-
-  if (!current) return null;
+  const current = data[index];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 p-6 flex items-center justify-center">
-      <div className="max-w-3xl w-full">
-        <header className="flex justify-between items-center mb-8">
-          <button onClick={onBack} className="text-gray-500 font-bold flex items-center gap-1">
-            <Home size={18}/> EXIT
-          </button>
-          <div className="text-indigo-900 font-bold">HSK {level} READING • {currentIndex + 1}/{data.length}</div>
-        </header>
+    <div className="max-w-xl mx-auto space-y-8">
+      {/* 顶部导航 */}
+      <button onClick={onBack} className="flex items-center gap-2 text-slate-400 hover:text-indigo-600 transition-colors">
+        <ArrowLeft size={20} /> <span className="text-xs font-black uppercase tracking-widest">Back to Menu</span>
+      </button>
 
-        <div className="bg-white rounded-[2.5rem] shadow-xl p-12 relative min-h-[400px] flex flex-col justify-center">
-          <button 
-            onClick={() => onSpeak(current.chinese)}
-            className="absolute top-8 right-8 p-4 bg-indigo-50 text-indigo-600 rounded-2xl hover:bg-indigo-600 hover:text-white transition-all"
-          >
-            <Volume2 size={32} />
-          </button>
-
-          <div className="mb-10">
-            <h2 className="text-5xl font-medium text-gray-800 leading-relaxed mb-4">{current.chinese}</h2>
-            <p className="text-xl text-gray-400 font-mono tracking-wide">{current.pinyin}</p>
-          </div>
-
-          <div className={`p-6 rounded-2xl bg-indigo-50 transition-all ${showAnswer ? 'opacity-100' : 'opacity-0'}`}>
-            <p className="text-2xl text-indigo-900 font-bold">{current.english}</p>
-          </div>
-
-          {!showAnswer && (
+      {/* 句子卡片 */}
+      <div className="bg-white rounded-[3rem] p-12 shadow-2xl shadow-indigo-100/50 border border-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 p-8">
             <button 
-              onClick={() => setShowAnswer(true)}
-              className="mt-6 flex items-center gap-2 text-indigo-400 font-bold hover:text-indigo-600"
+              onClick={() => onSpeak(current.chinese)}
+              className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all"
             >
-              <Eye size={20}/> SHOW TRANSLATION
+              <Volume2 size={24} />
             </button>
-          )}
         </div>
 
-        {/* Bottom Navigation */}
-        <div className="mt-8 flex gap-4">
-          <button 
-            onClick={handlePrev} 
-            disabled={currentIndex === 0} 
-            className="flex-1 py-5 bg-indigo-100 text-indigo-700 rounded-2xl font-bold 
-                       hover:bg-indigo-200 active:scale-95 disabled:opacity-30 disabled:bg-gray-100 
-                       disabled:text-gray-400 border border-indigo-200 transition-all"
-          >
-            PREV
-          </button>
-          <button 
-            onClick={handleNext} 
-            className="flex-[2] py-5 bg-indigo-600 text-white rounded-2xl font-bold text-xl shadow-lg 
-                       hover:bg-indigo-700 active:scale-95 transition-all"
-          >
-            {currentIndex === data.length - 1 ? "FINISH" : "NEXT"}
-          </button>
+        <div className="space-y-6 pt-8">
+          <h2 className="text-4xl font-black text-slate-800 leading-tight">
+            {current.chinese}
+          </h2>
+          <div className="space-y-1">
+            <p className="text-lg font-bold text-indigo-500/80 tracking-wide italic">
+              {current.pinyin}
+            </p>
+            <p className="text-xl font-medium text-slate-400">
+              {current.english}
+            </p>
+          </div>
         </div>
+      </div>
+
+      {/* 控制按钮 */}
+      <div className="flex items-center justify-between px-4">
+        <button 
+          onClick={() => setIndex(Math.max(0, index - 1))}
+          disabled={index === 0}
+          className="w-16 h-16 rounded-3xl bg-white shadow-lg flex items-center justify-center text-slate-300 hover:text-indigo-600 disabled:opacity-20 transition-all"
+        >
+          <ChevronLeft size={32} />
+        </button>
+        
+        <span className="font-black text-slate-300 tracking-widest uppercase text-sm">
+          {index + 1} <span className="mx-2 text-slate-200">/</span> {data.length}
+        </span>
+
+        <button 
+          onClick={() => setIndex(Math.min(data.length - 1, index + 1))}
+          disabled={index === data.length - 1}
+          className="w-16 h-16 rounded-3xl bg-slate-900 shadow-lg flex items-center justify-center text-white hover:bg-indigo-600 disabled:opacity-20 transition-all"
+        >
+          <ChevronRight size={32} />
+        </button>
       </div>
     </div>
   );

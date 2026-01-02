@@ -3,7 +3,7 @@ import io
 import json
 import os
 import edge_tts
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -20,6 +20,22 @@ async def get_tts_data(text, voice):
             audio_stream.write(chunk["data"])
     audio_stream.seek(0)
     return audio_stream
+    
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+    if username and username == password:
+        return jsonify({"status": "success", "username": username}), 200
+    return jsonify({"status": "error"}), 401
+
+# 2. 获取数据路由 (确保名字是 get_user_data)
+@app.route('/get_user_data', methods=['GET'])
+def get_user_data():
+    username = request.args.get('username')
+    # ... 你的逻辑 ...
+    return jsonify({"progress": {}, "mastery": {}})
 
 @app.route('/tts')
 def tts():
