@@ -22,7 +22,8 @@ export default function App() {
   const [allWords, setAllWords] = useState([]);      
   const [quizQueue, setQuizQueue] = useState([]);    
   const [mastery, setMastery] = useState({});        
-  const [currentIndex, setIndex] = useState(0);      
+  const [currentIndex, setIndex] = useState(0);   
+  const [readingIndex, setReadingIndex] = useState(0);  
   const [quizAnswers, setQuizAnswers] = useState([]); 
   const [score, setScore] = useState(0);
 
@@ -35,7 +36,8 @@ export default function App() {
       // 对应 Supabase 数据库中的字段名
       setLevel(data.progress.level || 1);
       setQuizCount(data.progress.quiz_count || 20); 
-      setIndex(data.progress.current_index || 0);   
+      setIndex(data.progress.current_index || 0);  
+      setReadingIndex(data.progress.reading_index || 0);      
     } catch (e) {
       console.error("Failed to load user data:", e);
     }
@@ -74,8 +76,8 @@ export default function App() {
       setQuizQueue(selected);
       setScore(0);
       setQuizAnswers([]);
+      setIndex(0);
     }
-    setIndex(0);
     setMode(newMode);
   };
 
@@ -94,20 +96,24 @@ export default function App() {
   };
 
   // 5. 修改保存进度地址
-  const saveProgress = useCallback(async (overrides = {}) => {
-    if (!currentUser) return;
-    const payload = {
-      username: currentUser,
-      level: overrides.level || level,
-      quizCount: overrides.quizCount || quizCount,
-      index: overrides.index !== undefined ? overrides.index : currentIndex
-    };
-    await fetch(`${API_BASE}/save_progress`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-  }, [currentUser, level, quizCount, currentIndex]);
+// App.js 里的 saveProgress 修改
+    const saveProgress = useCallback(async (overrides = {}) => {
+        if (!currentUser) return;
+        const payload = {
+          username: currentUser,
+          // 优先使用 overrides 传入的值，否则使用当前 state
+          level: overrides.level !== undefined ? overrides.level : level,
+          quizCount: overrides.quizCount !== undefined ? overrides.quizCount : quizCount,
+          index: overrides.index !== undefined ? overrides.index : currentIndex,
+          readingIndex: overrides.readingIndex !== undefined ? overrides.readingIndex : readingIndex 
+        };
+        
+        await fetch(`${API_BASE}/save_progress`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+    }, [currentUser, level, quizCount, currentIndex, readingIndex]);
 
   // 6. 修改 TTS 地址
   const speakChinese = async (text, isSlow = true) => {
@@ -199,6 +205,11 @@ export default function App() {
         {mode === 'reading' && (
           <ReadingMode 
             data={sentencesData[level.toString()] || []} 
+            currentIndex={readingIndex}
+            setIndex={(i) => { 
+              setReadingIndex(i); 
+              saveProgress({ readingIndex: i }); 
+            }}
             onBack={() => setMode('menu')}
             onSpeak={speakChinese}
           />

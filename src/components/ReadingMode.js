@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react'; // 删除了 useState 的引用
 import { ChevronLeft, ChevronRight, Volume2, ArrowLeft } from 'lucide-react';
 
-export default function ReadingMode({ data, onBack, onSpeak }) {
-  const [index, setIndex] = useState(0);
-
-  // 防错处理：如果没拿到数据，显示加载中或返回
+// 接收 currentIndex 和 setIndex
+export default function ReadingMode({ data, onBack, onSpeak, currentIndex, setIndex }) {
+  
   if (!data || data.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center p-20">
@@ -14,16 +13,16 @@ export default function ReadingMode({ data, onBack, onSpeak }) {
     );
   }
 
+  // 使用传入的 currentIndex 作为当前索引
+  const index = currentIndex || 0; 
   const current = data[index];
 
   return (
     <div className="max-w-xl mx-auto space-y-8">
-      {/* 顶部导航 */}
       <button onClick={onBack} className="flex items-center gap-2 text-slate-400 hover:text-indigo-600 transition-colors">
         <ArrowLeft size={20} /> <span className="text-xs font-black uppercase tracking-widest">Back to Menu</span>
       </button>
 
-      {/* 句子卡片 */}
       <div className="bg-white rounded-[3rem] p-12 shadow-2xl shadow-indigo-100/50 border border-white relative overflow-hidden">
         <div className="absolute top-0 right-0 p-8">
             <button 
@@ -49,10 +48,9 @@ export default function ReadingMode({ data, onBack, onSpeak }) {
         </div>
       </div>
 
-      {/* 控制按钮 */}
       <div className="flex items-center justify-between px-4">
         <button 
-          onClick={() => setIndex(Math.max(0, index - 1))}
+          onClick={() => setIndex(Math.max(0, index - 1))} // 调用外部 setIndex 触发保存
           disabled={index === 0}
           className="w-16 h-16 rounded-3xl bg-white shadow-lg flex items-center justify-center text-slate-300 hover:text-indigo-600 disabled:opacity-20 transition-all"
         >
@@ -64,7 +62,7 @@ export default function ReadingMode({ data, onBack, onSpeak }) {
         </span>
 
         <button 
-          onClick={() => setIndex(Math.min(data.length - 1, index + 1))}
+          onClick={() => setIndex(Math.min(data.length - 1, index + 1))} // 调用外部 setIndex 触发保存
           disabled={index === data.length - 1}
           className="w-16 h-16 rounded-3xl bg-slate-900 shadow-lg flex items-center justify-center text-white hover:bg-indigo-600 disabled:opacity-20 transition-all"
         >
