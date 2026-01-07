@@ -8,16 +8,16 @@ import Results from './components/Results';
 import ReadingMode from './components/ReadingMode';
 import { getSmartQuizWords } from './utils/spacedRepetition';
 import sentencesData from './data/sentences.json';
+import { API_BASE, DEFAULT_QUIZ_COUNT } from './utils/constants';
 
-// 1. 定义网络后端基础路径
-//const API_BASE = "http://localhost:5000/api/hsk";
-const API_BASE = "https://backend-all-6q0a.onrender.com/api/hsk";
+// 仅新增这一行：引入抽离的 fetch 工具函数
+import { fetchUserProgress, fetchLogin, fetchSaveMastery, fetchSaveProgress, getTtsUrl } from './utils/fetchUtils';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [mode, setMode] = useState('menu');
   const [level, setLevel] = useState(1);
-  const [quizCount, setQuizCount] = useState(20);
+  const [quizCount, setQuizCount] = useState(DEFAULT_QUIZ_COUNT);
   
   const [allWords, setAllWords] = useState([]);      
   const [quizQueue, setQuizQueue] = useState([]);    
@@ -34,7 +34,7 @@ export default function App() {
       setMastery(data.mastery || {});
       // 对应 Supabase 数据库中的字段名
       setLevel(data.progress.level || 1);
-      setQuizCount(data.progress.quiz_count || 20); 
+      setQuizCount(data.progress.quiz_count || DEFAULT_QUIZ_COUNT); 
       setIndex(data.progress.current_index || 0);  
       setReadingIndex(data.progress.reading_index || 0);      
     } catch (e) {
