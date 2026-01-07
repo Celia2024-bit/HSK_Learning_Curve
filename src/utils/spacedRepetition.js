@@ -38,12 +38,20 @@ const calculateUrgency = (record) => {
  * @param {Array} allWords - All words for the current level
  * @param {Object} masteryData - The mastery.json content from backend
  * @param {number} count - How many words to pick (e.g., 20)
+ * @param {number} currentLevel - 当前选中的级别（新增参数）
  */
-export const getSmartQuizWords = (allWords, masteryData, count) => {
+export const getSmartQuizWords = (allWords, masteryData, count, currentLevel) => {
   if (!allWords || allWords.length === 0) return [];
 
-  // 1. Calculate urgency for every word
-  const scoredWords = allWords.map(word => ({
+  // 核心修改：过滤出当前级别的单词
+  const levelFilteredWords = allWords.filter(word => {
+    // 从熟练度数据中获取单词级别，无则使用默认（当前级别）
+    const wordLevel = masteryData[word.char]?.level || currentLevel;
+    return wordLevel === currentLevel;
+  });
+
+  // 1. Calculate urgency for every word (仅计算当前级别单词)
+  const scoredWords = levelFilteredWords.map(word => ({
     word,
     urgency: calculateUrgency(masteryData[word.char])
   }));

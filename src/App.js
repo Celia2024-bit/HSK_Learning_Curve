@@ -72,7 +72,7 @@ export default function App() {
 
   const startMode = (newMode) => {
     if (newMode === 'quiz') {
-      const selected = getSmartQuizWords(allWords, mastery, quizCount);
+      const selected = getSmartQuizWords(allWords, mastery, quizCount, level);
       setQuizQueue(selected);
       setScore(0);
       setQuizAnswers([]);
@@ -83,8 +83,8 @@ export default function App() {
 
   // 4. 修改保存熟练度地址
   const updateMasteryRecord = async (char, newFields) => {
-    const current = mastery[char] || { score: 1, lastQuiz: null, mistakeCount: 0 };
-    const updated = { ...current, ...newFields, lastUpdate: new Date().toISOString() };
+    const current = mastery[char] || { score: 1, lastQuiz: null, mistakeCount: 0 , level};
+    const updated = { ...current, ...newFields, level, lastUpdate: new Date().toISOString() };
     
     setMastery(prev => ({ ...prev, [char]: updated }));
 
