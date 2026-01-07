@@ -30,8 +30,7 @@ export default function App() {
   // 2. 修改数据加载逻辑
   const fetchUserData = async (username) => {
     try {
-      const res = await fetch(`${API_BASE}/get_user_data?username=${username}`);
-      const data = await res.json();
+      const data = await fetchUserProgress(username);
       setMastery(data.mastery || {});
       // 对应 Supabase 数据库中的字段名
       setLevel(data.progress.level || 1);
@@ -51,11 +50,7 @@ export default function App() {
 
   // 3. 修改登录逻辑地址
   const handleLogin = async (username, password) => {
-    const res = await fetch(`${API_BASE}/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
-    });
+    const res = await fetchLogin(username, password);
     if (res.ok) {
       setCurrentUser(username);
       fetchUserData(username);
@@ -88,11 +83,7 @@ export default function App() {
     
     setMastery(prev => ({ ...prev, [char]: updated }));
 
-    await fetch(`${API_BASE}/save_mastery`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: currentUser, char, record: updated })
-    });
+    await fetchSaveMastery(currentUser, char, updated);
   };
 
   // 5. 修改保存进度地址
@@ -108,11 +99,7 @@ export default function App() {
           readingIndex: overrides.readingIndex !== undefined ? overrides.readingIndex : readingIndex 
         };
         
-        await fetch(`${API_BASE}/save_progress`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
+        await fetchSaveProgress(payload);
     }, [currentUser, level, quizCount, currentIndex, readingIndex]);
 
   // 6. 修改 TTS 地址
@@ -121,13 +108,7 @@ export default function App() {
       const speed = isSlow ?  -50 :0;
       const voice = "Mandarin Male (Yunjian)"; // 默认使用你喜欢的男声
 
-      const params = new URLSearchParams({
-        text: text,
-        speed: speed,
-        voice: voice
-      });
-
-      const audioUrl = `${API_BASE}/tts?${params.toString()}`;
+      const audioUrl = getTtsUrl(text, isSlow);
       const audio = new Audio(audioUrl);
       
       try {
