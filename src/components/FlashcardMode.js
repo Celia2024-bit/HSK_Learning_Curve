@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, Home, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Volume2, Home, ArrowLeft, ArrowRight, List, X } from 'lucide-react';
 
 export default function FlashcardMode({ 
   data, currentIndex, setIndex, onBack, onSpeak, level, 
   currentMastery, onUpdateMastery 
 }) {
   const [step, setStep] = useState(0);
+  const [showWordList, setShowWordList] = useState(false); // 控制单词列表显示/隐藏
   const current = data[currentIndex];
 
   useEffect(() => {
@@ -25,22 +26,84 @@ export default function FlashcardMode({
     if (currentIndex > 0) setIndex(currentIndex - 1);
   };
 
+  // 跳转到指定单词
+  const jumpToWord = (index) => {
+    setIndex(index);
+    setShowWordList(false); // 跳转后关闭列表
+  };
+
   if (!current) return null;
 
   return (
-    <div className="min-h-screen bg-[#F5F5F7] text-slate-800 p-6 flex flex-col items-center font-sans">
+    <div className="min-h-screen bg-[#F5F5F7] text-slate-800 p-6 flex flex-col items-center font-sans relative">
+      {/* 单词列表弹窗 */}
+      {showWordList && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
+            {/* 列表头部 */}
+            <div className="p-6 border-b border-slate-100 flex justify-between items-center">
+              <h3 className="text-xl font-black text-slate-800">HSK Level {level} 单词列表</h3>
+              <button 
+                onClick={() => setShowWordList(false)}
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            
+            {/* 单词列表内容 */}
+            <div className="flex-1 overflow-y-auto p-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                {data.map((word, index) => (
+                  <button
+                    key={index}
+                    onClick={() => jumpToWord(index)}
+                    className={`p-3 rounded-xl text-left transition-all ${
+                      currentIndex === index
+                        ? 'bg-indigo-600 text-white shadow-md'
+                        : 'bg-slate-50 text-slate-700 hover:bg-slate-100'
+                    }`}
+                  >
+                    <div className="font-black text-lg">{word.char}</div>
+                    <div className="text-xs text-slate-400 mt-1">{word.pinyin}</div>
+                    <div className="text-xs text-slate-500 italic mt-0.5 truncate">{word.meaning}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            {/* 列表底部 */}
+            <div className="p-4 border-t border-slate-100 flex justify-center">
+              <span className="text-xs text-slate-400 font-bold">
+                共 {data.length} 个单词 | 当前第 {currentIndex + 1} 个
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-md w-full flex flex-col h-full">
-        
-        {/* Header */}
+        {/* Header - 新增单词列表按钮 */}
         <div className="flex justify-between items-center mb-8 px-2">
           <button onClick={onBack} className="w-10 h-10 flex items-center justify-center bg-white rounded-2xl shadow-sm text-slate-400 hover:text-indigo-600 transition-all border border-white">
             <Home size={20} />
           </button>
-          <div className="text-right">
-            <div className="text-[10px] font-black text-slate-300 tracking-[0.2em] uppercase">HSK Level {level}</div>
-            <div className="text-sm font-black text-slate-600">
-              {currentIndex + 1} <span className="text-slate-200 mx-0.5">/</span> {data.length}
+          
+          <div className="flex items-center gap-3">
+            <div className="text-right">
+              <div className="text-[10px] font-black text-slate-300 tracking-[0.2em] uppercase">HSK Level {level}</div>
+              <div className="text-sm font-black text-slate-600">
+                {currentIndex + 1} <span className="text-slate-200 mx-0.5">/</span> {data.length}
+              </div>
             </div>
+            
+            {/* 单词列表按钮 */}
+            <button 
+              onClick={() => setShowWordList(true)}
+              className="w-10 h-10 flex items-center justify-center bg-white rounded-2xl shadow-sm text-slate-400 hover:text-indigo-600 transition-all border border-white"
+            >
+              <List size={20} />
+            </button>
           </div>
         </div>
 
