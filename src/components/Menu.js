@@ -1,7 +1,11 @@
 import React from 'react';
-import { BookOpen, Brain, ChevronRight } from 'lucide-react';
+import { BookOpen, Brain, ChevronRight, Check } from 'lucide-react';
 
-export default function Menu({ level, setLevel, startMode, quizCount, setQuizCount }) {
+export default function Menu({ 
+  level, setLevel, startMode, quizCount, setQuizCount,
+  // 新增：接收 Quiz 模式开关 props
+  quizRemoveCorrect, setQuizRemoveCorrect 
+}) {
   // 定义每个级别的名称和对应的标准单词量
   const levelDetails = {
     1: { name: "HSK 1", count: 150 },
@@ -59,6 +63,34 @@ export default function Menu({ level, setLevel, startMode, quizCount, setQuizCou
             onChange={(e) => setQuizCount(parseInt(e.target.value))}
             className="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600 hover:accent-indigo-500 transition-all"
           />
+
+          {/* 新增：答对即移除开关 - 完全匹配原有样式风格 */}
+          <div className="mt-8 flex items-center justify-between">
+            <div>
+              <p className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Remove Correct Words</p>
+              <p className="text-xs font-medium text-slate-500 mt-1 italic">Hide words answered correctly</p>
+            </div>
+            {/* 开关按钮 - 适配原有设计风格 */}
+            <button
+              onClick={() => setQuizRemoveCorrect(!quizRemoveCorrect)}
+              className={`w-12 h-6 rounded-full flex items-center transition-all duration-300 ${
+                quizRemoveCorrect 
+                  ? 'bg-indigo-600 shadow-md shadow-indigo-200' 
+                  : 'bg-slate-200'
+              }`}
+            >
+              <div 
+                className={`w-4 h-4 bg-white rounded-full mx-1 transition-transform duration-300 ${
+                  quizRemoveCorrect ? 'translate-x-6' : 'translate-x-0'
+                }`}
+              >
+                {/* 选中时显示对勾 - 增强视觉反馈 */}
+                {quizRemoveCorrect && (
+                  <Check size={10} className="mx-auto text-indigo-600 font-bold" />
+                )}
+              </div>
+            </button>
+          </div>
         </div>
 
         {/* Action Modes */}

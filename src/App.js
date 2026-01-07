@@ -8,9 +8,8 @@ import Results from './components/Results';
 import ReadingMode from './components/ReadingMode';
 import { getSmartQuizWords } from './utils/spacedRepetition';
 import sentencesData from './data/sentences.json';
-import { API_BASE, DEFAULT_QUIZ_COUNT } from './utils/constants';
 
-// 仅新增这一行：引入抽离的 fetch 工具函数
+import { API_BASE, DEFAULT_QUIZ_COUNT } from './utils/constants';
 import { fetchUserProgress, fetchLogin, fetchSaveMastery, fetchSaveProgress, getTtsUrl } from './utils/fetchUtils';
 
 export default function App() {
@@ -18,6 +17,7 @@ export default function App() {
   const [mode, setMode] = useState('menu');
   const [level, setLevel] = useState(1);
   const [quizCount, setQuizCount] = useState(DEFAULT_QUIZ_COUNT);
+  const [quizRemoveCorrect, setQuizRemoveCorrect] = useState(false);
   
   const [allWords, setAllWords] = useState([]);      
   const [quizQueue, setQuizQueue] = useState([]);    
@@ -27,16 +27,15 @@ export default function App() {
   const [quizAnswers, setQuizAnswers] = useState([]); 
   const [score, setScore] = useState(0);
 
-  // 2. 修改数据加载逻辑
   const fetchUserData = async (username) => {
     try {
       const data = await fetchUserProgress(username);
       setMastery(data.mastery || {});
-      // 对应 Supabase 数据库中的字段名
       setLevel(data.progress.level || 1);
       setQuizCount(data.progress.quiz_count || DEFAULT_QUIZ_COUNT); 
       setIndex(data.progress.current_index || 0);  
-      setReadingIndex(data.progress.reading_index || 0);      
+      setReadingIndex(data.progress.reading_index || 0);
+      setQuizRemoveCorrect(data.progress.quizRemoveCorrect || false);      
     } catch (e) {
       console.error("Failed to load user data:", e);
     }
@@ -48,7 +47,6 @@ export default function App() {
       .catch(e => console.error("Data load error:", e));
   }, [level]);
 
-  // 3. 修改登录逻辑地址
   const handleLogin = async (username, password) => {
     const res = await fetchLogin(username, password);
     if (res.ok) {
@@ -65,9 +63,19 @@ export default function App() {
     setMode('menu');
   };
 
+
   const startMode = (newMode) => {
     if (newMode === 'quiz') {
-      const selected = getSmartQuizWords(allWords, mastery, quizCount, level);
+      let filteredWords = [...allWords];
+      
+      if (quizRemoveCorrect) {
+        filteredWords = filteredWords.filter(word => {
+          const wordMastery = mastery[word.char] || {};
+          return wordMastery.lastResult !== true;
+        });
+      }
+
+      const selected = getSmartQuizWords(filteredWords, mastery, quizCount, level);
       setQuizQueue(selected);
       setScore(0);
       setQuizAnswers([]);
@@ -82,32 +90,25 @@ export default function App() {
     const updated = { ...current, ...newFields, level, lastUpdate: new Date().toISOString() };
     
     setMastery(prev => ({ ...prev, [char]: updated }));
-
     await fetchSaveMastery(currentUser, char, updated);
   };
 
-  // 5. 修改保存进度地址
-// App.js 里的 saveProgress 修改
-    const saveProgress = useCallback(async (overrides = {}) => {
+ // 5. 修改保存进度地址
+  const saveProgress = useCallback(async (overrides = {}) => {
         if (!currentUser) return;
         const payload = {
           username: currentUser,
-          // 优先使用 overrides 传入的值，否则使用当前 state
           level: overrides.level !== undefined ? overrides.level : level,
           quizCount: overrides.quizCount !== undefined ? overrides.quizCount : quizCount,
           index: overrides.index !== undefined ? overrides.index : currentIndex,
-          readingIndex: overrides.readingIndex !== undefined ? overrides.readingIndex : readingIndex 
+          readingIndex: overrides.readingIndex !== undefined ? overrides.readingIndex : readingIndex,
+          quizRemoveCorrect: overrides.quizRemoveCorrect !== undefined ? overrides.quizRemoveCorrect : quizRemoveCorrect
         };
-        
         await fetchSaveProgress(payload);
-    }, [currentUser, level, quizCount, currentIndex, readingIndex]);
+    }, [currentUser, level, quizCount, currentIndex, readingIndex, quizRemoveCorrect]);
 
   // 6. 修改 TTS 地址
   const speakChinese = async (text, isSlow = true) => {
-      // 核心逻辑：单词模式(Flashcard)用 -20 慢速，阅读模式用 0 正常速度
-      const speed = isSlow ?  -50 :0;
-      const voice = "Mandarin Male (Yunjian)"; // 默认使用你喜欢的男声
-
       const audioUrl = getTtsUrl(text, isSlow);
       const audio = new Audio(audioUrl);
       
@@ -132,6 +133,11 @@ export default function App() {
               setLevel={(l) => { setLevel(l); saveProgress({ level: l }); }} 
               quizCount={quizCount}
               setQuizCount={(c) => { setQuizCount(c); saveProgress({ quizCount: c }); }}
+              quizRemoveCorrect={quizRemoveCorrect}
+              setQuizRemoveCorrect={(val) => { 
+                setQuizRemoveCorrect(val); 
+                saveProgress({ quizRemoveCorrect: val }); 
+              }}
               startMode={startMode} 
             />
           )}
@@ -152,7 +158,7 @@ export default function App() {
         {mode === 'quiz' && (
           <QuizMode 
             word={quizQueue[currentIndex]}
-            allWords={allWords}
+            allWords={allWords.filter(word => (mastery[word.char]?.level || level) === level)}
             currentIndex={currentIndex}
             total={quizQueue.length}
             score={score}
