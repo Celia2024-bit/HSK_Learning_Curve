@@ -5,8 +5,8 @@ export default function Menu({ level, setLevel, startMode, quizCount, setQuizCou
   // 定义每个级别的名称和对应的标准单词量
   const levelDetails = {
     1: { name: "HSK 1", count: 150 },
-    2: { name: "HSK 2", count: 300 },
-    3: { name: "HSK 3", count: 600 }
+    2: { name: "HSK 2", count: 150 },
+    3: { name: "HSK 3", count: 300 }
   };
 
   return (
