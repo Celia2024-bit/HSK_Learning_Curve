@@ -22,10 +22,13 @@ export default function App() {
   const [allWords, setAllWords] = useState([]);      
   const [quizQueue, setQuizQueue] = useState([]);    
   const [mastery, setMastery] = useState({});        
-  const [currentIndex, setIndex] = useState(0);   
-  const [readingIndex, setReadingIndex] = useState(0);  
+
+  const [flashcardIndex, setFlashcardIndex] = useState(0); // Flashcard 专属
+  const [quizIndex, setQuizIndex] = useState(0);         // Quiz 专属
+  const [readingIndex, setReadingIndex] = useState(0);   // Reading 专属
   const [quizAnswers, setQuizAnswers] = useState([]); 
   const [score, setScore] = useState(0);
+
 
   const fetchUserData = async (username) => {
     try {
@@ -35,8 +38,8 @@ export default function App() {
       setMastery(mastery || {});
       setLevel(currentLevel);
       setQuizCount(progress.quiz_count || DEFAULT_QUIZ_COUNT); 
-      setIndex(progress.current_index || 0);  
-      setReadingIndex(progress.reading_index || 0);
+      setFlashcardIndex(progress.current_index || 0);  // Flashcard 索引
+      setReadingIndex(progress.reading_index || 0);   // Reading 索引
       setQuizRemoveCorrect(progress.quizRemoveCorrect || false);      
     } catch (e) {
       console.error("Failed to load user data:", e);
@@ -69,20 +72,19 @@ export default function App() {
   const startMode = (newMode) => {
     if (newMode === 'quiz') {
       let filteredWords = [...allWords];
-      
       if (quizRemoveCorrect) {
         filteredWords = filteredWords.filter(word => {
           const wordMastery = mastery[word.char] || {};
           return wordMastery.lastResult !== true;
         });
       }
-
       const selected = getSmartQuizWords(filteredWords, mastery, quizCount, level);
       setQuizQueue(selected);
       setScore(0);
       setQuizAnswers([]);
-      setIndex(0);
+      setQuizIndex(0); 
     }
+
     setMode(newMode);
   };
 
@@ -102,12 +104,12 @@ export default function App() {
           username: currentUser,
           level: overrides.level !== undefined ? overrides.level : level,
           quizCount: overrides.quizCount !== undefined ? overrides.quizCount : quizCount,
-          index: overrides.index !== undefined ? overrides.index : currentIndex,
-          readingIndex: overrides.readingIndex !== undefined ? overrides.readingIndex : readingIndex,
+          index: overrides.index !== undefined ? overrides.index : flashcardIndex, 
+          readingIndex: overrides.readingIndex !== undefined ? overrides.readingIndex : readingIndex, 
           quizRemoveCorrect: overrides.quizRemoveCorrect !== undefined ? overrides.quizRemoveCorrect : quizRemoveCorrect
         };
         await fetchSaveProgress(payload);
-    }, [currentUser, level, quizCount, currentIndex, readingIndex, quizRemoveCorrect]);
+    }, [currentUser, level, quizCount, flashcardIndex, readingIndex, quizRemoveCorrect]);
 
   // 6. 修改 TTS 地址
   const speakChinese = async (text, isSlow = true) => {
@@ -144,37 +146,39 @@ export default function App() {
             />
           )}
 
+        {/* Flashcard 模式：使用专属索引 */}
         {mode === 'flashcard' && (
           <FlashcardMode 
             data={allWords}
-            currentIndex={currentIndex}
-            setIndex={(i) => { setIndex(i); saveProgress({ index: i }); }}
+            currentIndex={flashcardIndex}
+            setIndex={(i) => { setFlashcardIndex(i); saveProgress({ index: i }); }}
             onBack={() => setMode('menu')}
             onSpeak={speakChinese}
             level={level}
-            currentMastery={mastery[allWords[currentIndex]?.char]?.score}
+            currentMastery={mastery[allWords[flashcardIndex]?.char]?.score}
             onUpdateMastery={(char, score) => updateMasteryRecord(char, { score })}
           />
         )}
 
+        {/* Quiz 模式：使用专属索引 */}
         {mode === 'quiz' && (
           <QuizMode 
-            word={quizQueue[currentIndex]}
+            word={quizQueue[quizIndex]}
             allWords={allWords.filter(word => (mastery[word.char]?.level || level) === level)}
-            currentIndex={currentIndex}
+            currentIndex={quizIndex}
             total={quizQueue.length}
             score={score}
             onSpeak={speakChinese}
             onExit={() => setMode('menu')}
-            savedAnswer={quizAnswers[currentIndex]}
-            onPrev={() => setIndex(prev => Math.max(0, prev - 1))}
+            savedAnswer={quizAnswers[quizIndex]}
+            onPrev={() => setQuizIndex(prev => Math.max(0, prev - 1))}
             onNext={(isCorrect, answerData) => {
               if (isCorrect) setScore(s => s + 1);
               const newAnswers = [...quizAnswers];
-              newAnswers[currentIndex] = answerData;
+              newAnswers[quizIndex] = answerData;
               setQuizAnswers(newAnswers);
 
-              const char = quizQueue[currentIndex].char;
+              const char = quizQueue[quizIndex].char;
               const currentRec = mastery[char] || {};
               updateMasteryRecord(char, {
                 lastQuiz: new Date().toISOString(),
@@ -182,8 +186,8 @@ export default function App() {
                 mistakeCount: isCorrect ? (currentRec.mistakeCount || 0) : (currentRec.mistakeCount || 0) + 1
               });
 
-              if (currentIndex < quizQueue.length - 1) {
-                setIndex(currentIndex + 1);
+              if (quizIndex < quizQueue.length - 1) {
+                setQuizIndex(quizIndex + 1);
               } else {
                 setMode('results');
               }
