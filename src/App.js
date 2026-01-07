@@ -6,11 +6,27 @@ import FlashcardMode from './components/FlashcardMode';
 import QuizMode from './components/QuizMode';
 import Results from './components/Results';
 import ReadingMode from './components/ReadingMode';
+// 新增：导入自定义单词编辑组件
+import CustomWordEditor from './components/CustomWordEditor';
 import { getSmartQuizWords } from './utils/spacedRepetition';
 import sentencesData from './data/sentences.json';
 
 import { API_BASE, DEFAULT_QUIZ_COUNT } from './utils/constants';
-import { fetchUserProgress, fetchLogin, fetchSaveMastery, fetchSaveProgress, getTtsUrl } from './utils/fetchUtils';
+// 新增：导入自定义单词相关接口
+import { 
+  fetchUserProgress, 
+  fetchLogin, 
+  fetchSaveMastery, 
+  fetchSaveProgress, 
+  getTtsUrl, 
+  fetchCustomWords, 
+  addCustomWord,
+  updateCustomWord, // 新增导入
+  deleteCustomWord  // 新增导入
+} from './utils/fetchUtils';
+
+// 新增：自定义级别常量（和 Menu.js 保持一致）
+const CUSTOM_LEVEL = 0;
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -22,6 +38,8 @@ export default function App() {
   const [allWords, setAllWords] = useState([]);      
   const [quizQueue, setQuizQueue] = useState([]);    
   const [mastery, setMastery] = useState({});        
+  // 新增：自定义单词列表状态
+  const [customWords, setCustomWords] = useState([]);
 
   const [flashcardIndex, setFlashcardIndex] = useState(0); // Flashcard 专属
   const [quizIndex, setQuizIndex] = useState(0);         // Quiz 专属
@@ -39,16 +57,36 @@ export default function App() {
       setFlashcardIndex(data.progress.current_index || 0);  // Flashcard 索引
       setReadingIndex(data.progress.reading_index || 0);   // Reading 索引
       setQuizRemoveCorrect(data.progress.quizRemoveCorrect || false);      
+      // 新增：加载自定义单词（登录时预加载）
+      if (currentUser) {
+        const words = await fetchCustomWords(currentUser);
+        setCustomWords(words);
+      }
     } catch (e) {
       console.error("Failed to load user data:", e);
     }
   };
 
+  // 修改：单词加载逻辑 - 区分 HSK/自定义级别
   useEffect(() => {
-    import(`./data/hsk-level-${level}.json`)
-      .then(m => setAllWords(m.default))
-      .catch(e => console.error("Data load error:", e));
-  }, [level]);
+    const loadWords = async () => {
+      if (level === CUSTOM_LEVEL) {
+        // 自定义级别：加载后端自定义单词
+        const words = await fetchCustomWords(currentUser);
+        setCustomWords(words);
+        setAllWords(words);
+      } else {
+        // 原有 HSK 级别：加载本地 JSON
+        import(`./data/hsk-level-${level}.json`)
+          .then(m => setAllWords(m.default))
+          .catch(e => console.error("Data load error:", e));
+      }
+    };
+
+    if (currentUser) {
+      loadWords();
+    }
+  }, [level, currentUser]);
 
   const handleLogin = async (username, password) => {
     const res = await fetchLogin(username, password);
@@ -67,7 +105,14 @@ export default function App() {
   };
 
 
+  // 修改：startMode 函数 - 适配自定义级别（禁止 Reading 模式）
   const startMode = (newMode) => {
+    // 新增：自定义级别禁止进入 Reading 模式
+    if (newMode === 'reading' && level === CUSTOM_LEVEL) {
+      alert("自定义单词库无阅读模式！");
+      return;
+    }
+
     if (newMode === 'quiz') {
       let filteredWords = [...allWords];
       if (quizRemoveCorrect) {
@@ -86,7 +131,21 @@ export default function App() {
     setMode(newMode);
   };
 
-  // 4. 修改保存熟练度地址
+  // 新增：添加自定义单词的处理函数
+  const handleAddCustomWord = async (word) => {
+    const success = await addCustomWord(currentUser, word);
+    if (success) {
+      // 添加成功后重新加载自定义单词列表
+      const updatedWords = await fetchCustomWords(currentUser);
+      setCustomWords(updatedWords);
+      // 如果当前是自定义级别，同步更新 allWords
+      if (level === CUSTOM_LEVEL) {
+        setAllWords(updatedWords);
+      }
+    }
+  };
+
+  // 原有逻辑不变：updateMasteryRecord
   const updateMasteryRecord = async (char, newFields) => {
     const current = mastery[char] || { score: 1, lastQuiz: null, mistakeCount: 0 , level};
     const updated = { ...current, ...newFields, level, lastUpdate: new Date().toISOString() };
@@ -95,7 +154,7 @@ export default function App() {
     await fetchSaveMastery(currentUser, char, updated);
   };
 
- // 5. 修改保存进度地址
+ // 原有逻辑不变：saveProgress
   const saveProgress = useCallback(async (overrides = {}) => {
         if (!currentUser) return;
         const payload = {
@@ -109,7 +168,7 @@ export default function App() {
         await fetchSaveProgress(payload);
     }, [currentUser, level, quizCount, flashcardIndex, readingIndex, quizRemoveCorrect]);
 
-  // 6. 修改 TTS 地址
+  // 原有逻辑不变：speakChinese
   const speakChinese = async (text, isSlow = true) => {
       const audioUrl = getTtsUrl(text, isSlow);
       const audio = new Audio(audioUrl);
@@ -144,7 +203,36 @@ export default function App() {
             />
           )}
 
-        {/* Flashcard 模式：使用专属索引 */}
+        {/* 新增：自定义单词编辑模式 */}
+        {mode === 'custom-editor' && (
+            <CustomWordEditor 
+              words={customWords}
+              onAddWord={handleAddCustomWord}
+              // 传递 onUpdateWord 回调（已导入 updateCustomWord）
+              onUpdateWord={async (updatedWord) => {
+                const success = await updateCustomWord(updatedWord.id, {
+                  pinyin: updatedWord.pinyin,
+                  meaning: updatedWord.meaning,
+                  explanation: updatedWord.explanation
+                });
+                if (success) {
+                  const updatedWords = await fetchCustomWords(currentUser);
+                  setCustomWords(updatedWords);
+                }
+              }}
+              // 传递 onDeleteWord 回调（已导入 deleteCustomWord）
+              onDeleteWord={async (cardId) => {
+                const success = await deleteCustomWord(cardId);
+                if (success) {
+                  const updatedWords = await fetchCustomWords(currentUser);
+                  setCustomWords(updatedWords);
+                }
+              }}
+              onBack={() => setMode('menu')}
+            />
+          )}
+
+        {/* 原有模式：Flashcard/Quiz/Reading/Results 完全不变 */}
         {mode === 'flashcard' && (
           <FlashcardMode 
             data={allWords}
@@ -158,7 +246,6 @@ export default function App() {
           />
         )}
 
-        {/* Quiz 模式：使用专属索引 */}
         {mode === 'quiz' && (
           <QuizMode 
             word={quizQueue[quizIndex]}
@@ -193,7 +280,8 @@ export default function App() {
           />
         )}
 
-        {mode === 'reading' && (
+        {/* 修改：Reading 模式仅在非自定义级别显示 */}
+        {mode === 'reading' && level !== CUSTOM_LEVEL && (
           <ReadingMode 
             data={sentencesData[level.toString()] || []} 
             currentIndex={readingIndex}

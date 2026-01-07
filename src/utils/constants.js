@@ -7,3 +7,6 @@ export const DEFAULT_QUIZ_COUNT = 20;
 export const DEFAULT_TTS_VOICE = "Mandarin Male (Yunjian)";
 export const DEFAULT_TTS_SPEED_SLOW = -50;
 export const DEFAULT_TTS_SPEED_NORMAL = 0;
+
+export const CUSTOM_LEVEL = 0;
+export const CUSTOM_LEVEL_NAME = "Custom Words";
