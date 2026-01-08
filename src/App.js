@@ -108,10 +108,16 @@ export default function App() {
 
       // 2. 如果开启了“移除上次正确”，在池子里滤掉
       if (quizRemoveCorrect) {
-        // 对于 allWords 里的词，由于没有 masteryInfo，word.masteryInfo?.lastResult 会是 undefined
-        // 所以新词依然会被包含在练习中，这符合逻辑
-        pool = pool.filter(word => word.masteryInfo?.lastResult !== true);
-      }
+        pool = pool.filter(word => {
+        // 1. 获取这个字在 Map 里的记录
+        const key = `${level}_${word.char}`;
+        const record = mastery[key];
+        
+        // 2. 如果没考过(record不存在)，或者上次考错了(lastResult !== true)，就保留
+        // 只有“明确考过且结果为正确”的才过滤掉
+        return !record || record.lastResult !== true;
+      });
+    }
 
       // 3. 调用简化后的函数，只传 pool 和 count
       const selected = getSmartQuizWords(pool, quizCount);
@@ -130,7 +136,10 @@ export default function App() {
     const updated = { ...current, ...newFields, level, lastUpdate: new Date().toISOString() };
     
     // 更新本地 state，触发 masteredWordsList 重新计算
-    setMastery(prev => ({ ...prev, [key]: updated }));
+    setMastery(prevMap => ({
+      ...prevMap,
+      [key]: { ...prevMap[key], ...newFields }
+    }));
     
     try {
       await fetchSaveMastery(currentUser, char, level, updated);
