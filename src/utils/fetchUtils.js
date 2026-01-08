@@ -53,11 +53,11 @@ export const fetchLogin = async (username, password) => {
 };
 
 // 3. 保存熟练度
-export const fetchSaveMastery = async (username, char, record) => {
+export const fetchSaveMastery = async (username, char, level, record) => {
   await fetch(`${API_BASE}/save_mastery`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, char, record })
+    body: JSON.stringify({ username, char, level, record })
   });
 };
 
