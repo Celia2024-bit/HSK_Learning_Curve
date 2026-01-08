@@ -10,7 +10,15 @@ import { getSmartQuizWords } from './utils/spacedRepetition';
 import sentencesData from './data/sentences.json';
 
 import { API_BASE, DEFAULT_QUIZ_COUNT } from './utils/constants';
-import { fetchUserProgress, fetchLogin, fetchSaveMastery, fetchSaveProgress, getTtsUrl, fetchUserMastery } from './utils/fetchUtils';
+import { 
+  fetchUserProgress, 
+  fetchUserMastery, 
+  fetchWordsByLevel, // 新增
+  fetchLogin, 
+  fetchSaveMastery, 
+  fetchSaveProgress, 
+  getTtsUrl 
+} from './utils/fetchUtils';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -46,11 +54,18 @@ export default function App() {
     }
   };
 
-  useEffect(() => {
-    import(`./data/hsk-level-${level}.json`)
-      .then(m => setAllWords(m.default))
-      .catch(e => console.error("Data load error:", e));
-  }, [level]);
+    useEffect(() => {
+      const loadData = async () => {
+        try {
+          const words = await fetchWordsByLevel(level);
+          setAllWords(words);
+        } catch (e) {
+          // 错误已在 fetchWordsByLevel 中 log，这里可以做 UI 提示
+        }
+      };
+      
+      loadData();
+    }, [level]);
 
   const handleLogin = async (username, password) => {
     const res = await fetchLogin(username, password);

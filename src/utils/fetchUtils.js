@@ -81,3 +81,19 @@ export const getTtsUrl = (text, isSlow = true) => {
   });
   return `${API_BASE}/tts?${params.toString()}`;
 };
+
+
+/**
+ * 加载本地 HSK 单词数据
+ * @param {number|string} level HSK等级
+ */
+export const fetchWordsByLevel = async (level) => {
+  try {
+    // 动态导入本地 JSON 文件
+    const res = await import(`../data/hsk-level-${level}.json`);
+    return res.default;
+  } catch (e) {
+    console.error(`Failed to load HSK level ${level} words:`, e);
+    throw e; // 抛出错误以便组件处理
+  }
+}; 
