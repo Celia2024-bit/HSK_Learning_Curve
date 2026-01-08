@@ -66,7 +66,7 @@ export default function App() {
       setQuizCount(progress.quiz_count || DEFAULT_QUIZ_COUNT); 
       setFlashcardIndex(progress.current_index || 0);  
       setReadingIndex(progress.reading_index || 0);   
-      setQuizRemoveCorrect(progress.quizRemoveCorrect || false);      
+      setQuizRemoveCorrect(progress.quiz_remove_correct || false);      
     } catch (e) {
       console.error("Failed to load user data:", e);
     }
@@ -158,6 +158,8 @@ export default function App() {
       readingIndex: overrides.readingIndex !== undefined ? overrides.readingIndex : readingIndex, 
       quizRemoveCorrect: overrides.quizRemoveCorrect !== undefined ? overrides.quizRemoveCorrect : quizRemoveCorrect
     };
+    
+    
     await fetchSaveProgress(payload);
   }, [currentUser, level, quizCount, flashcardIndex, readingIndex, quizRemoveCorrect]);
 
