@@ -10,7 +10,7 @@ import { getSmartQuizWords } from './utils/spacedRepetition';
 import sentencesData from './data/sentences.json';
 
 import { API_BASE, DEFAULT_QUIZ_COUNT } from './utils/constants';
-import { fetchUserProgress, fetchLogin, fetchSaveMastery, fetchSaveProgress, getTtsUrl } from './utils/fetchUtils';
+import { fetchUserProgress, fetchLogin, fetchSaveMastery, fetchSaveProgress, getTtsUrl, fetchUserMastery } from './utils/fetchUtils';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -29,13 +29,15 @@ export default function App() {
 
   const fetchUserData = async (username) => {
     try {
-      const data = await fetchUserProgress(username);
-      setMastery(data.mastery || {});
-      setLevel(data.progress.level || 1);
-      setQuizCount(data.progress.quiz_count || DEFAULT_QUIZ_COUNT); 
-      setIndex(data.progress.current_index || 0);  
-      setReadingIndex(data.progress.reading_index || 0);
-      setQuizRemoveCorrect(data.progress.quizRemoveCorrect || false);      
+      const progress = await fetchUserProgress(username);
+      const currentLevel = progress.level || 1; 
+      const mastery = await fetchUserMastery(username, currentLevel);
+      setMastery(mastery || {});
+      setLevel(currentLevel);
+      setQuizCount(progress.quiz_count || DEFAULT_QUIZ_COUNT); 
+      setIndex(progress.current_index || 0);  
+      setReadingIndex(progress.reading_index || 0);
+      setQuizRemoveCorrect(progress.quizRemoveCorrect || false);      
     } catch (e) {
       console.error("Failed to load user data:", e);
     }

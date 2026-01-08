@@ -6,11 +6,38 @@ import { API_BASE, DEFAULT_TTS_VOICE, DEFAULT_TTS_SPEED_SLOW, DEFAULT_TTS_SPEED_
 // 1. 获取用户数据
 export const fetchUserProgress = async (username) => {
   try {
-    const res = await fetch(`${API_BASE}/get_user_data?username=${username}`);
+    // 将 get_user_data 改为 get_user_progress
+    const res = await fetch(`${API_BASE}/get_user_progress?username=${encodeURIComponent(username)}`);
+    
+    if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`);
+    }
     const data = await res.json();
-    return data;
+    return data; 
   } catch (e) {
     console.error("Failed to load user data:", e);
+    throw e;
+  }
+};
+
+// src/utils/fetchUtils.js
+
+// 获取用户单词熟练度数据
+export const fetchUserMastery = async (username, level = null) => {
+  try {
+    // 构建 URL，支持可选的 level 参数进行筛选
+    let url = `${API_BASE}/get_user_mastery?username=${encodeURIComponent(username)}`;
+    if (level) {
+      url += `&level=${level}`;
+    }
+
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(`Mastery fetch failed: ${res.status}`);
+    }
+    return await res.json();
+  } catch (e) {
+    console.error("Failed to load user mastery:", e);
     throw e;
   }
 };
