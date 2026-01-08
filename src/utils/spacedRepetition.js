@@ -1,76 +1,61 @@
 /**
- * Spaced Repetition Algorithm (Simplified SM-2 / Mastery Hybrid)
- * Calculates which words need the most attention.
+ * 简化后的算法：直接从 word 对象中读取合并后的 masteryInfo
+ * @param {Array} wordsPool - 已经合并了 masteryInfo 的单词子表 (masteredWordsList)
+ * @param {number} count - 抽取的题目数量
  */
+export const getSmartQuizWords = (wordsPool, count) => {
+  if (!wordsPool || wordsPool.length === 0) return [];
 
+  // 1. 计算每个单词的紧迫度
+  const scoredWords = wordsPool.map(word => {
+    // 这里的 word.masteryInfo 是你在 App.js 的 useMemo 中注入的
+    const record = word.masteryInfo;
+
+    return {
+      word,
+      urgency: calculateUrgency(record)
+    };
+  });
+
+  // 2. 按紧迫度排序 (从高到低)
+  scoredWords.sort((a, b) => b.urgency - a.urgency);
+
+  // 3. 抽题策略：
+  // 先取前 count * 2 名最紧迫的词，然后从中随机抽取 count 个，增加趣味性
+  const topPoolSize = Math.min(scoredWords.length, count * 2);
+  const topPool = scoredWords.slice(0, topPoolSize);
+
+  // 随机乱序
+  const shuffled = topPool.sort(() => 0.5 - Math.random());
+
+  // 返回最终题目列表
+  return shuffled.slice(0, count).map(item => item.word);
+};
+
+/**
+ * 计算紧迫度算法保持不变，但逻辑更清晰
+ */
 const calculateUrgency = (record) => {
-  // Case 1: Brand new word (never studied or tested)
+  // 情况 1: 新词 (没有学习记录)
   if (!record || (!record.lastRead && !record.lastQuiz)) {
-    return 100; // Maximum urgency for new content
+    return 100; 
   }
 
   const now = new Date();
   const lastTime = new Date(record.lastQuiz || record.lastRead);
   const hoursSinceLast = (now - lastTime) / (1000 * 60 * 60);
   
-  // 1. Base Score from Mastery Level (1-5)
-  // Level 1 = 50 pts, Level 5 = 10 pts
+  // 熟练度越低 (1)，分值越高
   let scoreBase = (6 - (record.score || 1)) * 10;
 
-  // 2. Penalty for persistent mistakes
-  // Each mistake adds 5 points to urgency
+  // 错误惩罚
   const mistakePenalty = (record.mistakeCount || 0) * 5;
 
-  // 3. Penalty for the most recent result
-  // If the last quiz was failed, add a flat 20 points
+  // 上次结果惩罚 (如果错了，加20分紧迫度)
   const lastResultPenalty = record.lastResult === false ? 20 : 0;
 
-  // 4. Time Decay (Forgetting Curve)
-  // We use a logarithmic-ish growth: urgency increases as time passes.
-  // This ensures even Level 5 words eventually reappear.
+  // 时间衰减 (遗忘曲线): 距离上次练习时间越长，分值越高
   const timeFactor = Math.log10(hoursSinceLast + 1) * 15;
 
   return scoreBase + mistakePenalty + lastResultPenalty + timeFactor;
-};
-
-/**
- * Smart Selection for Quiz
- * @param {Array} allWords - All words for the current level
- * @param {Object} masteryData - The mastery.json content from backend
- * @param {number} count - How many words to pick (e.g., 20)
- * @param {number} currentLevel - 当前选中的级别（新增参数）
- */
-export const getSmartQuizWords = (allWords, masteryData, count, currentLevel) => {
-  if (!allWords || allWords.length === 0) return [];
-
-  // 核心修改：过滤出当前级别的单词
-  const levelFilteredWords = allWords.filter(word => {
-    // 从熟练度数据中获取单词级别，无则使用默认（当前级别）
-    const wordLevel = masteryData[word.char]?.level || currentLevel;
-    return wordLevel === currentLevel;
-  });
-
-  // 1. Calculate urgency for every word (仅计算当前级别单词)
-  const scoredWords = levelFilteredWords.map(word => ({
-    word,
-    urgency: calculateUrgency(masteryData[word.char])
-  }));
-
-  // 2. Sort by urgency (highest first)
-  scoredWords.sort((a, b) => b.urgency - a.urgency);
-
-  // 3. Selection Strategy:
-  // To keep the quiz interesting, we take the top 'count * 2' most urgent words
-  // and then randomly pick 'count' from that pool. 
-  // This prevents the quiz from being IDENTICAL every time if you don't study.
-  const poolSize = Math.min(count * 2, scoredWords.length);
-  const topPool = scoredWords.slice(0, poolSize);
-  
-  // Random shuffle the pool and take the required count
-  const finalSelection = topPool
-    .sort(() => Math.random() - 0.5)
-    .slice(0, count)
-    .map(item => item.word);
-
-  return finalSelection;
 };
