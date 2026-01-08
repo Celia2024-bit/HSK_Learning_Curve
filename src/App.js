@@ -225,27 +225,24 @@ export default function App() {
             onExit={() => setMode('menu')}
             savedAnswer={quizAnswers[quizIndex]}
             onPrev={() => setQuizIndex(prev => Math.max(0, prev - 1))}
-            onNext={(isCorrect, answerData) => {
-              // 这里保持你原来的 updateMasteryRecord 逻辑即可
-              if (isCorrect) setScore(s => s + 1);
-              const newAnswers = [...quizAnswers];
-              newAnswers[quizIndex] = answerData;
-              setQuizAnswers(newAnswers);
+            onNext={(isCorrect, answerData, shouldMove = true) => {
+              if (answerData) {
+                const newAnswers = [...quizAnswers];
+                newAnswers[quizIndex] = answerData; // 包含 allOptions
+                setQuizAnswers(newAnswers);
 
-              const char = quizQueue[quizIndex].char;
-              const key = `${level}_${char}`;
-              const currentRec = mastery[key] || {};
-              
-              updateMasteryRecord(char, {
-                lastQuiz: new Date().toISOString(),
-                lastResult: isCorrect,
-                mistakeCount: isCorrect ? (currentRec.mistakeCount || 0) : (currentRec.mistakeCount || 0) + 1
-              });
+                const char = quizQueue[quizIndex].char;
+                // updateMasteryRecord(...) 更新数据库逻辑
+                if (isCorrect) setScore(s => s + 1);
+              }
 
-              if (quizIndex < quizQueue.length - 1) {
-                setQuizIndex(quizIndex + 1);
-              } else {
-                setMode('results');
+              // 2. 只有当 shouldMove 为 true 时，才真正翻页
+              if (shouldMove) {
+                if (quizIndex < quizQueue.length - 1) {
+                  setQuizIndex(quizIndex + 1);
+                } else {
+                  setMode('results');
+                }
               }
             }}
           />
