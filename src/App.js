@@ -36,6 +36,16 @@ export default function App() {
   const [readingIndex, setReadingIndex] = useState(0);   
   const [quizAnswers, setQuizAnswers] = useState([]); 
   const [score, setScore] = useState(0);
+  
+  const [progressByLevel, setProgressByLevel] = useState({});
+  const DEFAULT_PROGRESS = {
+    quiz_count: DEFAULT_QUIZ_COUNT,
+    current_index: 0,
+    reading_index: 0,
+    quiz_remove_correct: false,
+  };
+
+
 
   // --- 核心改动：生成“已学单词”子表 ---
   // 根据数据库截图，Key 格式为 "1_不"，此处逻辑与之对齐
@@ -55,24 +65,42 @@ export default function App() {
   const fetchUserData = async (username) => {
     try {
       // 1. 获取进度 (对应后端 /get_user_progress)
-      const progress = await fetchUserProgress(username);
-      const currentLevel = progress.level || 1; 
+      const progressMap = await fetchUserProgress(username);
+      setProgressByLevel(progressMap || {});
       
+      // 用当前 level 对应的记录（无则默认）
+      const key = String(level);
+      const p = progressMap?.[level] || DEFAULT_PROGRESS;
+      setQuizCount(p.quiz_count ?? DEFAULT_PROGRESS.quiz_count);
+      setFlashcardIndex(p.current_index ?? DEFAULT_PROGRESS.current_index);
+      setReadingIndex(p.reading_index ?? DEFAULT_PROGRESS.reading_index);
+      setQuizRemoveCorrect(p.quiz_remove_correct ?? DEFAULT_PROGRESS.quiz_remove_correct);
+
       // 2. 获取该等级下的熟练度 (对应后端 /get_user_mastery)
-      const masteryData = await fetchUserMastery(username, currentLevel);
-      
+      const masteryData = await fetchUserMastery(username);
       setMastery(masteryData || {});
-      setLevel(currentLevel);
-      setQuizCount(progress.quiz_count || DEFAULT_QUIZ_COUNT); 
-      setFlashcardIndex(progress.current_index || 0);  
-      setReadingIndex(progress.reading_index || 0);   
-      setQuizRemoveCorrect(progress.quiz_remove_correct || false);      
     } catch (e) {
       console.error("Failed to load user data:", e);
     }
   };
 
   // 监听 level 变化加载本地 HSK 词库
+
+// ① 同步当前 level 的进度到 UI（无网络请求）
+  useEffect(() => {
+    
+   console.log('level type:', typeof level, level);             // 应该是 'number'
+   console.log('progressByLevel keys:', Object.keys(progressByLevel)); // 应该类似 ["1","2","3"]
+
+    const key = String(level);
+    const p = progressByLevel?.[level] || DEFAULT_PROGRESS;
+    setQuizCount(p.quiz_count ?? DEFAULT_PROGRESS.quiz_count);
+    setFlashcardIndex(p.current_index ?? DEFAULT_PROGRESS.current_index);
+    setReadingIndex(p.reading_index ?? DEFAULT_PROGRESS.reading_index);
+    setQuizRemoveCorrect(p.quiz_remove_correct ?? DEFAULT_PROGRESS.quiz_remove_correct);
+  }, [level, progressByLevel]);
+
+  // ② 加载当前 level 的词库（保留你之前的代码）
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -98,6 +126,7 @@ export default function App() {
   const handleLogout = () => {
     setCurrentUser(null);
     setMastery({});
+    setProgressByLevel({});
     setMode('menu');
   };
 
@@ -148,20 +177,44 @@ export default function App() {
     }
   };
 
+
+
+  // ① 同步进度的 useEffect —— 用字符串键
+  useEffect(() => {
+    const key = String(level);  // ✅ 强制字符串
+    const p = progressByLevel?.[key] || DEFAULT_PROGRESS;
+
+    setQuizCount(p.quiz_count ?? DEFAULT_PROGRESS.quiz_count);
+    setFlashcardIndex(p.current_index ?? DEFAULT_PROGRESS.current_index);
+    setReadingIndex(p.reading_index ?? DEFAULT_PROGRESS.reading_index);
+    setQuizRemoveCorrect(p.quiz_remove_correct ?? DEFAULT_PROGRESS.quiz_remove_correct);
+  }, [level, progressByLevel]);
+
+  // ② saveProgress 的本地乐观更新 —— 用字符串键写入
   const saveProgress = useCallback(async (overrides = {}) => {
     if (!currentUser) return;
-    const payload = {
-      username: currentUser,
-      level: overrides.level !== undefined ? overrides.level : level,
-      quizCount: overrides.quizCount !== undefined ? overrides.quizCount : quizCount,
-      index: overrides.index !== undefined ? overrides.index : flashcardIndex, 
-      readingIndex: overrides.readingIndex !== undefined ? overrides.readingIndex : readingIndex, 
-      quizRemoveCorrect: overrides.quizRemoveCorrect !== undefined ? overrides.quizRemoveCorrect : quizRemoveCorrect
+
+    const targetLevel = overrides.level !== undefined ? overrides.level : level;
+    const record = {
+      quiz_count: overrides.quizCount ?? quizCount,
+      current_index: overrides.index ?? flashcardIndex,
+      reading_index: overrides.readingIndex ?? readingIndex,
+      quiz_remove_correct: overrides.quizRemoveCorrect ?? quizRemoveCorrect,
     };
-    
-    
-    await fetchSaveProgress(payload);
+
+    setProgressByLevel(prev => ({
+      ...prev,
+      [String(targetLevel)]: record,   // ✅ 统一字符串键
+    }));
+
+    await fetchSaveProgress({
+      username: currentUser,
+      level: targetLevel,  // 发送给后端可以是数字；后端会处理
+      record,
+    });
   }, [currentUser, level, quizCount, flashcardIndex, readingIndex, quizRemoveCorrect]);
+
+
 
   const speakChinese = async (text, isSlow = true) => {
     const audioUrl = getTtsUrl(text, isSlow);
@@ -200,7 +253,7 @@ export default function App() {
           <FlashcardMode 
             data={allWords}
             currentIndex={flashcardIndex}
-            setIndex={(i) => { setFlashcardIndex(i); saveProgress({ index: i }); }}
+            setIndex={(i) => { setFlashcardIndex(i); saveProgress({ level, index: i }); }}
             onBack={() => setMode('menu')}
             onSpeak={speakChinese}
             level={level}
@@ -261,7 +314,7 @@ export default function App() {
             currentIndex={readingIndex}
             setIndex={(i) => { 
               setReadingIndex(i); 
-              saveProgress({ readingIndex: i }); 
+              saveProgress({ level, readingIndex: i }); 
             }}
             onBack={() => setMode('menu')}
             onSpeak={speakChinese}
