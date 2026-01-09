@@ -4,23 +4,24 @@
 import { API_BASE, DEFAULT_TTS_VOICE, DEFAULT_TTS_SPEED_SLOW, DEFAULT_TTS_SPEED_NORMAL } from './constants';
 
 // 1. 获取用户数据
-export const fetchUserProgress = async (username) => {
+
+// 1. 获取用户进度（新结构）
+export const fetchUserProgress = async (username, level = null) => {
   try {
-    // 将 get_user_data 改为 get_user_progress
-    const res = await fetch(`${API_BASE}/get_user_progress?username=${encodeURIComponent(username)}`);
-    
-    if (!res.ok) {
-        throw new Error(`Server error: ${res.status}`);
+    let url = `${API_BASE}/get_user_progress?username=${encodeURIComponent(username)}`;
+    if (level) {
+      url += `&level=${level}`;
     }
-    const data = await res.json();
-    return data; 
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(`Progress fetch failed: ${res.status}`);
+    }
+    return await res.json();
   } catch (e) {
-    console.error("Failed to load user data:", e);
+    console.error("Failed to load user progress:", e);
     throw e;
   }
 };
-
-// src/utils/fetchUtils.js
 
 // 获取用户单词熟练度数据
 export const fetchUserMastery = async (username, level = null) => {
@@ -62,13 +63,14 @@ export const fetchSaveMastery = async (username, char, level, record) => {
 };
 
 // 4. 保存进度
-export const fetchSaveProgress = async (payload) => {
+export const fetchSaveProgress = async ({ username, level, record }) => {
   await fetch(`${API_BASE}/save_progress`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    body: JSON.stringify({ username, level, record })
   });
 };
+
 
 // 5. 获取TTS音频地址（仅拼接URL，play逻辑保留在原函数）
 export const getTtsUrl = (text, isSlow = true) => {
