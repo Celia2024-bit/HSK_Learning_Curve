@@ -77,8 +77,12 @@ export default function QuizMode({
     <div className="bg-white rounded-3xl shadow-xl p-6 sm:p-10 border border-gray-100">
       {/* 顶部状态栏 */}
       <div className="flex justify-between items-center mb-8">
-        <button onClick={onExit} className="p-3 hover:bg-gray-100 rounded-2xl transition-colors">
-          <Home size={28} className="text-gray-400" />
+        <button
+          onClick={onExit}
+          className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 rounded-2xl transition-colors"
+        >
+          <Home size={18} className="text-gray-400" />
+          <span className="text-xs font-black uppercase tracking-widest text-gray-400">Back to Menu</span>
         </button>
         <div className="text-center">
           <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Question</span>

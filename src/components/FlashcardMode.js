@@ -85,10 +85,13 @@ export default function FlashcardMode({
       <div className="max-w-md w-full flex flex-col h-full">
         {/* Header - 新增单词列表按钮 */}
         <div className="flex justify-between items-center mb-8 px-2">
-          <button onClick={onBack} className="w-10 h-10 flex items-center justify-center bg-white rounded-2xl shadow-sm text-slate-400 hover:text-indigo-600 transition-all border border-white">
-            <Home size={20} />
-          </button>
-          
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 px-4 py-2 bg-white rounded-2xl shadow-sm text-slate-400 hover:text-indigo-600 transition-all border border-white"
+        >
+          <Home size={18} />
+          <span className="text-xs font-black uppercase tracking-widest">Back to Menu</span>
+        </button>
           <div className="flex items-center gap-3">
             <div className="text-right">
               <div className="text-[10px] font-black text-slate-300 tracking-[0.2em] uppercase">HSK Level {level}</div>
