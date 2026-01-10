@@ -181,25 +181,39 @@ export default function App() {
   const saveProgress = useCallback(async (overrides = {}) => {
     if (!currentUser) return;
 
-    const targetLevel = overrides.level !== undefined ? overrides.level : level;
+    // 目标级别：显式传入优先，否则用当前 level
+    const targetLevel = (overrides.level !== undefined ? overrides.level : level);
+    const key = String(targetLevel);
+
+    // 以目标 level 的现有记录为基准（如果没有，退默认）
+    const prevRecord = progressByLevel?.[key] || DEFAULT_PROGRESS;
+
+    // 只把传进来的字段覆盖到目标 level，其它字段沿用目标 level 的现有值
     const record = {
-      quiz_count: overrides.quizCount ?? quizCount,
-      current_index: overrides.index ?? flashcardIndex,
-      reading_index: overrides.readingIndex ?? readingIndex,
-      quiz_remove_correct: overrides.quizRemoveCorrect ?? quizRemoveCorrect,
+      quiz_count:
+        overrides.quizCount       ?? prevRecord.quiz_count       ?? DEFAULT_PROGRESS.quiz_count,
+      current_index:
+        overrides.index           ?? prevRecord.current_index    ?? DEFAULT_PROGRESS.current_index,
+      reading_index:
+        overrides.readingIndex    ?? prevRecord.reading_index    ?? DEFAULT_PROGRESS.reading_index,
+      quiz_remove_correct:
+        overrides.quizRemoveCorrect ?? prevRecord.quiz_remove_correct ?? DEFAULT_PROGRESS.quiz_remove_correct,
     };
 
+    // 本地 Map 乐观更新（注意克隆，避免共享引用）
     setProgressByLevel(prev => ({
       ...prev,
-      [String(targetLevel)]: record,   // ✅ 统一字符串键
+      [key]: { ...record },
     }));
 
+    // 发到后端
     await fetchSaveProgress({
       username: currentUser,
-      level: targetLevel,  // 发送给后端可以是数字；后端会处理
+      level: targetLevel,
       record,
     });
-  }, [currentUser, level, quizCount, flashcardIndex, readingIndex, quizRemoveCorrect]);
+  }, [currentUser, level, progressByLevel]);
+
 
 
 
