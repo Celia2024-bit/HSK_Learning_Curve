@@ -8,6 +8,7 @@ import Results from './components/Results';
 import ReadingMode from './components/ReadingMode';
 import { getSmartQuizWords } from './utils/spacedRepetition';
 import sentencesData from './data/sentences.json';
+import CardManager from './components/cardManager';
 
 import { API_BASE, DEFAULT_QUIZ_COUNT } from './utils/constants';
 import { 
@@ -100,18 +101,24 @@ export default function App() {
     setQuizRemoveCorrect(p.quiz_remove_correct ?? DEFAULT_PROGRESS.quiz_remove_correct);
   }, [level, progressByLevel]);
 
-  // ② 加载当前 level 的词库（保留你之前的代码）
+  // ② 加载当前 level 的词库
   useEffect(() => {
     const loadData = async () => {
       try {
-        const words = await fetchWordsByLevel(level);
+        const words = await fetchWordsByLevel(level, currentUser); // 传入 username
         setAllWords(words);
       } catch (e) {
         console.error("Words load error:", e);
+        setAllWords([]); // 失败兜底
       }
     };
-    loadData();
-  }, [level]);
+    if (currentUser) {
+      loadData();
+    } else {
+      setAllWords([]);
+    }
+  }, [level, currentUser]);
+
 
   const handleLogin = async (username, password) => {
     const res = await fetchLogin(username, password);
@@ -131,6 +138,13 @@ export default function App() {
   };
 
   const startMode = (newMode) => {
+    
+    if (newMode === 'reading' && level === 0) {
+      // 直接返回或给出提示
+      // alert('自定义词库（level 0）不提供阅读模式');
+      return;
+    }
+
     if (newMode === 'quiz') {
       // 1. 确定池子：如果有已学单词就用子表，否则用全集
       let pool = masteredWordsList.length > 5 ? masteredWordsList : allWords;
@@ -247,6 +261,17 @@ export default function App() {
               saveProgress({ quizRemoveCorrect: val }); 
             }}
             startMode={startMode} 
+            
+            showCardManager={level === 0}
+            onOpenCardManager={() => setMode('cards')}
+
+          />
+        )}
+
+        {mode === 'cards' && (
+          <CardManager
+            username={currentUser}
+            onClose={() => setMode('menu')}
           />
         )}
 
@@ -309,19 +334,16 @@ export default function App() {
           />
         )}
 
-        {mode === 'reading' && (
-          <ReadingMode 
-            data={sentencesData[level.toString()] || []} 
+        {mode === 'reading' && level !== 0 && (
+          <ReadingMode
+            data={sentencesData[level.toString()] || []}
             currentIndex={readingIndex}
-            setIndex={(i) => { 
-              setReadingIndex(i); 
-              saveProgress({ level, readingIndex: i }); 
-            }}
+            setIndex={(i) => { setReadingIndex(i); saveProgress({ readingIndex: i }); }}
             onBack={() => setMode('menu')}
             onSpeak={speakChinese}
           />
         )}
-        
+
         {mode === 'results' && (
           <Results 
             score={score} 

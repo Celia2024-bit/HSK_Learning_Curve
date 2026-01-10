@@ -1,13 +1,24 @@
+
 import React from 'react';
 import { BookOpen, Brain, ChevronRight, Check } from 'lucide-react';
 
-export default function Menu({ 
-  level, setLevel, startMode, quizCount, setQuizCount,
-  // 新增：接收 Quiz 模式开关 props
-  quizRemoveCorrect, setQuizRemoveCorrect 
+export default function Menu({
+  level,
+  setLevel,
+  quizCount,
+  setQuizCount,
+  quizRemoveCorrect,
+  setQuizRemoveCorrect,
+  startMode,
+
+  // 新增：仅在 level === 0 时显示卡片管理按钮（由 App 传入）
+  showCardManager = false,
+  onOpenCardManager
 }) {
+
   // 定义每个级别的名称和对应的标准单词量
   const levelDetails = {
+    0: { name: "Custom", count: null }, // ✅ 新增：Level 0（自定义词库）
     1: { name: "HSK 1", count: 150 },
     2: { name: "HSK 2", count: 150 },
     3: { name: "HSK 3", count: 300 }
@@ -28,7 +39,7 @@ export default function Menu({
 
         {/* Level Switcher - 增加了单词总量显示 */}
         <div className="bg-white/60 backdrop-blur-md p-1.5 rounded-[2.5rem] flex mb-10 shadow-sm border border-white">
-          {[1, 2, 3].map((l) => (
+          {[0, 1, 2, 3].map((l) => (
             <button
               key={l}
               onClick={() => setLevel(l)}
@@ -38,9 +49,12 @@ export default function Menu({
                 : 'text-slate-400 hover:bg-white/40'
               }`}
             >
-              <span className="text-[10px] font-black uppercase tracking-tighter">Level {l}</span>
+              <span className="text-[10px] font-black uppercase tracking-tighter">
+                {l === 0 ? 'Level 0' : `Level ${l}`}
+              </span>
               <span className={`text-[9px] font-bold mt-0.5 opacity-60 ${level === l ? 'text-indigo-100' : 'text-slate-400'}`}>
-                {levelDetails[l].count} WORDS
+                {/* Level 0 不显示固定词数，避免误导 */}
+                {l === 0 ? 'MY CARDS' : `${levelDetails[l].count} WORDS`}
               </span>
             </button>
           ))}
@@ -105,27 +119,30 @@ export default function Menu({
               </div>
               <div className="text-left">
                 <h3 className="text-base font-black text-slate-800 tracking-tight">Flashcards</h3>
-                <p className="text-xs font-medium text-slate-400 italic leading-none mt-1">Review & Mastery</p>
+                <p className="text-xs font-medium text-slate-400 italic leading-none mt-1">Review &amp; Mastery</p>
               </div>
             </div>
             <ChevronRight size={18} className="text-slate-200 group-hover:text-indigo-400 transition-colors" />
           </button>
 
-          <button 
-            onClick={() => startMode('reading')}
-            className="w-full group bg-white p-6 rounded-[2rem] shadow-sm border border-transparent hover:border-indigo-200 transition-all flex items-center justify-between"
-          >
-            <div className="flex items-center gap-5">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                <BookOpen size={24} />
+          {/* ✅ level = 0 时隐藏 Reading */}
+          {level !== 0 && (
+            <button 
+              onClick={() => startMode('reading')}
+              className="w-full group bg-white p-6 rounded-[2rem] shadow-sm border border-transparent hover:border-indigo-200 transition-all flex items-center justify-between"
+            >
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <BookOpen size={24} />
+                </div>
+                <div className="text-left">
+                  <h3 className="text-base font-black text-slate-800 tracking-tight">Reading</h3>
+                  <p className="text-xs font-medium text-slate-400 italic leading-none mt-1">Context Practice</p>
+                </div>
               </div>
-              <div className="text-left">
-                <h3 className="text-base font-black text-slate-800 tracking-tight">Reading</h3>
-                <p className="text-xs font-medium text-slate-400 italic leading-none mt-1">Context Practice</p>
-              </div>
-            </div>
-            <ChevronRight size={18} className="text-slate-200 group-hover:text-indigo-400 transition-colors" />
-          </button>
+              <ChevronRight size={18} className="text-slate-200 group-hover:text-indigo-400 transition-colors" />
+            </button>
+          )}
 
           <button 
             onClick={() => startMode('quiz')}
@@ -133,6 +150,26 @@ export default function Menu({
           >
             START ADAPTIVE QUIZ
           </button>
+
+          {/* ✅ 仅在 level = 0 时显示卡片管理按钮（沿用你的布局风格） */}
+          {showCardManager && (
+            <button
+              onClick={onOpenCardManager}
+              className="w-full group bg-white p-6 rounded-[2rem] shadow-sm border border-transparent hover:border-indigo-100 transition-all flex items-center justify-between"
+            >
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  {/* 复用 Brain 图标或可换成自定义图标 */}
+                  <Brain size={24} />
+                </div>
+                <div className="text-left">
+                  <h3 className="text-base font-black text-slate-800 tracking-tight">Card Manager</h3>
+                  <p className="text-xs font-medium text-slate-400 italic leading-none mt-1">Add / Edit / Delete</p>
+                </div>
+              </div>
+              <ChevronRight size={18} className="text-slate-200 group-hover:text-indigo-400 transition-colors" />
+            </button>
+          )}
         </div>
 
       </div>
