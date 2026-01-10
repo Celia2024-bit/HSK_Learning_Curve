@@ -1,4 +1,5 @@
 
+// src/components/cardManager.js
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import {
   fetchCustomCards,
@@ -6,18 +7,19 @@ import {
   updateCustomCard,
   deleteCustomCard
 } from '../utils/fetchUtils';
+import { Home  } from 'lucide-react';
 
-// 简易 Modal 组件（覆盖全屏）
+// Lightweight full-screen modal
 function Modal({ title, children, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* 背景遮罩 */}
+      {/* overlay */}
       <div
         className="absolute inset-0 bg-black/40"
         onClick={onClose}
         aria-label="Close modal"
       />
-      {/* 内容容器 */}
+      {/* modal card */}
       <div className="relative w-full max-w-2xl mx-4 bg-white rounded-2xl shadow-2xl border border-slate-200">
         <div className="px-6 py-4 border-b">
           <h3 className="text-lg font-bold text-slate-800">{title}</h3>
@@ -36,7 +38,7 @@ export default function CardManager({ username, onClose }) {
   const [search, setSearch] = useState('');
   const [error, setError] = useState('');
 
-  // Modal 状态与表单
+  // Modal state & form
   const [isModalOpen, setModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState({
@@ -78,7 +80,7 @@ export default function CardManager({ username, onClose }) {
     );
   }, [cards, search]);
 
-  // 打开“新增”Modal
+  // Open Add modal
   const openAddModal = () => {
     setEditingId(null);
     resetForm();
@@ -86,7 +88,7 @@ export default function CardManager({ username, onClose }) {
     setError('');
   };
 
-  // 打开“编辑”Modal
+  // Open Edit modal
   const openEditModal = (card) => {
     setEditingId(card.id);
     setForm({
@@ -124,7 +126,6 @@ export default function CardManager({ username, onClose }) {
     setError('');
     try {
       if (editingId) {
-        // 更新
         await updateCustomCard(editingId, {
           char: form.char.trim(),
           pinyin: form.pinyin.trim(),
@@ -132,7 +133,6 @@ export default function CardManager({ username, onClose }) {
           explanation: form.explanation.trim()
         });
       } else {
-        // 新增
         await addCustomCard(username, {
           char: form.char.trim(),
           pinyin: form.pinyin.trim(),
@@ -148,7 +148,7 @@ export default function CardManager({ username, onClose }) {
     }
   };
 
-  // 键盘增强：Ctrl/Cmd + Enter 提交；Esc 关闭
+  // Keyboard UX: Ctrl/Cmd + Enter submit; Esc close
   const onKeyDown = useCallback((e) => {
     if (e.key === 'Escape') {
       closeModal();
@@ -160,18 +160,20 @@ export default function CardManager({ username, onClose }) {
 
   return (
     <div className="p-4">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold">My Custom Cards (Level 0)</h2>
+      {/* Header: Back button unified with FlashcardMode */}
+      
+      <div className="flex items-center justify-start gap-3 mb-4">
         {onClose && (
           <button
-            className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300"
             onClick={onClose}
+            className="flex items-center gap-2 text-slate-400 hover:text-indigo-600 transition-colors"
           >
-            Back
+            <Home size={18} />
+            <span className="text-xs font-black uppercase tracking-widest">Back to Menu</span>
           </button>
         )}
       </div>
+
 
       {/* Search + Add */}
       <div className="flex items-center gap-3 mb-3">
@@ -225,7 +227,7 @@ export default function CardManager({ username, onClose }) {
         )}
       </div>
 
-      {/* Modal：大表单编辑区域 */}
+      {/* Modal: big editable form */}
       {isModalOpen && (
         <Modal
           title={editingId ? 'Edit Card' : 'Add Card'}
@@ -236,13 +238,13 @@ export default function CardManager({ username, onClose }) {
           )}
 
           <div className="space-y-4" onKeyDown={onKeyDown}>
-            {/* Hanzi & Pinyin：单行输入 */}
+            {/* Hanzi & Pinyin */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
                 <label className="block text-sm font-medium text-slate-600 mb-1">Hanzi (required)</label>
                 <input
                   className="border rounded px-3 py-2 w-full"
-                  placeholder="汉字..."
+                  placeholder="汉字…"
                   value={form.char}
                   onChange={(e) => setForm({ ...form, char: e.target.value })}
                 />
@@ -251,14 +253,14 @@ export default function CardManager({ username, onClose }) {
                 <label className="block text-sm font-medium text-slate-600 mb-1">Pinyin</label>
                 <input
                   className="border rounded px-3 py-2 w-full"
-                  placeholder="pinyin..."
+                  placeholder="pinyin…"
                   value={form.pinyin}
                   onChange={(e) => setForm({ ...form, pinyin: e.target.value })}
                 />
               </div>
             </div>
 
-            {/* Meaning：大文本输入 */}
+            {/* Meaning */}
             <div>
               <label className="block text-sm font-medium text-slate-600 mb-1">Meaning</label>
               <textarea
@@ -269,7 +271,7 @@ export default function CardManager({ username, onClose }) {
               />
             </div>
 
-            {/* Notes：大文本输入 */}
+            {/* Notes */}
             <div>
               <label className="block text-sm font-medium text-slate-600 mb-1">Notes</label>
               <textarea
@@ -280,7 +282,7 @@ export default function CardManager({ username, onClose }) {
               />
             </div>
 
-            {/* 操作按钮 */}
+            {/* Actions */}
             <div className="flex items-center justify-end gap-3 pt-2 border-t">
               <button
                 className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300"
@@ -296,7 +298,6 @@ export default function CardManager({ username, onClose }) {
               </button>
             </div>
 
-            {/* 小提示 */}
             <p className="text-xs text-slate-400 mt-2">
               Tip: Press <kbd className="px-1 py-0.5 bg-slate-100 border rounded">Ctrl/⌘ + Enter</kbd> to submit, <kbd className="px-1 py-0.5 bg-slate-100 border rounded">Esc</kbd> to close.
             </p>
@@ -306,3 +307,4 @@ export default function CardManager({ username, onClose }) {
     </div>
   );
 }
+
