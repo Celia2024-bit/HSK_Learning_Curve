@@ -70,7 +70,7 @@ export default function App() {
       
       // 用当前 level 对应的记录（无则默认）
       const key = String(level);
-      const p = progressMap?.[level] || DEFAULT_PROGRESS;
+      const p = progressMap?.[key] || DEFAULT_PROGRESS;
       setQuizCount(p.quiz_count ?? DEFAULT_PROGRESS.quiz_count);
       setFlashcardIndex(p.current_index ?? DEFAULT_PROGRESS.current_index);
       setReadingIndex(p.reading_index ?? DEFAULT_PROGRESS.reading_index);
@@ -93,7 +93,7 @@ export default function App() {
    console.log('progressByLevel keys:', Object.keys(progressByLevel)); // 应该类似 ["1","2","3"]
 
     const key = String(level);
-    const p = progressByLevel?.[level] || DEFAULT_PROGRESS;
+    const p = progressByLevel?.[key] || DEFAULT_PROGRESS;
     setQuizCount(p.quiz_count ?? DEFAULT_PROGRESS.quiz_count);
     setFlashcardIndex(p.current_index ?? DEFAULT_PROGRESS.current_index);
     setReadingIndex(p.reading_index ?? DEFAULT_PROGRESS.reading_index);
