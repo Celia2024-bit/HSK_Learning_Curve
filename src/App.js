@@ -177,19 +177,6 @@ export default function App() {
     }
   };
 
-
-
-  // ① 同步进度的 useEffect —— 用字符串键
-  useEffect(() => {
-    const key = String(level);  // ✅ 强制字符串
-    const p = progressByLevel?.[key] || DEFAULT_PROGRESS;
-
-    setQuizCount(p.quiz_count ?? DEFAULT_PROGRESS.quiz_count);
-    setFlashcardIndex(p.current_index ?? DEFAULT_PROGRESS.current_index);
-    setReadingIndex(p.reading_index ?? DEFAULT_PROGRESS.reading_index);
-    setQuizRemoveCorrect(p.quiz_remove_correct ?? DEFAULT_PROGRESS.quiz_remove_correct);
-  }, [level, progressByLevel]);
-
   // ② saveProgress 的本地乐观更新 —— 用字符串键写入
   const saveProgress = useCallback(async (overrides = {}) => {
     if (!currentUser) return;
