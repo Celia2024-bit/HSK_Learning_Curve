@@ -309,9 +309,11 @@ export default function App() {
             onNext={(isCorrect, answerData, shouldMove = true) => {
               // 这里保持你原来的 updateMasteryRecord 逻辑即可
               if (isCorrect) setScore(s => s + 1);
-              const newAnswers = [...quizAnswers];
-              newAnswers[quizIndex] = answerData;
-              setQuizAnswers(newAnswers);
+              if (answerData) {
+                const newAnswers = [...quizAnswers];
+                newAnswers[quizIndex] = answerData;
+                setQuizAnswers(newAnswers);
+              }
 
               const char = quizQueue[quizIndex].char;
               const key = `${level}_${char}`;
