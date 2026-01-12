@@ -32,7 +32,7 @@ function Modal({ title, children, onClose }) {
   );
 }
 
-export default function CardManager({ username, onClose }) {
+export default function CardManager({ username, onClose, onUpdate }) {
   const [loading, setLoading] = useState(false);
   const [cards, setCards] = useState([]);
   const [search, setSearch] = useState('');
@@ -112,6 +112,7 @@ export default function CardManager({ username, onClose }) {
     try {
       await deleteCustomCard(cardId);
       await load();
+      if (onUpdate) onUpdate();
     } catch (e) {
       console.error(e);
       setError('Failed to delete. Please try again.');
@@ -142,6 +143,7 @@ export default function CardManager({ username, onClose }) {
       }
       closeModal();
       await load();
+      if (onUpdate) onUpdate();
     } catch (e) {
       console.error(e);
       setError('Failed to save. Please try again.');

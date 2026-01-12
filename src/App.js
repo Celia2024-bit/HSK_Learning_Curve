@@ -102,22 +102,24 @@ export default function App() {
   }, [level, progressByLevel]);
 
   // ② 加载当前 level 的词库
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const words = await fetchWordsByLevel(level, currentUser); // 传入 username
-        setAllWords(words);
-      } catch (e) {
-        console.error("Words load error:", e);
-        setAllWords([]); // 失败兜底
-      }
-    };
-    if (currentUser) {
-      loadData();
-    } else {
+  const loadWords = useCallback(async () => {
+    try {
+      const words = await fetchWordsByLevel(level, currentUser);
+      setAllWords(words);
+    } catch (e) {
+      console.error("Words load error:", e);
       setAllWords([]);
     }
   }, [level, currentUser]);
+
+  // 2. 让 useEffect 调用这个函数
+  useEffect(() => {
+    if (currentUser) {
+      loadWords();
+    } else {
+      setAllWords([]);
+    }
+  }, [loadWords]);
 
 
   const handleLogin = async (username, password) => {
@@ -272,6 +274,7 @@ export default function App() {
           <CardManager
             username={currentUser}
             onClose={() => setMode('menu')}
+            onUpdate={loadWords}
           />
         )}
 
