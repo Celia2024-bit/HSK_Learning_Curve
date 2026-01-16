@@ -9,6 +9,7 @@ import ReadingMode from './components/ReadingMode';
 import { getSmartQuizWords } from './utils/spacedRepetition';
 import sentencesData from './data/sentences.json';
 import CardManager from './components/cardManager';
+import SpeakingMode from './components/SpeakingMode';
 
 import { API_BASE, DEFAULT_QUIZ_COUNT } from './utils/constants';
 import { 
@@ -147,7 +148,7 @@ export default function App() {
       return;
     }
 
-    if (newMode === 'quiz') {
+    if (newMode === 'quiz'|| newMode === 'speaking') {
       // 1. 确定池子：如果有已学单词就用子表，否则用全集
       let pool = masteredWordsList.length > 5 ? masteredWordsList : allWords;
 
@@ -338,7 +339,23 @@ export default function App() {
             }}
           />
         )}
-
+        {mode === 'speaking' && (
+          <SpeakingMode
+            word={quizQueue[quizIndex]}
+            currentIndex={quizIndex}
+            total={quizQueue.length}
+            onSpeak={speakChinese}
+            onExit={() => setMode('menu')}
+            onPrev={() => setQuizIndex(prev => Math.max(0, prev - 1))}
+            onNext={() => {
+              if (quizIndex < quizQueue.length - 1) {
+                setQuizIndex(quizIndex + 1);
+              } else {
+                setMode('menu'); // 或者去结果页
+              }
+            }}
+          />
+        )}
         {mode === 'reading' && level !== 0 && (
           <ReadingMode
             data={sentencesData[level.toString()] || []}
