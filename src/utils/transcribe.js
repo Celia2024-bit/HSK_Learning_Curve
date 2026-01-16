@@ -25,7 +25,10 @@ const PinyinParser = {
 
 // 确保这里有 export
 export async function processAndCompare(audioFile, targetText) {
-    const API_URL = "http://localhost:39999/pinyin";
+     const API_URL = "https://audio-to-text-29330024195.europe-west2.run.app/pinyin";
+    // docker run -it -p 39999:10000 -v C:\workspace\Personals\AudioToPinyin:/app my_pinyin_service:v1 /bin/bash
+    // const API_URL = "http://localhost:39999/pinyin";
+
 
     try {
         // 使用正确的变量名 pinyin
