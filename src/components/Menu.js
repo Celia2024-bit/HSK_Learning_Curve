@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BookOpen, Brain, ChevronRight, Check } from 'lucide-react';
+import { BookOpen, Brain, ChevronRight, Check, Mic } from 'lucide-react';
 
 export default function Menu({
   level,
@@ -140,16 +140,50 @@ export default function Menu({
                   <p className="text-xs font-medium text-slate-400 italic leading-none mt-1">Context Practice</p>
                 </div>
               </div>
-              <ChevronRight size={18} className="text-slate-200 group-hover:text-indigo-400 transition-colors" />
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-black text-indigo-300 uppercase tracking-widest bg-indigo-50 px-2 py-1 rounded-lg">Start</span>
+                <ChevronRight size={18} className="text-slate-200 group-hover:text-indigo-400 transition-colors" />
+              </div>
             </button>
           )}
-
           <button 
-            onClick={() => startMode('quiz')}
-            className="w-full mt-4 py-5 bg-slate-900 text-white rounded-[2.2rem] font-black text-lg shadow-xl shadow-indigo-200/50 hover:bg-indigo-600 transition-all active:scale-[0.98] flex items-center justify-center gap-3"
+            onClick={() => startMode('speaking')}
+            className="w-full group bg-white p-6 rounded-[2rem] shadow-sm border border-transparent hover:border-green-100 transition-all flex items-center justify-between"
           >
-            START ADAPTIVE QUIZ
+            <div className="flex items-center gap-5">
+              <div className="w-12 h-12 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Mic size={24} />
+              </div>
+              <div className="text-left">
+                <h3 className="text-base font-black text-slate-800 tracking-tight">Speaking Quiz</h3>
+                <p className="text-xs font-medium text-slate-400 italic leading-none mt-1">Pronunciation Coach</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-black text-indigo-300 uppercase tracking-widest bg-indigo-50 px-2 py-1 rounded-lg">Start</span>
+              <ChevronRight size={18} className="text-slate-200 group-hover:text-indigo-400 transition-colors" />
+            </div>
           </button>
+          
+        <button 
+          onClick={() => startMode('quiz')}
+          className="w-full group bg-white p-6 rounded-[2rem] shadow-sm border border-transparent hover:border-indigo-100 transition-all flex items-center justify-between mt-4"
+        >
+          <div className="flex items-center gap-5">
+            {/* 使用紫色背景的图标容器 */}
+            <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Brain size={24} />
+            </div>
+            <div className="text-left">
+              <h3 className="text-base font-black text-slate-800 tracking-tight">Adaptive Quiz</h3>
+              <p className="text-xs font-medium text-slate-400 italic leading-none mt-1">Test your knowledge</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-black text-indigo-300 uppercase tracking-widest bg-indigo-50 px-2 py-1 rounded-lg">Start</span>
+            <ChevronRight size={18} className="text-slate-200 group-hover:text-indigo-400 transition-colors" />
+          </div>
+        </button>
 
           {/* ✅ 仅在 level = 0 时显示卡片管理按钮（沿用你的布局风格） */}
           {showCardManager && (
