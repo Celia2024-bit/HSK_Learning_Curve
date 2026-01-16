@@ -71,12 +71,32 @@ export default function Menu({
             </div>
           </div>
           
-          <input 
-            type="range" min="5" max="50" step="5" 
-            value={quizCount} 
-            onChange={(e) => setQuizCount(parseInt(e.target.value))}
-            className="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600 hover:accent-indigo-500 transition-all"
-          />
+          <div className="space-y-4">
+            <div className="flex justify-between items-center px-1">
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                Select Length
+              </span>
+              <span className="text-sm font-black text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full uppercase">
+                {quizCount} Cards
+              </span>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {[5, 10, 15, 20, 25,30,35,40, 45, 50, 'ALL'].map((option) => (
+                <button
+                  key={option}
+                  onClick={() => setQuizCount(option)} // 直接设置数字或 'ALL'
+                  className={`flex-1 min-w-[60px] py-3 rounded-2xl font-black text-sm transition-all duration-200 border-2 ${
+                    quizCount === option
+                      ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-100'
+                      : 'bg-white border-slate-100 text-slate-400 hover:border-indigo-200 hover:text-indigo-400'
+                  }`}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          </div>
 
           {/* 新增：答对即移除开关 - 完全匹配原有样式风格 */}
           <div className="mt-8 flex items-center justify-between">

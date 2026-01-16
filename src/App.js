@@ -150,8 +150,9 @@ export default function App() {
 
     if (newMode === 'quiz'|| newMode === 'speaking') {
       // 1. 确定池子：如果有已学单词就用子表，否则用全集
-      let pool = masteredWordsList.length > 5 ? masteredWordsList : allWords;
-
+      let pool = (quizCount === 'ALL') 
+        ? allWords 
+        : (masteredWordsList.length > 5 ? masteredWordsList : allWords);
       // 2. 如果开启了“移除上次正确”，在池子里滤掉
       if (quizRemoveCorrect) {
         pool = pool.filter(word => {
@@ -166,7 +167,8 @@ export default function App() {
     }
 
       // 3. 调用简化后的函数，只传 pool 和 count
-      const selected = getSmartQuizWords(pool, quizCount);
+      const countToFetch = (quizCount === 'ALL') ? allWords.length : quizCount;
+      const selected = getSmartQuizWords(pool, countToFetch);
       
       setQuizQueue(selected);
       setScore(0);
