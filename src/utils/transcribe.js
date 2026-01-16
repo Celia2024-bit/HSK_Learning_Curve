@@ -1,4 +1,5 @@
 import { pinyin } from 'pinyin-pro';
+import { PINYIN_API_URL } from './constants';
 
 const PinyinParser = {
     initials: ['ch', 'sh', 'zh', 'b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k', 'h', 'j', 'q', 'x', 'r', 's', 'z', 'y', 'w'],
@@ -25,11 +26,6 @@ const PinyinParser = {
 
 // 确保这里有 export
 export async function processAndCompare(audioFile, targetText) {
-     const API_URL = "https://audio-to-text-29330024195.europe-west2.run.app/pinyin";
-    // docker run -it -p 39999:10000 -v C:\workspace\Personals\AudioToPinyin:/app my_pinyin_service:v1 /bin/bash
-    // const API_URL = "http://localhost:39999/pinyin";
-
-
     try {
         // 使用正确的变量名 pinyin
         const expectedPinyins = pinyin(targetText, { 
@@ -40,7 +36,7 @@ export async function processAndCompare(audioFile, targetText) {
         const formData = new FormData();
         formData.append('file', audioFile);
 
-        const response = await fetch(API_URL, { method: "POST", body: formData });
+        const response = await fetch(PINYIN_API_URL, { method: "POST", body: formData });
         const data = await response.json();
         const actualPinyins = data.pinyin || data.tokens || []; 
 
