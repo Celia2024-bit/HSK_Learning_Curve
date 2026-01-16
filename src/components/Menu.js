@@ -61,40 +61,40 @@ export default function Menu({
         </div>
 
         {/* Settings Card */}
-        <div className="bg-white rounded-[2.5rem] p-8 shadow-xl shadow-indigo-100/50 mb-8 border border-white">
-          <div className="flex justify-between items-end mb-6">
-            <div>
-              <p className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Session Questions</p>
-              <h2 className="text-3xl font-black text-slate-800 mt-1">
-                {quizCount} <span className="text-sm text-slate-400 uppercase tracking-tighter">Words</span>
-              </h2>
-            </div>
+        <div className="space-y-4">
+          <div className="flex justify-between items-center px-1">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              Select Length
+            </span>
+            <span className="text-sm font-black text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full uppercase">
+              {quizCount === 'ALL' ? 'Full Set' : `${quizCount} Cards`}
+            </span>
           </div>
-          
-          <div className="space-y-4">
-            <div className="flex justify-between items-center px-1">
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                Select Length
-              </span>
-              <span className="text-sm font-black text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full uppercase">
-                {quizCount} Cards
-              </span>
-            </div>
 
-            <div className="flex flex-wrap gap-2">
-              {[5, 10, 15, 20, 25,30,35,40, 45, 50, 'ALL'].map((option) => (
-                <button
-                  key={option}
-                  onClick={() => setQuizCount(option)} // 直接设置数字或 'ALL'
-                  className={`flex-1 min-w-[60px] py-3 rounded-2xl font-black text-sm transition-all duration-200 border-2 ${
-                    quizCount === option
-                      ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-100'
-                      : 'bg-white border-slate-100 text-slate-400 hover:border-indigo-200 hover:text-indigo-400'
-                  }`}
-                >
-                  {option}
-                </button>
+          {/* 下拉菜单容器 */}
+          <div className="relative group">
+            <select
+              value={quizCount}
+              onChange={(e) => {
+                const val = e.target.value;
+                // 如果是数字则转为 Number，否则保持字符串 'ALL'
+                setQuizCount(val === 'ALL' ? 'ALL' : parseInt(val));
+              }}
+              className="w-full py-4 px-5 bg-white border-2 border-slate-100 rounded-[2rem] font-black text-slate-600 appearance-none cursor-pointer focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50 transition-all hover:border-indigo-200"
+            >
+              {[5, 10, 15, 20, 25, 30, 35, 40, 45, 50].map((num) => (
+                <option key={num} value={num}>
+                  {num} Questions
+                </option>
               ))}
+              <option value="ALL">ALL (Full Level)</option>
+            </select>
+            
+            {/* 自定义下拉箭头图标 */}
+            <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 group-focus-within:text-indigo-500 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
             </div>
           </div>
 
