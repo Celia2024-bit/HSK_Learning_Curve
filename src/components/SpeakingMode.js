@@ -57,7 +57,7 @@ export default function SpeakingMode({ word, currentIndex, total, onSpeak, onExi
   // --- 模拟 index.html 渲染结果的函数 ---
   const renderResults = () => {
     if (!results) return null;
-
+   
     return (
       <div className="flex flex-wrap justify-center gap-3 mt-8 animate-in fade-in zoom-in duration-300">
         {results.map((item, idx) => (
@@ -109,7 +109,7 @@ export default function SpeakingMode({ word, currentIndex, total, onSpeak, onExi
       </div>
     );
   };
-
+  const isPerfectMatch = results && results.length > 0 && results.every(item => item.isCorrect);
   return (
     <div className="bg-white rounded-[2.5rem] shadow-xl p-6 sm:p-10 border border-gray-100 max-w-2xl mx-auto">
       {/* Header */}
@@ -173,7 +173,9 @@ export default function SpeakingMode({ word, currentIndex, total, onSpeak, onExi
       {/* Bottom Nav */}
       <div className="flex gap-4">
         <button onClick={onPrev} disabled={currentIndex === 0} className="flex-1 py-4 bg-gray-100 text-gray-400 rounded-2xl font-bold">PREV</button>
-        <button onClick={() => onNext(true, null, true)} className="flex-[2] py-4 bg-slate-900 text-white rounded-2xl font-bold text-xl shadow-lg hover:bg-indigo-600">
+        <button 
+          onClick={() => onNext(!!isPerfectMatch, null, true)}
+          className="flex-[2] py-4 bg-slate-900 text-white rounded-2xl font-bold text-xl shadow-lg hover:bg-indigo-600">
           {currentIndex === total - 1 ? 'FINISH' : 'NEXT'}
         </button>
       </div>
