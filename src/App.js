@@ -160,12 +160,10 @@ export default function App() {
             quizCount={quizCount}
             setQuizCount={(c) => { setQuizCount(c); saveProgress({ quizCount: c }); }}
             quizRemoveCorrect={quizRemoveCorrect}
-            // ✅ 修复：正确闭合箭头函数的大括号
             setQuizRemoveCorrect={(val) => { 
               setQuizRemoveCorrect(val); 
               saveProgress({ quizRemoveCorrect: val }); 
             }} 
-            // ✅ 修复：现在这些 Prop 处于 Menu 的正确层级
             speakingLang={currentSpeakingLang} 
             setSpeakingLang={(l) => saveProgress({ speakingLang: l })}
             startMode={startMode} 
@@ -262,7 +260,7 @@ export default function App() {
                 word: currentWord,
                 isCorrect: isCorrect,
                 type: 'speaking',
-                lang: speakingLang 
+                lang: currentSpeakingLang 
               };
               setQuizAnswers(newAnswers);
 
@@ -272,7 +270,7 @@ export default function App() {
 
               let updateFields = {};
 
-              if (speakingLang === 'zh') {
+              if (currentSpeakingLang === 'zh') {
                 updateFields = {
                   lastSpeakingQuiz: new Date().toISOString(),
                   lastSpeakingResult: isCorrect,
