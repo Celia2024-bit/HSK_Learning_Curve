@@ -46,6 +46,7 @@ export default function App() {
     getCurrentProgress,
     resetData
   } = useUserProgress(currentUser, level);
+  const currentSpeakingLang = progressByLevel[level]?.speaking_lang || 'zh';
 
   // 同步当前 level 的进度到 UI
   useEffect(() => {
@@ -159,15 +160,14 @@ export default function App() {
             quizCount={quizCount}
             setQuizCount={(c) => { setQuizCount(c); saveProgress({ quizCount: c }); }}
             quizRemoveCorrect={quizRemoveCorrect}
+            // ✅ 修复：正确闭合箭头函数的大括号
             setQuizRemoveCorrect={(val) => { 
               setQuizRemoveCorrect(val); 
               saveProgress({ quizRemoveCorrect: val }); 
-            }}
-            speakingLang={speakingLang}
-            setSpeakingLang={(l) => {
-              setSpeakingLang(l);
-              saveProgress({ speakingLang: l }); // 切换时立即自动保存
-            }}
+            }} 
+            // ✅ 修复：现在这些 Prop 处于 Menu 的正确层级
+            speakingLang={currentSpeakingLang} 
+            setSpeakingLang={(l) => saveProgress({ speakingLang: l })}
             startMode={startMode} 
             showCardManager={level === 0}
             onOpenCardManager={() => setMode('cards')}
@@ -251,7 +251,7 @@ export default function App() {
             word={quizQueue[quizIndex]}
             currentIndex={quizIndex}
             total={quizQueue.length}
-            lang={speakingLang} 
+            lang={currentSpeakingLang} 
             onSpeak={speakChinese}
             onExit={() => setMode('menu')}
             onPrev={() => setQuizIndex(prev => Math.max(0, prev - 1))}
