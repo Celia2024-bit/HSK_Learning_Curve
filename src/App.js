@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Login from './components/Login';
 import Menu from './components/Menu';
@@ -6,123 +6,56 @@ import FlashcardMode from './components/FlashcardMode';
 import QuizMode from './components/QuizMode';
 import Results from './components/Results';
 import ReadingMode from './components/ReadingMode';
-import { getSmartQuizWords } from './utils/spacedRepetition';
-import sentencesData from './data/sentences.json';
 import CardManager from './components/cardManager';
 import SpeakingMode from './components/SpeakingMode';
 
+import { getSmartQuizWords } from './utils/spacedRepetition';
+import sentencesData from './data/sentences.json';
 import { API_BASE, DEFAULT_QUIZ_COUNT } from './utils/constants';
-import { 
-  fetchUserProgress, 
-  fetchUserMastery, 
-  fetchWordsByLevel, 
-  fetchLogin, 
-  fetchSaveMastery, 
-  fetchSaveProgress, 
-  getTtsUrl 
-} from './utils/fetchUtils';
+import { fetchLogin, getTtsUrl } from './utils/fetchUtils';
+import { useUserProgress } from './hooks/useUserProgress';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [mode, setMode] = useState('menu');
   const [level, setLevel] = useState(1);
+  
+  // UI 状态
   const [quizCount, setQuizCount] = useState(DEFAULT_QUIZ_COUNT);
   const [quizRemoveCorrect, setQuizRemoveCorrect] = useState(false);
+  const [flashcardIndex, setFlashcardIndex] = useState(0);
+  const [quizIndex, setQuizIndex] = useState(0);
+  const [readingIndex, setReadingIndex] = useState(0);
   
-  const [allWords, setAllWords] = useState([]);      
-  const [quizQueue, setQuizQueue] = useState([]);    
-  const [mastery, setMastery] = useState({});        
-
-  const [flashcardIndex, setFlashcardIndex] = useState(0); 
-  const [quizIndex, setQuizIndex] = useState(0);         
-  const [readingIndex, setReadingIndex] = useState(0);   
-  const [quizAnswers, setQuizAnswers] = useState([]); 
+  // 测验相关
+  const [quizQueue, setQuizQueue] = useState([]);
+  const [quizAnswers, setQuizAnswers] = useState([]);
   const [score, setScore] = useState(0);
-  
-  const [progressByLevel, setProgressByLevel] = useState({});
-  const DEFAULT_PROGRESS = {
-    quiz_count: DEFAULT_QUIZ_COUNT,
-    current_index: 0,
-    reading_index: 0,
-    quiz_remove_correct: false,
-  };
 
+  // 使用自定义 hook 管理所有数据持久化逻辑
+  const {
+    allWords,
+    mastery,
+    progressByLevel,
+    masteredWordsList,
+    fetchUserData,
+    loadWords,
+    updateMasteryRecord,
+    saveProgress,
+    getCurrentProgress,
+    resetData
+  } = useUserProgress(currentUser, level);
 
-
-  // --- 核心改动：生成“已学单词”子表 ---
-  // 根据数据库截图，Key 格式为 "1_不"，此处逻辑与之对齐
-  const masteredWordsList = useMemo(() => {
-    if (!allWords.length) return [];
-    return allWords
-      .filter(word => {
-        const key = `${level}_${word.char}`;
-        return mastery[key] !== undefined;
-      })
-      .map(word => ({
-        ...word,
-        masteryInfo: mastery[`${level}_${word.char}`] 
-      }));
-  }, [allWords, mastery, level]);
-
-  const fetchUserData = async (username) => {
-    try {
-      // 1. 获取进度 (对应后端 /get_user_progress)
-      const progressMap = await fetchUserProgress(username);
-      setProgressByLevel(progressMap || {});
-      
-      // 用当前 level 对应的记录（无则默认）
-      const key = String(level);
-      const p = progressMap?.[key] || DEFAULT_PROGRESS;
-      setQuizCount(p.quiz_count ?? DEFAULT_PROGRESS.quiz_count);
-      setFlashcardIndex(p.current_index ?? DEFAULT_PROGRESS.current_index);
-      setReadingIndex(p.reading_index ?? DEFAULT_PROGRESS.reading_index);
-      setQuizRemoveCorrect(p.quiz_remove_correct ?? DEFAULT_PROGRESS.quiz_remove_correct);
-
-      // 2. 获取该等级下的熟练度 (对应后端 /get_user_mastery)
-      const masteryData = await fetchUserMastery(username);
-      setMastery(masteryData || {});
-    } catch (e) {
-      console.error("Failed to load user data:", e);
-    }
-  };
-
-  // 监听 level 变化加载本地 HSK 词库
-
-// ① 同步当前 level 的进度到 UI（无网络请求）
+  // 同步当前 level 的进度到 UI
   useEffect(() => {
-    
-   console.log('level type:', typeof level, level);             // 应该是 'number'
-   console.log('progressByLevel keys:', Object.keys(progressByLevel)); // 应该类似 ["1","2","3"]
+    const p = getCurrentProgress();
+    setQuizCount(p.quiz_count ?? DEFAULT_QUIZ_COUNT);
+    setFlashcardIndex(p.current_index ?? 0);
+    setReadingIndex(p.reading_index ?? 0);
+    setQuizRemoveCorrect(p.quiz_remove_correct ?? false);
+  }, [level, progressByLevel, getCurrentProgress]);
 
-    const key = String(level);
-    const p = progressByLevel?.[key] || DEFAULT_PROGRESS;
-    setQuizCount(p.quiz_count ?? DEFAULT_PROGRESS.quiz_count);
-    setFlashcardIndex(p.current_index ?? DEFAULT_PROGRESS.current_index);
-    setReadingIndex(p.reading_index ?? DEFAULT_PROGRESS.reading_index);
-    setQuizRemoveCorrect(p.quiz_remove_correct ?? DEFAULT_PROGRESS.quiz_remove_correct);
-  }, [level, progressByLevel]);
-
-  // ② 加载当前 level 的词库
-  const loadWords = useCallback(async () => {
-    try {
-      const words = await fetchWordsByLevel(level, currentUser);
-      setAllWords(words);
-    } catch (e) {
-      console.error("Words load error:", e);
-      setAllWords([]);
-    }
-  }, [level, currentUser]);
-
-  // 2. 让 useEffect 调用这个函数
-  useEffect(() => {
-    if (currentUser) {
-      loadWords();
-    } else {
-      setAllWords([]);
-    }
-  }, [loadWords]);
-
-
+  // 登录
   const handleLogin = async (username, password) => {
     const res = await fetchLogin(username, password);
     if (res.ok) {
@@ -133,109 +66,48 @@ export default function App() {
     }
   };
 
+  // 登出
   const handleLogout = () => {
     setCurrentUser(null);
-    setMastery({});
-    setProgressByLevel({});
+    resetData();
     setMode('menu');
   };
 
+  // 开始某个模式
   const startMode = (newMode) => {
-    
     if (newMode === 'reading' && level === 0) {
-      // 直接返回或给出提示
-      // alert('自定义词库（level 0）不提供阅读模式');
       return;
     }
 
-    if (newMode === 'quiz'|| newMode === 'speaking') {
-      // 1. 确定池子：如果有已学单词就用子表，否则用全集
+    if (newMode === 'quiz' || newMode === 'speaking') {
+      // 1. 确定池子
       let pool = (quizCount === 'ALL') 
         ? allWords 
         : (masteredWordsList.length > 5 ? masteredWordsList : allWords);
-      // 2. 如果开启了“移除上次正确”，在池子里滤掉
+      
+      // 2. 如果开启了"移除上次正确"
       if (quizRemoveCorrect) {
         pool = pool.filter(word => {
-        // 1. 获取这个字在 Map 里的记录
-        const key = `${level}_${word.char}`;
-        const record = mastery[key];
-        
-        // 2. 如果没考过(record不存在)，或者上次考错了(lastResult !== true)，就保留
-        // 只有“明确考过且结果为正确”的才过滤掉
-        return !record || record.lastResult !== true;
-      });
-    }
+          const key = `${level}_${word.char}`;
+          const record = mastery[key];
+          return !record || record.lastResult !== true;
+        });
+      }
 
-      // 3. 调用简化后的函数，只传 pool 和 count
+      // 3. 生成测验队列
       const countToFetch = (quizCount === 'ALL') ? allWords.length : quizCount;
       const selected = getSmartQuizWords(pool, countToFetch);
       
       setQuizQueue(selected);
       setScore(0);
       setQuizAnswers([]);
-      setQuizIndex(0); 
+      setQuizIndex(0);
     }
+    
     setMode(newMode);
   };
 
-  const updateMasteryRecord = async (char, newFields) => {
-    const key = `${level}_${char}`;
-    const current = mastery[key] || { score: 1, lastQuiz: null, mistakeCount: 0 };
-    const updated = { ...current, ...newFields };
-    
-    // 更新本地 state，触发 masteredWordsList 重新计算
-    setMastery(prevMap => ({
-      ...prevMap,
-      [key]: { ...prevMap[key], ...newFields }
-    }));
-    
-    try {
-      await fetchSaveMastery(currentUser, char, level, updated);
-    } catch (e) {
-      console.error("保存失败:", e);
-    }
-  };
-
-  // ② saveProgress 的本地乐观更新 —— 用字符串键写入
-  const saveProgress = useCallback(async (overrides = {}) => {
-    if (!currentUser) return;
-
-    // 目标级别：显式传入优先，否则用当前 level
-    const targetLevel = (overrides.level !== undefined ? overrides.level : level);
-    const key = String(targetLevel);
-
-    // 以目标 level 的现有记录为基准（如果没有，退默认）
-    const prevRecord = progressByLevel?.[key] || DEFAULT_PROGRESS;
-
-    // 只把传进来的字段覆盖到目标 level，其它字段沿用目标 level 的现有值
-    const record = {
-      quiz_count:
-        overrides.quizCount       ?? prevRecord.quiz_count       ?? DEFAULT_PROGRESS.quiz_count,
-      current_index:
-        overrides.index           ?? prevRecord.current_index    ?? DEFAULT_PROGRESS.current_index,
-      reading_index:
-        overrides.readingIndex    ?? prevRecord.reading_index    ?? DEFAULT_PROGRESS.reading_index,
-      quiz_remove_correct:
-        overrides.quizRemoveCorrect ?? prevRecord.quiz_remove_correct ?? DEFAULT_PROGRESS.quiz_remove_correct,
-    };
-
-    // 本地 Map 乐观更新（注意克隆，避免共享引用）
-    setProgressByLevel(prev => ({
-      ...prev,
-      [key]: { ...record },
-    }));
-
-    // 发到后端
-    await fetchSaveProgress({
-      username: currentUser,
-      level: targetLevel,
-      record,
-    });
-  }, [currentUser, level, progressByLevel]);
-
-
-
-
+  // 朗读中文
   const speakChinese = async (text, isSlow = true) => {
     const audioUrl = getTtsUrl(text, isSlow);
     const audio = new Audio(audioUrl);
@@ -266,10 +138,8 @@ export default function App() {
               saveProgress({ quizRemoveCorrect: val }); 
             }}
             startMode={startMode} 
-            
             showCardManager={level === 0}
             onOpenCardManager={() => setMode('cards')}
-
           />
         )}
 
@@ -286,25 +156,20 @@ export default function App() {
             data={allWords}
             currentIndex={flashcardIndex}
             setIndex={(i) => { 
-              // --- 新逻辑：在翻页前，更新当前单词的学习时间 ---
               const currentChar = allWords[flashcardIndex]?.char;
               if (currentChar) {
                 updateMasteryRecord(currentChar, { 
                   lastUpdate: new Date().toISOString() 
                 });
               }
-
-              // 执行原有的翻页和保存进度逻辑
               setFlashcardIndex(i); 
               saveProgress({ level, index: i }); 
             }}
             onBack={() => setMode('menu')}
             onSpeak={speakChinese}
             level={level}
-            // 这里的 score 仅负责显示当前的掌握程度
             currentMastery={mastery[`${level}_${allWords[flashcardIndex]?.char}`]?.score}
             onUpdateMastery={(char, score) => {
-              // 这里的打分不再强制更新时间，只更新分数
               updateMasteryRecord(char, { score });
             }}
           />
@@ -312,24 +177,16 @@ export default function App() {
 
         {mode === 'quiz' && (
           <QuizMode 
-            // 1. 当前这道题（主角）
             word={quizQueue[quizIndex]} 
-            
-            // 2. 整个级别的词库（用来提供错误的干扰项）
             quizPool={allWords} 
-            
-            // 3. 进度信息
             currentIndex={quizIndex}
             total={quizQueue.length}
             score={score}
-            
-            // 4. 函数回调
             onSpeak={speakChinese}
             onExit={() => setMode('menu')}
             savedAnswer={quizAnswers[quizIndex]}
             onPrev={() => setQuizIndex(prev => Math.max(0, prev - 1))}
             onNext={(isCorrect, answerData, shouldMove = true) => {
-              // 这里保持你原来的 updateMasteryRecord 逻辑即可
               if (isCorrect) setScore(s => s + 1);
               if (answerData) {
                 const newAnswers = [...quizAnswers];
@@ -346,7 +203,7 @@ export default function App() {
                 lastResult: isCorrect,
                 mistakeCount: isCorrect ? (currentRec.mistakeCount || 0) : (currentRec.mistakeCount || 0) + 1
               });
-              // 2. 只有当 shouldMove 为 true 时，才真正翻页
+
               if (shouldMove) {
                 if (quizIndex < quizQueue.length - 1) {
                   setQuizIndex(quizIndex + 1);
@@ -357,6 +214,7 @@ export default function App() {
             }}
           />
         )}
+
         {mode === 'speaking' && (
           <SpeakingMode
             word={quizQueue[quizIndex]}
@@ -369,11 +227,12 @@ export default function App() {
               if (quizIndex < quizQueue.length - 1) {
                 setQuizIndex(quizIndex + 1);
               } else {
-                setMode('menu'); // 或者去结果页
+                setMode('menu');
               }
             }}
           />
         )}
+
         {mode === 'reading' && level !== 0 && (
           <ReadingMode
             data={sentencesData[level.toString()] || []}
