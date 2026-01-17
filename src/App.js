@@ -31,6 +31,7 @@ export default function App() {
   const [quizQueue, setQuizQueue] = useState([]);
   const [quizAnswers, setQuizAnswers] = useState([]);
   const [score, setScore] = useState(0);
+  const [speakingLang, setSpeakingLang] = useState('zh');
 
   // 使用自定义 hook 管理所有数据持久化逻辑
   const {
@@ -105,8 +106,15 @@ export default function App() {
           const record = mastery[key];
           if (!record) return true;
 
-          const hasRecord = record.lastSpeakingQuiz !== undefined;
-          const isCorrect = quizRemoveCorrect ? record.lastSpeakingResult === true : false;
+          let hasRecord, isCorrect;
+          if (speakingLang === 'zh') {
+            hasRecord = record.lastSpeakingQuiz !== undefined;
+            isCorrect = quizRemoveCorrect ? record.lastSpeakingResult === true : false;
+          } else {
+            // 英文和法语目前共用翻译字段 (也可细分)
+            hasRecord = record.lastTranslateQuiz !== undefined;
+            isCorrect = quizRemoveCorrect ? record.lastTranslateResult === true : false;
+          }
           return quizCount === 'ALL' ? true : (hasRecord && !isCorrect);
         });
       }
@@ -154,6 +162,11 @@ export default function App() {
             setQuizRemoveCorrect={(val) => { 
               setQuizRemoveCorrect(val); 
               saveProgress({ quizRemoveCorrect: val }); 
+            }}
+            speakingLang={speakingLang}
+            setSpeakingLang={(l) => {
+              setSpeakingLang(l);
+              saveProgress({ speakingLang: l }); // 切换时立即自动保存
             }}
             startMode={startMode} 
             showCardManager={level === 0}
@@ -238,6 +251,7 @@ export default function App() {
             word={quizQueue[quizIndex]}
             currentIndex={quizIndex}
             total={quizQueue.length}
+            lang={speakingLang} 
             onSpeak={speakChinese}
             onExit={() => setMode('menu')}
             onPrev={() => setQuizIndex(prev => Math.max(0, prev - 1))}
@@ -247,27 +261,42 @@ export default function App() {
               newAnswers[quizIndex] = {
                 word: currentWord,
                 isCorrect: isCorrect,
-                type: 'speaking'
+                type: 'speaking',
+                lang: speakingLang 
               };
               setQuizAnswers(newAnswers);
+
               const char = quizQueue[quizIndex].char;
               const key = `${level}_${char}`;
               const currentRec = mastery[key] || {};
-             
-              updateMasteryRecord(char, {
-                lastSpeakingQuiz: new Date().toISOString(), // 记录练习时间
-                lastSpeakingResult: isCorrect,              // 记录是否全对
-                // 如果错了，speakingMistakeCount 加 1
-                speakingMistakeCount: isCorrect 
-                  ? (currentRec.speakingMistakeCount || 0) 
-                  : (currentRec.speakingMistakeCount || 0) + 1
-              });
+
+              let updateFields = {};
+
+              if (speakingLang === 'zh') {
+                updateFields = {
+                  lastSpeakingQuiz: new Date().toISOString(),
+                  lastSpeakingResult: isCorrect,
+                  speakingMistakeCount: isCorrect 
+                    ? (currentRec.speakingMistakeCount || 0) 
+                    : (currentRec.speakingMistakeCount || 0) + 1
+                };
+              } else {
+                updateFields = {
+                  lastTranslateQuiz: new Date().toISOString(),
+                  lastTranslateResult: isCorrect,
+                  translateMistakeCount: isCorrect 
+                    ? (currentRec.translateMistakeCount || 0) 
+                    : (currentRec.translateMistakeCount || 0) + 1
+                };
+              }
+
+              updateMasteryRecord(char, updateFields);
 
               if (shouldMove) {
                 if (quizIndex < quizQueue.length - 1) {
                   setQuizIndex(quizIndex + 1);
                 } else {
-                  setMode('results'); 
+                  setMode('results');
                 }
               }
             }}
