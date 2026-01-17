@@ -181,7 +181,7 @@ export default function App() {
   const updateMasteryRecord = async (char, newFields) => {
     const key = `${level}_${char}`;
     const current = mastery[key] || { score: 1, lastQuiz: null, mistakeCount: 0 };
-    const updated = { ...current, ...newFields, level, lastUpdate: new Date().toISOString() };
+    const updated = { ...current, ...newFields };
     
     // 更新本地 state，触发 masteredWordsList 重新计算
     setMastery(prevMap => ({
@@ -285,12 +285,28 @@ export default function App() {
           <FlashcardMode 
             data={allWords}
             currentIndex={flashcardIndex}
-            setIndex={(i) => { setFlashcardIndex(i); saveProgress({ level, index: i }); }}
+            setIndex={(i) => { 
+              // --- 新逻辑：在翻页前，更新当前单词的学习时间 ---
+              const currentChar = allWords[flashcardIndex]?.char;
+              if (currentChar) {
+                updateMasteryRecord(currentChar, { 
+                  lastUpdate: new Date().toISOString() 
+                });
+              }
+
+              // 执行原有的翻页和保存进度逻辑
+              setFlashcardIndex(i); 
+              saveProgress({ level, index: i }); 
+            }}
             onBack={() => setMode('menu')}
             onSpeak={speakChinese}
             level={level}
+            // 这里的 score 仅负责显示当前的掌握程度
             currentMastery={mastery[`${level}_${allWords[flashcardIndex]?.char}`]?.score}
-            onUpdateMastery={(char, score) => updateMasteryRecord(char, { score })}
+            onUpdateMastery={(char, score) => {
+              // 这里的打分不再强制更新时间，只更新分数
+              updateMasteryRecord(char, { score });
+            }}
           />
         )}
 
