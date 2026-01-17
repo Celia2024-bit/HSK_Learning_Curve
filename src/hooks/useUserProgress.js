@@ -13,12 +13,15 @@ const DEFAULT_PROGRESS = {
   current_index: 0,
   reading_index: 0,
   quiz_remove_correct: false,
+  speaking_lang: 'zh',
 };
+
 
 export function useUserProgress(currentUser, level) {
   const [allWords, setAllWords] = useState([]);
   const [mastery, setMastery] = useState({});
   const [progressByLevel, setProgressByLevel] = useState({});
+  const [speakingLang, setSpeakingLang] = useState('zh');
 
   // 计算已学单词列表
   const masteredWordsList = useMemo(() => {
@@ -106,8 +109,12 @@ export function useUserProgress(currentUser, level) {
         overrides.readingIndex ?? prevRecord.reading_index ?? DEFAULT_PROGRESS.reading_index,
       quiz_remove_correct:
         overrides.quizRemoveCorrect ?? prevRecord.quiz_remove_correct ?? DEFAULT_PROGRESS.quiz_remove_correct,
+      speaking_lang: overrides.speakingLang ?? prevRecord.speaking_lang ?? DEFAULT_PROGRESS.speaking_lang
     };
 
+    if (overrides.speakingLang) {
+       setSpeakingLang(overrides.speakingLang);
+    }
     // 本地更新
     setProgressByLevel(prev => ({
       ...prev,
