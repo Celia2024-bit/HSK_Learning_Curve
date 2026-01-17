@@ -242,6 +242,13 @@ export default function App() {
             onExit={() => setMode('menu')}
             onPrev={() => setQuizIndex(prev => Math.max(0, prev - 1))}
             onNext={(isCorrect, answerData, shouldMove = true) => {
+              const currentWord = quizQueue[quizIndex];
+              const newAnswers = [...quizAnswers];
+              newAnswers[quizIndex] = {
+                word: currentWord,
+                isCorrect: isCorrect
+              };
+              setQuizAnswers(newAnswers);
               const char = quizQueue[quizIndex].char;
               const key = `${level}_${char}`;
               const currentRec = mastery[key] || {};
