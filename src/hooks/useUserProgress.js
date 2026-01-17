@@ -21,7 +21,6 @@ export function useUserProgress(currentUser, level) {
   const [allWords, setAllWords] = useState([]);
   const [mastery, setMastery] = useState({});
   const [progressByLevel, setProgressByLevel] = useState({});
-  const [speakingLang, setSpeakingLang] = useState('zh');
 
   // 计算已学单词列表
   const masteredWordsList = useMemo(() => {
@@ -112,9 +111,6 @@ export function useUserProgress(currentUser, level) {
       speaking_lang: overrides.speakingLang ?? prevRecord.speaking_lang ?? DEFAULT_PROGRESS.speaking_lang
     };
 
-    if (overrides.speakingLang) {
-       setSpeakingLang(overrides.speakingLang);
-    }
     // 本地更新
     setProgressByLevel(prev => ({
       ...prev,
