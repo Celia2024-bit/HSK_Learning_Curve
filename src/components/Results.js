@@ -15,9 +15,6 @@ export default function Results({ score, total, quizAnswers, onRetry, onMenu, on
         
         {/* Score Card */}
         <div className="bg-white rounded-[2.5rem] p-10 shadow-xl shadow-indigo-100/50 mb-8 text-center border border-white">
-          <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-indigo-50 mb-4">
-            <span className="text-3xl font-black text-indigo-600">{percentage}%</span>
-          </div>
           <h2 className="text-2xl font-black text-slate-800">Session Complete</h2>
           <p className="text-slate-400 font-bold text-xs uppercase tracking-widest mt-1">
             {score} Correct • {total - score} Mistake{total - score !== 1 ? 's' : ''}
