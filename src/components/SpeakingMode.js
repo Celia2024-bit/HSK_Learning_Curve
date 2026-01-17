@@ -144,14 +144,38 @@ export default function SpeakingMode({ word, currentIndex, total, lang, onSpeak,
   const isPerfectMatch = results && results.length > 0 && results.every(item => item.isCorrect);
   return (
     <div className="bg-white rounded-[2.5rem] shadow-xl p-6 sm:p-10 border border-gray-100 max-w-2xl mx-auto">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <button onClick={onExit} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 rounded-2xl transition-colors">
-          <Home size={18} className="text-gray-400" />
-          <span className="text-xs font-black uppercase tracking-widest text-gray-400">Exit</span>
-        </button>
-        <div className="text-2xl font-black text-indigo-600">{currentIndex + 1} / {total}</div>
-      </div>
+    <div className="flex justify-between items-center mb-10"> {/* 增加一点底部边距 */}
+          
+          {/* 1. 左侧：Exit 按钮 */}
+          <div className="flex-1 flex justify-start">
+            <button onClick={onExit} className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-2xl transition-colors">
+              <Home size={18} className="text-gray-400" />
+              <span className="hidden sm:inline text-xs font-black uppercase tracking-widest text-gray-400">Back</span>
+            </button>
+          </div>
+
+          {/* 2. 中间：语言标签 (放入此处绝不会重叠) */}
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 rounded-xl border border-indigo-100/50">
+            <div className={`w-2 h-2 rounded-full ${isRecording ? 'bg-red-500 animate-pulse' : 'bg-indigo-400'}`}></div>
+            <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest whitespace-nowrap">
+              {
+                {
+                  'zh': 'Chinese',
+                  'en': 'English',
+                  'fr': 'French'
+                }[lang] || lang.toUpperCase()
+              }
+            </span>
+          </div>
+
+          {/* 3. 右侧：进度计数 */}
+          <div className="flex-1 flex justify-end">
+            <div className="text-2xl font-black text-indigo-600 tracking-tighter">
+              {currentIndex + 1} <span className="text-indigo-200 text-lg">/</span> {total}
+            </div>
+          </div>
+        </div>
+    {/* --- Header 结束 --- */}
 
       {/* Main Word Area */}
       <div className="text-center">
