@@ -9,6 +9,8 @@ export default function Menu({
   setQuizCount,
   quizRemoveCorrect,
   setQuizRemoveCorrect,
+  speakingLang, 
+  setSpeakingLang,
   startMode,
 
   // 新增：仅在 level === 0 时显示卡片管理按钮（由 App 传入）
@@ -166,6 +168,24 @@ export default function Menu({
               </div>
             </button>
           )}
+          
+          {/* 1. 这里是新增的语言选择器 UI */}
+          <div className="flex justify-between items-center px-4 pt-4">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Speaking Target</span>
+            <div className="flex bg-gray-200/50 p-1 rounded-xl">
+              {['zh', 'en', 'fr'].map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setSpeakingLang(l)}
+                  className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${
+                    speakingLang === l ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400'
+                  }`}
+                >
+                  {l === 'zh' ? 'CN' : l.toUpperCase()}
+                </button>
+              ))}
+            </div>
+          </div>
           <button 
             onClick={() => startMode('speaking')}
             className="w-full group bg-white p-6 rounded-[2rem] shadow-sm border border-transparent hover:border-green-100 transition-all flex items-center justify-between"
