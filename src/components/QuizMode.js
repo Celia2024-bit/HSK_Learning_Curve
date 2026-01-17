@@ -44,6 +44,7 @@ export default function QuizMode({
       setShowUserResult(false);
       setShowCorrectAnswer(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [word?.char]); // 只在“字”变了的时候才重新生成选项
 
   const handleOptionClick = (char) => {

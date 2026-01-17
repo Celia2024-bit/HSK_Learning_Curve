@@ -2,7 +2,6 @@ import React from 'react';
 import { Home, RotateCcw, Volume2, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 export default function Results({ score, total, quizAnswers, onRetry, onMenu, onSpeak }) {
-  const percentage = Math.round((score / total) * 100);
   
   // 过滤出错误的题目
   const mistakes = quizAnswers.filter(ans => !ans.isCorrect);

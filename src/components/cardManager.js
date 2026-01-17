@@ -67,6 +67,7 @@ export default function CardManager({ username, onClose, onUpdate }) {
 
   useEffect(() => {
     if (username) load();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
   const filtered = useMemo(() => {
@@ -150,7 +151,7 @@ export default function CardManager({ username, onClose, onUpdate }) {
     }
   };
 
-  // Keyboard UX: Ctrl/Cmd + Enter submit; Esc close
+
   const onKeyDown = useCallback((e) => {
     if (e.key === 'Escape') {
       closeModal();
@@ -158,6 +159,7 @@ export default function CardManager({ username, onClose, onUpdate }) {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
       onSubmit();
     }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form, editingId]);
 
   return (
