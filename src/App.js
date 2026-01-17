@@ -223,11 +223,26 @@ export default function App() {
             onSpeak={speakChinese}
             onExit={() => setMode('menu')}
             onPrev={() => setQuizIndex(prev => Math.max(0, prev - 1))}
-            onNext={() => {
-              if (quizIndex < quizQueue.length - 1) {
-                setQuizIndex(quizIndex + 1);
-              } else {
-                setMode('menu');
+            onNext={(isCorrect, answerData, shouldMove = true) => {
+              const char = quizQueue[quizIndex].char;
+              const key = `${level}_${char}`;
+              const currentRec = mastery[key] || {};
+             
+              updateMasteryRecord(char, {
+                lastSpeakingQuiz: new Date().toISOString(), // 记录练习时间
+                lastSpeakingResult: isCorrect,              // 记录是否全对
+                // 如果错了，speakingMistakeCount 加 1
+                speakingMistakeCount: isCorrect 
+                  ? (currentRec.speakingMistakeCount || 0) 
+                  : (currentRec.speakingMistakeCount || 0) + 1
+              });
+
+              if (shouldMove) {
+                if (quizIndex < quizQueue.length - 1) {
+                  setQuizIndex(quizIndex + 1);
+                } else {
+                  setMode('results'); 
+                }
               }
             }}
           />
