@@ -208,7 +208,7 @@ export default function App() {
               if (isCorrect) setScore(s => s + 1);
               if (answerData) {
                 const newAnswers = [...quizAnswers];
-                newAnswers[quizIndex] = answerData;
+                newAnswers[quizIndex] = { ...answerData, type: 'quiz' };
                 setQuizAnswers(newAnswers);
               }
 
@@ -246,7 +246,8 @@ export default function App() {
               const newAnswers = [...quizAnswers];
               newAnswers[quizIndex] = {
                 word: currentWord,
-                isCorrect: isCorrect
+                isCorrect: isCorrect,
+                type: 'speaking'
               };
               setQuizAnswers(newAnswers);
               const char = quizQueue[quizIndex].char;
@@ -288,7 +289,7 @@ export default function App() {
             score={score} 
             total={quizQueue.length} 
             quizAnswers={quizAnswers} 
-            onRetry={() => startMode('quiz')}
+            onRetry={() => startMode(quizAnswers[0]?.type === 'speaking' ? 'speaking' : 'quiz')}
             onMenu={() => setMode('menu')}
             onSpeak={speakChinese}
           />
