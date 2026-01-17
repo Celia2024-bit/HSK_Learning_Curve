@@ -114,7 +114,7 @@ export default function App() {
       // 防御处理与生成队列
       if (pool.length === 0) pool = allWords;
       const countToFetch = (quizCount === 'ALL') ? allWords.length : quizCount;
-      const selected = getSmartQuizWords(pool, countToFetch);
+      const selected = getSmartQuizWords(pool, countToFetch, newMode);
       
       setQuizQueue(selected);
       setScore(0);

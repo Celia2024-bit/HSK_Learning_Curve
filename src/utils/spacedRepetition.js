@@ -3,7 +3,7 @@
  * @param {Array} wordsPool - 已经合并了 masteryInfo 的单词子表 (masteredWordsList)
  * @param {number} count - 抽取的题目数量
  */
-export const getSmartQuizWords = (wordsPool, count) => {
+export const getSmartQuizWords = (wordsPool, count, mode = 'quiz') => {
   if (!wordsPool || wordsPool.length === 0) return [];
 
   // 1. 计算每个单词的紧迫度
@@ -13,7 +13,7 @@ export const getSmartQuizWords = (wordsPool, count) => {
 
     return {
       word,
-      urgency: calculateUrgency(record)
+      urgency: calculateUrgency(record, mode)
     };
   });
 
@@ -35,24 +35,30 @@ export const getSmartQuizWords = (wordsPool, count) => {
 /**
  * 计算紧迫度算法保持不变，但逻辑更清晰
  */
-const calculateUrgency = (record) => {
+const calculateUrgency = (record, mode) => {
+  const isSpeaking = mode === 'speaking';
+  const primaryTime = isSpeaking ? record?.lastSpeakingQuiz : record?.lastQuiz;
+  const lastTimeStr = primaryTime || record?.lastUpdate;
+  const lastResult = isSpeaking ? record?.lastSpeakingResult : record?.lastResult;
+  const mistakeCount = isSpeaking ? (record?.speakingMistakeCount || 0) : (record?.mistakeCount || 0);
+  
   // 情况 1: 新词 (没有学习记录)
   if (!record || (!record.lastRead && !record.lastQuiz)) {
     return 100; 
   }
 
   const now = new Date();
-  const lastTime = new Date(record.lastQuiz || record.lastRead);
+  const lastTime = new Date(lastTimeStr);
   const hoursSinceLast = (now - lastTime) / (1000 * 60 * 60);
   
   // 熟练度越低 (1)，分值越高
   let scoreBase = (6 - (record.score || 1)) * 10;
 
   // 错误惩罚
-  const mistakePenalty = (record.mistakeCount || 0) * 5;
+  const mistakePenalty = (mistakeCount || 0) * 5;
 
   // 上次结果惩罚 (如果错了，加20分紧迫度)
-  const lastResultPenalty = record.lastResult === false ? 20 : 0;
+  const lastResultPenalty = lastResult === false ? 20 : 0;
 
   // 时间衰减 (遗忘曲线): 距离上次练习时间越长，分值越高
   const timeFactor = Math.log10(hoursSinceLast + 1) * 15;
