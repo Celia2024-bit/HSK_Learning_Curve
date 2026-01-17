@@ -82,7 +82,7 @@ export default function Menu({
               }}
               className="w-full py-4 px-5 bg-white border-2 border-slate-100 rounded-[2rem] font-black text-slate-600 appearance-none cursor-pointer focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50 transition-all hover:border-indigo-200"
             >
-              {[5, 10, 15, 20, 25, 30, 35, 40, 45, 50].map((num) => (
+              {[2,5, 10, 15, 20, 25, 30, 35, 40, 45, 50].map((num) => (
                 <option key={num} value={num}>
                   {num} Questions
                 </option>
