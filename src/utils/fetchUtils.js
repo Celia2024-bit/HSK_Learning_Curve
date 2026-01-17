@@ -153,3 +153,26 @@ export const fetchWordsByLevel = async (level, username = null) => {
     throw e;
   }
 };
+
+/** * 专门处理翻译类的语音比对 
+ * lang: 'en-US' | 'fr-FR'
+ */
+export const processTranslationSpeech = async (audioFile, targetMeanings, lang) => {
+  // 这里未来调用你的后端接口，比如 /api/hsk/transcribe_translate
+  // 现在先模拟返回结构
+  console.log(`Processing ${lang} for:`, targetMeanings);
+  
+  // 模拟逻辑：假设识别出的文字是 "apple"
+  // const recognizedText = await yourApiCall(audioFile, lang);
+  const recognizedText = "example"; 
+  
+  // 比对逻辑：meaning 可能包含 "apple, red fruit"
+  const meaningList = targetMeanings.split(',').map(s => s.trim().toLowerCase());
+  const isCorrect = meaningList.includes(recognizedText.toLowerCase());
+
+  return {
+    isCorrect,
+    actual: recognizedText,
+    expected: targetMeanings
+  };
+};
