@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Volume2, Home, Mic, Square, Play, Loader2, CheckCircle2 } from 'lucide-react';
 import { processAndCompare } from '../utils/transcribe';
+import { processTranslationSpeech } from '../utils/fetchUtils'; 
 
-export default function SpeakingMode({ word, currentIndex, total, onSpeak, onExit, onNext, onPrev }) {
+export default function SpeakingMode({ word, currentIndex, total, lang, onSpeak, onExit, onNext, onPrev }) {
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [audioUrl, setAudioUrl] = useState(null);
@@ -33,11 +34,18 @@ export default function SpeakingMode({ word, currentIndex, total, onSpeak, onExi
         
         recorderRef.current.onstop = async () => {
           const blob = new Blob(chunksRef.current, { type: 'audio/webm' });
+          const file = new File([blob], "rec.webm", { type: 'audio/webm' });
           setAudioUrl(URL.createObjectURL(blob));
           
           try {
-            const file = new File([blob], "rec.webm", { type: 'audio/webm' });
-            const analysis = await processAndCompare(file, word.char);
+            let analysis;
+            if (lang === 'zh') {
+              analysis = await processAndCompare(file, word.char);
+            } else {
+              const targetLang = lang === 'en' ? 'en-US' : 'fr-FR';
+              const res = await processTranslationSpeech(file, word.meaning, targetLang);
+              analysis = [{ char: word.char, expected: res.expected, actual: res.actual, isCorrect: res.isCorrect }];
+            }
             setResults(analysis);
           } catch (err) {
             console.error(err);
@@ -56,56 +64,80 @@ export default function SpeakingMode({ word, currentIndex, total, onSpeak, onExi
 
   // --- 模拟 index.html 渲染结果的函数 ---
   const renderResults = () => {
-    if (!results) return null;
-   
-    return (
-      <div className="flex flex-wrap justify-center gap-3 mt-8 animate-in fade-in zoom-in duration-300">
-        {results.map((item, idx) => (
-          <div 
-            key={idx} 
-            className={`flex flex-col items-center p-4 rounded-2xl border-2 min-w-[110px] shadow-sm ${
-              item.isCorrect ? 'border-green-200 bg-green-50' : 'border-red-100 bg-red-50'
-            }`}
-          >
-            {/* 汉字 */}
-            <span className="text-4xl font-black text-slate-800 mb-1">{item.char}</span>
-            
-            {/* Target 拼音 (强制小写) */}
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
-              Target: <span className="lowercase">{item.expected}</span>
-            </div>
-            
-            {/* 用户发音 (强制小写) */}
-            <div className={`text-sm font-black mt-1 ${item.isCorrect ? 'text-green-600' : 'text-red-500'}`}>
-              You: <span className="lowercase">{item.actual === "--" ? "--" : item.actual}</span>
-            </div>
+    if (!results || results.length === 0) return null;
 
-            {/* 诊断标签 (Badges) */}
-            <div className="flex flex-col gap-1 mt-3 w-full">
-              {item.isCorrect ? (
-                <div className="flex items-center justify-center gap-1 text-[10px] font-black text-green-600 bg-green-100 py-1 rounded-lg">
-                  <CheckCircle2 size={10} /> PERFECT!
-                </div>
-              ) : item.actual === "--" ? (
-                <div className="text-[10px] font-black text-slate-400 bg-slate-200 py-1 rounded-lg text-center">
-                  NO AUDIO
-                </div>
-              ) : (
-                <>
-                  {!item.diff.initialMatch && (
-                    <span className="text-[9px] font-black text-white bg-[#ff4d4f] py-1 px-2 rounded-md uppercase text-center">Initial Error</span>
-                  )}
-                  {!item.diff.finalMatch && (
-                    <span className="text-[9px] font-black text-white bg-[#faad14] py-1 px-2 rounded-md uppercase text-center">Final Error</span>
-                  )}
-                  {!item.diff.toneMatch && (
-                    <span className="text-[9px] font-black text-white bg-[#1890ff] py-1 px-2 rounded-md uppercase text-center">Tone Error</span>
-                  )}
-                </>
-              )}
+    // 1. 中文拼音模式：保留你原本精细的诊断 UI
+    if (lang === 'zh') {
+      return (
+        <div className="flex flex-wrap justify-center gap-3 mt-8 animate-in fade-in zoom-in duration-300">
+          {results.map((item, idx) => (
+            <div 
+              key={idx} 
+              className={`flex flex-col items-center p-4 rounded-2xl border-2 min-w-[110px] shadow-sm ${
+                item.isCorrect ? 'border-green-200 bg-green-50' : 'border-red-100 bg-red-50'
+              }`}
+            >
+              <span className="text-4xl font-black text-slate-800 mb-1">{item.char}</span>
+              <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                Target: <span className="lowercase">{item.expected}</span>
+              </div>
+              <div className={`text-sm font-black mt-1 ${item.isCorrect ? 'text-green-600' : 'text-red-500'}`}>
+                You: <span className="lowercase">{item.actual === "--" ? "--" : item.actual}</span>
+              </div>
+
+              <div className="flex flex-col gap-1 mt-3 w-full">
+                {item.isCorrect ? (
+                  <div className="flex items-center justify-center gap-1 text-[10px] font-black text-green-600 bg-green-100 py-1 rounded-lg">
+                    <CheckCircle2 size={10} /> PERFECT!
+                  </div>
+                ) : item.actual === "--" ? (
+                  <div className="text-[10px] font-black text-slate-400 bg-slate-200 py-1 rounded-lg text-center">
+                    NO AUDIO
+                  </div>
+                ) : (
+                  <>
+                    {/* 这里保留你原本的 diff 诊断 */}
+                    {!item.diff?.initialMatch && (
+                      <span className="text-[9px] font-black text-white bg-[#ff4d4f] py-1 px-2 rounded-md uppercase text-center">Initial Error</span>
+                    )}
+                    {!item.diff?.finalMatch && (
+                      <span className="text-[9px] font-black text-white bg-[#faad14] py-1 px-2 rounded-md uppercase text-center">Final Error</span>
+                    )}
+                    {!item.diff?.toneMatch && (
+                      <span className="text-[9px] font-black text-white bg-[#1890ff] py-1 px-2 rounded-md uppercase text-center">Tone Error</span>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
+          ))}
+        </div>
+      );
+    }
+
+    // 2. 翻译模式 (EN/FR)：简洁风格，因为翻译没有声母韵母之分
+    const item = results[0]; // 翻译模式通常只有一个结果
+    return (
+      <div className="flex flex-col items-center mt-8 animate-in zoom-in duration-300">
+        <div className={`p-6 rounded-[2.5rem] border-2 shadow-sm flex flex-col items-center ${
+          item.isCorrect ? 'border-green-200 bg-green-50' : 'border-red-100 bg-red-50'
+        }`}>
+          <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Recognized {lang}</div>
+          <div className={`text-3xl font-black mb-3 ${item.isCorrect ? 'text-green-600' : 'text-red-500'}`}>
+            {item.actual || '--'}
           </div>
-        ))}
+          
+          {item.isCorrect ? (
+            <div className="px-4 py-1.5 bg-green-500 text-white rounded-xl text-[10px] font-black flex items-center gap-2">
+              <CheckCircle2 size={12} /> MEANING MATCHED
+            </div>
+          ) : (
+            <div className="text-center">
+              <div className="text-[10px] font-bold text-red-400 uppercase mb-1">Expected one of:</div>
+              <div className="text-sm font-black text-slate-700 italic">{item.expected}</div>
+            </div>
+          )}
+        </div>
       </div>
     );
   };
