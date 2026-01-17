@@ -80,21 +80,39 @@ export default function App() {
     }
 
     if (newMode === 'quiz' || newMode === 'speaking') {
-      // 1. 确定池子
+      // === (1) 公共的部分 ===
       let pool = (quizCount === 'ALL') 
         ? allWords 
         : (masteredWordsList.length > 5 ? masteredWordsList : allWords);
-      
-      // 2. 如果开启了"移除上次正确"
-      if (quizRemoveCorrect) {
+
+      // === (2) newMode === quiz ===
+      if (newMode === 'quiz') {
         pool = pool.filter(word => {
           const key = `${level}_${word.char}`;
           const record = mastery[key];
-          return !record || record.lastResult !== true;
+          if (!record) return true;
+          
+          const hasRecord = record.lastQuiz !== undefined;
+          const isCorrect = quizRemoveCorrect ? record.lastResult === true : false;
+          return quizCount === 'ALL' ? true : (hasRecord && !isCorrect);
         });
       }
 
-      // 3. 生成测验队列
+      // === (3) newMode === speaking ===
+      if (newMode === 'speaking') {
+        pool = pool.filter(word => {
+          const key = `${level}_${word.char}`;
+          const record = mastery[key];
+          if (!record) return true;
+
+          const hasRecord = record.lastSpeakingQuiz !== undefined;
+          const isCorrect = quizRemoveCorrect ? record.lastSpeakingResult === true : false;
+          return quizCount === 'ALL' ? true : (hasRecord && !isCorrect);
+        });
+      }
+
+      // 防御处理与生成队列
+      if (pool.length === 0) pool = allWords;
       const countToFetch = (quizCount === 'ALL') ? allWords.length : quizCount;
       const selected = getSmartQuizWords(pool, countToFetch);
       
