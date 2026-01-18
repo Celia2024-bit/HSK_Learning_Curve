@@ -19,6 +19,7 @@ export const PINYIN_API_URL = USE_PROD_URL
   
      
 export const DEFAULT_QUIZ_COUNT = 20;
-export const DEFAULT_TTS_VOICE = "Mandarin Male (Yunjian)";
-export const DEFAULT_TTS_SPEED_SLOW = -50;
+export const DEFAULT_TTS_VOICE = "cmn-CN-Wavenet-B";
+//  cmn-CN-Wavenet-A; cmn-CN-Wavenet-B;cmn-CN-Wavenet-C;cmn-CN-Wavenet-D
+export const DEFAULT_TTS_SPEED_SLOW = -40;
 export const DEFAULT_TTS_SPEED_NORMAL = 0;
