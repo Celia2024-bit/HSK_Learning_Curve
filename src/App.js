@@ -136,8 +136,22 @@ export default function App() {
 
   // 朗读中文
   const speakChinese = async (text, isSlow = true) => {
-    const audioUrl = getTtsUrl(text, isSlow);
-    const audio = new Audio(audioUrl);
+    let audio; // 先声明变量
+
+    if (level === 0) {
+      const audioUrl = getTtsUrl(text, isSlow);
+      console.log("DEBUG: Level 0 TTS URL ->", audioUrl);
+      audio = new Audio(audioUrl);
+    } else {
+      const fileName = encodeURIComponent(text);
+      const localPath = `/data/hsk_audio/hsk_audio_${level}/${fileName}.mp3`;
+      
+      console.log("DEBUG: Current Level ->", level);
+      console.log("DEBUG: Target Local Path ->", localPath); // 这里会在控制台打出路径
+      
+      audio = new Audio(localPath);
+    }
+
     try {
       await audio.play();
     } catch (err) {
