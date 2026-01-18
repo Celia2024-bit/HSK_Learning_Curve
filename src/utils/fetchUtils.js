@@ -1,7 +1,7 @@
 // src/fetchUtils.js
 // 复用 App.js 中的 API_BASE 地址（保持一致）
 //const API_BASE = "https://backend-all-6q0a.onrender.com/api/hsk";
-import { API_BASE, DEFAULT_TTS_VOICE, DEFAULT_TTS_SPEED_SLOW, DEFAULT_TTS_SPEED_NORMAL } from './constants';
+import { API_BASE, Whisper_API_BASE, DEFAULT_TTS_VOICE, DEFAULT_TTS_SPEED_SLOW, DEFAULT_TTS_SPEED_NORMAL } from './constants';
 
 // 1. 获取用户数据
 
@@ -154,25 +154,75 @@ export const fetchWordsByLevel = async (level, username = null) => {
   }
 };
 
-/** * 专门处理翻译类的语音比对 
- * lang: 'en-US' | 'fr-FR'
+/**
+ * 调用 Whisper API 进行语音转文字，并与目标意思比对
+ * 
+ * @param {File|Blob} audioFile - 音频文件对象
+ * @param {string} targetMeanings - 目标意思，逗号分隔 (例: "apple, red fruit, 苹果")
+ * @param {string} lang - 语言代码 ('en', 'fr', 'zh' 等)
+ * @returns {Promise<Object>} { success, transcription, isCorrect, error }
  */
+ 
 export const processTranslationSpeech = async (audioFile, targetMeanings, lang) => {
-  // 这里未来调用你的后端接口，比如 /api/hsk/transcribe_translate
-  // 现在先模拟返回结构
-  console.log(`Processing ${lang} for:`, targetMeanings);
-  
-  // 模拟逻辑：假设识别出的文字是 "apple"
-  // const recognizedText = await yourApiCall(audioFile, lang);
-  const recognizedText = "example"; 
-  
-  // 比对逻辑：meaning 可能包含 "apple, red fruit"
-  const meaningList = targetMeanings.split(',').map(s => s.trim().toLowerCase());
-  const isCorrect = meaningList.includes(recognizedText.toLowerCase());
+  try {
+    console.log('开始转录...', { audioFile, targetMeanings, lang });
+    
+    // 1. 构建 FormData
+    const formData = new FormData();
+    formData.append('audio', audioFile);
+    formData.append('language', lang);
 
-  return {
-    isCorrect,
-    actual: recognizedText,
-    expected: targetMeanings
-  };
+    // 2. 调用 Whisper API（注意：用反引号）
+    const response = await fetch(`${Whisper_API_BASE}/transcribe`, {
+      method: 'POST',
+      body: formData
+    });
+
+    console.log('Response status:', response.status);
+
+    // 3. 检查响应状态
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('API 错误:', errorText);
+      throw new Error(`HTTP ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    console.log('API 返回:', data);
+
+    if (!data.success) {
+      throw new Error(data.error || '转录失败');
+    }
+
+    // 4. 获取识别出的文字
+    const recognizedText = data.transcription.trim().toLowerCase();
+    console.log('识别文字:', recognizedText);
+
+    // 5. 比对逻辑
+    const meaningList = targetMeanings.split(',').map(s => s.trim().toLowerCase());
+    console.log('目标列表:', meaningList);
+    
+    const isCorrect = meaningList.some(meaning => 
+      recognizedText.includes(meaning) || meaning.includes(recognizedText)
+    );
+
+    console.log('匹配结果:', isCorrect);
+
+    // 6. 返回结果
+    return {
+      success: true,
+      isCorrect: isCorrect,
+      actual: recognizedText,
+      expected: meaningList,
+      transcription: data.transcription  // 保留原始转录
+    };
+
+  } catch (error) {
+    console.error('Whisper API 错误:', error);
+    return {
+      success: false,
+      error: error.message,
+      isCorrect: false
+    };
+  }
 };

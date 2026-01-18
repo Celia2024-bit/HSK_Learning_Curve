@@ -8,6 +8,10 @@ export const API_BASE = USE_PROD_URL
   ? "https://backend-all-6q0a.onrender.com/api/hsk" 
   : "http://localhost:5000/api/hsk";
 
+export const Whisper_API_BASE = USE_PROD_URL 
+  ? "https://backend-all-6q0a.onrender.com/api/whisper" 
+  : "http://localhost:5000/api/whisper";
+  
 // 语音转拼音服务接口
 export const PINYIN_API_URL = USE_PROD_URL 
   ? "https://audio-to-text-29330024195.europe-west2.run.app/pinyin" 
