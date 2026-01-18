@@ -31,7 +31,7 @@ export default function App() {
   const [quizQueue, setQuizQueue] = useState([]);
   const [quizAnswers, setQuizAnswers] = useState([]);
   const [score, setScore] = useState(0);
-  const [speakingLang, setSpeakingLang] = useState('zh');
+ // const [speakingLang, setSpeakingLang] = useState('zh');
 
   // 使用自定义 hook 管理所有数据持久化逻辑
   const {
@@ -108,7 +108,7 @@ export default function App() {
           if (!record) return true;
 
           let hasRecord, isCorrect;
-          if (speakingLang === 'zh') {
+          if (currentSpeakingLang === 'zh') {
             hasRecord = record.lastSpeakingQuiz !== undefined;
             isCorrect = quizRemoveCorrect ? record.lastSpeakingResult === true : false;
           } else {
