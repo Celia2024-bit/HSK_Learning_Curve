@@ -156,7 +156,19 @@ export default function App() {
         {mode === 'menu' && (
           <Menu 
             level={level} 
-            setLevel={(l) => { setLevel(l); saveProgress({ level: l }); }} 
+            setLevel={(l) => { 
+              // ✅ 新增逻辑：如果切换到 HSK 1-3 且当前是法语，强制切回中文
+              let newLang = currentSpeakingLang;
+              if (l !== 0 && currentSpeakingLang === 'fr') {
+                newLang = 'zh'; 
+              }
+              
+              setLevel(l); 
+              saveProgress({ 
+                level: l, 
+                speakingLang: newLang // 确保进度同步更新
+              }); 
+            }}
             quizCount={quizCount}
             setQuizCount={(c) => { setQuizCount(c); saveProgress({ quizCount: c }); }}
             quizRemoveCorrect={quizRemoveCorrect}

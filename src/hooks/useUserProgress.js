@@ -108,8 +108,10 @@ export function useUserProgress(currentUser, level) {
         overrides.readingIndex ?? prevRecord.reading_index ?? DEFAULT_PROGRESS.reading_index,
       quiz_remove_correct:
         overrides.quizRemoveCorrect ?? prevRecord.quiz_remove_correct ?? DEFAULT_PROGRESS.quiz_remove_correct,
-      speaking_lang: overrides.speakingLang ?? prevRecord.speaking_lang ?? DEFAULT_PROGRESS.speaking_lang
-    };
+      speaking_lang: (targetLevel !== 0 && overrides.speakingLang === 'fr') 
+        ? 'zh' 
+        : (overrides.speakingLang ?? prevRecord.speaking_lang ?? DEFAULT_PROGRESS.speaking_lang)
+        };
 
     // 本地更新
     setProgressByLevel(prev => ({
