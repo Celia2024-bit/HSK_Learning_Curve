@@ -136,26 +136,63 @@ export default function App() {
 
   // 朗读中文
   const speakChinese = async (text, isSlow = true) => {
-    let audio; // 先声明变量
+    if (!text) return;
 
+    const CACHE_NAME = 'hsk-audio-cache-v1'; // 缓存盒子的名字
+    let targetUrl;
+
+    // 1. 确定音频的地址 (Target URL)
     if (level === 0) {
-      const audioUrl = getTtsUrl(text, isSlow);
-      console.log("DEBUG: Level 0 TTS URL ->", audioUrl);
-      audio = new Audio(audioUrl);
+      // Level 0: 调用 Render 后端 TTS
+      targetUrl = getTtsUrl(text, isSlow);
     } else {
-      const fileName = encodeURIComponent(text);
-      const localPath = `/data/hsk_audio/hsk_audio_${level}/${fileName}.mp3`;
-      
-      console.log("DEBUG: Current Level ->", level);
-      console.log("DEBUG: Target Local Path ->", localPath); // 这里会在控制台打出路径
-      
-      audio = new Audio(localPath);
+      // Level 1-3: Vercel 上的本地 MP3
+      const fileName = encodeURIComponent(text.trim());
+      targetUrl = `/data/hsk_audio/hsk_audio_${level}/${fileName}.mp3`;
     }
 
     try {
+      // 2. 打开浏览器的 Cache Storage
+      const cache = await caches.open(CACHE_NAME);
+      
+      // 3. 检查缓存里有没有这个音频
+      let response = await cache.match(targetUrl);
+
+      if (!response) {
+        console.log(`%c[Network] 第一次请求，存入缓存: ${text}`, "color: orange");
+        // 缓存没有，发起真正的 fetch 请求
+        response = await fetch(targetUrl);
+
+        if (!response.ok) {
+          throw new Error(`音频加载失败: ${response.status}`);
+        }
+
+        // 重要：把获取到的数据克隆一份存进缓存
+        await cache.put(targetUrl, response.clone());
+      } else {
+        console.log(`%c[Cache] 命中缓存，直接播放: ${text}`, "color: green");
+      }
+
+      // 4. 将 Response (不管是来自网络还是缓存) 转为 Blob
+      const audioBlob = await response.blob();
+      
+      // 5. 使用 URL.createObjectURL 把二进制数据变成可播放的地址
+      const blobUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(blobUrl);
+
+      // 6. 执行播放
       await audio.play();
+
+      // 7. 播放结束后，释放内存中的 Blob 地址
+     audio.onended = () => {
+      URL.revokeObjectURL(blobUrl); // 应该是 revoke（撤销），不是 create
+      console.log("%c[Memory] Blob URL 已释放", "color: gray");
+    };
+
     } catch (err) {
-      console.error("Audio play error:", err);
+      console.error("音频播放逻辑出错:", err);
+      // 最后的保底：如果以上复杂逻辑都失败了，尝试直接用原始地址播放一次
+      new Audio(targetUrl).play().catch(e => console.error("保底播放也失败:", e));
     }
   };
 
