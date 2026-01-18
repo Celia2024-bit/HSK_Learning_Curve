@@ -72,7 +72,6 @@ export const fetchSaveProgress = async ({ username, level, record }) => {
 };
 
 
-// 5. 获取TTS音频地址（仅拼接URL，play逻辑保留在原函数）
 export const getTtsUrl = (text, isSlow = true) => {
   const speed = isSlow ? DEFAULT_TTS_SPEED_SLOW : DEFAULT_TTS_SPEED_NORMAL;
   const voice = DEFAULT_TTS_VOICE;
@@ -82,6 +81,23 @@ export const getTtsUrl = (text, isSlow = true) => {
     voice: voice
   });
   return `${API_BASE}/tts?${params.toString()}`;
+};
+
+/**
+ * 新增：真正去 fetch 后端的音频数据
+ * 它会返回一个 Response 对象，这样外面（App.js）才能决定是存入缓存还是直接播
+ */
+export const fetchTtsResponse = async (text, isSlow = true) => {
+  const url = getTtsUrl(text, isSlow);
+  
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`TTS 请求失败: ${res.status}`);
+  }
+  
+  // 注意：这里返回整个 Response 对象
+  // 因为 caches.put(url, response) 需要完整的 Response
+  return res; 
 };
 
 
