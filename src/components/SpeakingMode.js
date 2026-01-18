@@ -42,7 +42,7 @@ export default function SpeakingMode({ word, currentIndex, total, lang, onSpeak,
             if (lang === 'zh') {
               analysis = await processAndCompare(file, word.char);
             } else {
-              const targetLang = lang === 'en' ? 'en-US' : 'fr-FR';
+              const targetLang = lang === 'en' ? 'en' : 'fr';
               const res = await processTranslationSpeech(file, word.meaning, targetLang);
               analysis = [{ char: word.char, expected: res.expected, actual: res.actual, isCorrect: res.isCorrect }];
             }
