@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BookOpen, Brain, ChevronRight, Check, Mic } from 'lucide-react';
 
@@ -9,11 +8,11 @@ export default function Menu({
   setQuizCount,
   quizRemoveCorrect,
   setQuizRemoveCorrect,
+  flashcardRandomOrder, 
+  setFlashcardRandomOrder,
   speakingLang, 
   setSpeakingLang,
   startMode,
-
-  // 新增：仅在 level === 0 时显示卡片管理按钮（由 App 传入）
   showCardManager = false,
   onOpenCardManager
 }) {
@@ -100,7 +99,7 @@ export default function Menu({
             </div>
           </div>
 
-          {/* 新增：答对即移除开关 - 完全匹配原有样式风格 */}
+          {/* 原有：答对即移除开关 */}
           <div className="mt-8 flex items-center justify-between">
             <div>
               <p className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Remove Correct Words</p>
@@ -122,6 +121,34 @@ export default function Menu({
               >
                 {/* 选中时显示对勾 - 增强视觉反馈 */}
                 {quizRemoveCorrect && (
+                  <Check size={10} className="mx-auto text-indigo-600 font-bold" />
+                )}
+              </div>
+            </button>
+          </div>
+
+          {/* 新增：闪卡随机顺序开关 - 完全匹配原有开关样式 */}
+          <div className="mt-6 flex items-center justify-between">
+            <div>
+              <p className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Flashcard Random Order</p>
+              <p className="text-xs font-medium text-slate-500 mt-1 italic">Randomize flashcard sequence</p>
+            </div>
+            {/* 开关按钮 - 和"答对即移除"样式完全一致 */}
+            <button
+              onClick={() => setFlashcardRandomOrder(!flashcardRandomOrder)}
+              className={`w-12 h-6 rounded-full flex items-center transition-all duration-300 ${
+                flashcardRandomOrder 
+                  ? 'bg-indigo-600 shadow-md shadow-indigo-200' 
+                  : 'bg-slate-200'
+              }`}
+            >
+              <div 
+                className={`w-4 h-4 bg-white rounded-full mx-1 transition-transform duration-300 ${
+                  flashcardRandomOrder ? 'translate-x-6' : 'translate-x-0'
+                }`}
+              >
+                {/* 选中时显示对勾 */}
+                {flashcardRandomOrder && (
                   <Check size={10} className="mx-auto text-indigo-600 font-bold" />
                 )}
               </div>

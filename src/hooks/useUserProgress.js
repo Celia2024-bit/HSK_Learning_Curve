@@ -14,6 +14,7 @@ const DEFAULT_PROGRESS = {
   reading_index: 0,
   quiz_remove_correct: false,
   speaking_lang: 'zh',
+  flashcard_random_order: false,
 };
 
 
@@ -110,9 +111,10 @@ export function useUserProgress(currentUser, level) {
         overrides.quizRemoveCorrect ?? prevRecord.quiz_remove_correct ?? DEFAULT_PROGRESS.quiz_remove_correct,
       speaking_lang: (targetLevel !== 0 && overrides.speakingLang === 'fr') 
         ? 'zh' 
-        : (overrides.speakingLang ?? prevRecord.speaking_lang ?? DEFAULT_PROGRESS.speaking_lang)
+        : (overrides.speakingLang ?? prevRecord.speaking_lang ?? DEFAULT_PROGRESS.speaking_lang),
+      flashcard_random_order:
+        overrides.flashcard_random_order ?? prevRecord.flashcard_random_order ?? DEFAULT_PROGRESS.flashcard_random_order
         };
-
     // 本地更新
     setProgressByLevel(prev => ({
       ...prev,

@@ -27,6 +27,10 @@ export default function App() {
   const [quizIndex, setQuizIndex] = useState(0);
   const [readingIndex, setReadingIndex] = useState(0);
   
+  const [flashcardRandomOrder, setFlashcardRandomOrder] = useState(false);
+  // 新增：存储随机排序后的卡片列表
+  const [shuffledWords, setShuffledWords] = useState([]);
+  
   // 测验相关
   const [quizQueue, setQuizQueue] = useState([]);
   const [quizAnswers, setQuizAnswers] = useState([]);
@@ -55,7 +59,21 @@ export default function App() {
     setFlashcardIndex(p.current_index ?? 0);
     setReadingIndex(p.reading_index ?? 0);
     setQuizRemoveCorrect(p.quiz_remove_correct ?? false);
+    setFlashcardRandomOrder(p.flashcard_random_order ?? false);
   }, [level, progressByLevel, getCurrentProgress]);
+  
+   useEffect(() => {
+    if (allWords.length === 0) return;
+    
+    if (flashcardRandomOrder) {
+      // 深拷贝并打乱数组，避免修改原数组
+      const shuffled = [...allWords].sort(() => Math.random() - 0.5);
+      setShuffledWords(shuffled);
+    } else {
+      // 关闭随机时恢复原顺序
+      setShuffledWords(allWords);
+    }
+  }, [allWords, flashcardRandomOrder, level]);
 
   // 登录
   const handleLogin = async (username, password) => {
@@ -227,6 +245,11 @@ export default function App() {
               setQuizRemoveCorrect(val); 
               saveProgress({ quizRemoveCorrect: val }); 
             }} 
+            flashcardRandomOrder={flashcardRandomOrder}
+            setFlashcardRandomOrder={(val) => {
+              setFlashcardRandomOrder(val);
+              saveProgress({ flashcard_random_order: val });
+            }}
             speakingLang={currentSpeakingLang} 
             setSpeakingLang={(l) => saveProgress({ speakingLang: l })}
             startMode={startMode} 
@@ -243,12 +266,13 @@ export default function App() {
           />
         )}
 
-        {mode === 'flashcard' && (
+       {mode === 'flashcard' && (
           <FlashcardMode 
-            data={allWords}
+            // 修改：传递打乱后的卡片列表（而非原 allWords）
+            data={shuffledWords}
             currentIndex={flashcardIndex}
             setIndex={(i) => { 
-              const currentChar = allWords[flashcardIndex]?.char;
+              const currentChar = shuffledWords[flashcardIndex]?.char; // 修改：从打乱后的列表取字符
               if (currentChar) {
                 updateMasteryRecord(currentChar, { 
                   lastUpdate: new Date().toISOString() 
@@ -260,7 +284,8 @@ export default function App() {
             onBack={() => setMode('menu')}
             onSpeak={speakChinese}
             level={level}
-            currentMastery={mastery[`${level}_${allWords[flashcardIndex]?.char}`]?.score}
+            // 修改：从打乱后的列表取当前卡片的熟练度
+            currentMastery={mastery[`${level}_${shuffledWords[flashcardIndex]?.char}`]?.score}
             onUpdateMastery={(char, score) => {
               updateMasteryRecord(char, { score });
             }}
