@@ -98,7 +98,9 @@ export default function App() {
     if (newMode === 'reading' && level === 0) {
       return;
     }
-
+    if (newMode === 'flashcard' && flashcardRandomOrder) {
+        setFlashcardIndex(0); // 随机模式下强制从第 0 张开始
+    }
     if (newMode === 'quiz' || newMode === 'speaking') {
       // === (1) 公共的部分 ===
       let pool = (quizCount === 'ALL') 
@@ -279,7 +281,9 @@ export default function App() {
                 });
               }
               setFlashcardIndex(i); 
-              saveProgress({ level, index: i }); 
+              if (!flashcardRandomOrder) {
+                saveProgress({ level, index: i }); 
+              }
             }}
             onBack={() => setMode('menu')}
             onSpeak={speakChinese}
