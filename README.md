@@ -6,10 +6,8 @@ A comprehensive, full-stack Chinese language learning application designed to he
 
 - Frontend: [https://hsk-learning-mu.vercel.app](https://hsk-learning-mu.vercel.app)
 - Backend API: [https://backend-all-6q0a.onrender.com](https://backend-all-6q0a.onrender.com)
-- Backend Pinyin API:
-  
-   https://audio-to-text-29330024195.europe-west2.run.app/pinyin
-
+- Backend Pinyin API: https://audio-to-text-29330024195.europe-west2.run.app/pinyin
+- Monitor for BackEnd:  https://dashboard.uptimerobot.com/monitors
   
 
 ✨ Features
