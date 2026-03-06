@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, Home, ArrowLeft, ArrowRight, List, X } from 'lucide-react';
+import { Volume2, Home, ArrowLeft, ArrowRight, List, X, Heart } from 'lucide-react';
 
 export default function FlashcardMode({ 
   data, currentIndex, setIndex, onBack, onSpeak, level, 
-  currentMastery, onUpdateMastery 
+  currentMastery, onUpdateMastery ,
+  flaggedWords, toggleWordFlag // 2. 接收这两个新参数
 }) {
   const [step, setStep] = useState(0);
   const [showWordList, setShowWordList] = useState(false); // 控制单词列表显示/隐藏
   const current = data[currentIndex];
+  const isFlagged = flaggedWords[level]?.includes(current.char);
+
+  const handleFlag = (e) => {
+    e.stopPropagation(); // 阻止点击触发卡片翻转
+    toggleWordFlag(current.char, !isFlagged);
+  };
 
   useEffect(() => {
     setStep(0);
@@ -109,7 +116,6 @@ export default function FlashcardMode({
             </button>
           </div>
         </div>
-
         {/* 核心卡片 */}
         <div 
           onClick={handleCardClick}
@@ -162,25 +168,32 @@ export default function FlashcardMode({
               <Volume2 size={28} />
             </div>
           </button>
+          
         </div>
 
         {/* 底部掌握度按钮 */}
-        <div className="mt-4 px-2">
-          <div className="flex bg-slate-200/50 p-1.5 rounded-[2rem] gap-1 border border-slate-200/50">
-            {[1, 2, 3, 4, 5].map(score => (
-              <button 
-                key={score} 
-                onClick={(e) => { e.stopPropagation(); onUpdateMastery(current.char, score); }} 
-                className={`flex-1 py-3.5 rounded-2xl text-xs font-black transition-all ${ 
-                  (currentMastery || 1) === score 
-                    ? 'bg-slate-900 text-white shadow-md' 
-                    : 'text-slate-400 hover:text-slate-600' 
+        <div className="flex items-center justify-between gap-4 px-2">
+          <div className="flex flex-1 justify-between bg-white p-2 rounded-2xl shadow-sm border border-slate-100">
+            {[1, 2, 3, 4, 5].map((score) => (
+              <button
+                key={score}
+                onClick={(e) => { e.stopPropagation(); onUpdateMastery(current.char, { score }); }}
+                className={`w-10 h-10 rounded-xl font-bold text-sm transition-colors ${
+                  (currentMastery?.score || 1) === score 
+                    ? 'bg-slate-900 text-white' 
+                    : 'text-slate-400 hover:bg-slate-50'
                 }`}
               >
                 {score}
               </button>
             ))}
           </div>
+          <button 
+            onClick={handleFlag}
+            className={`p-4 rounded-2xl transition-all ${isFlagged ? 'bg-red-50 text-red-500' : 'bg-slate-100 text-slate-400'}`}
+            >
+            <Heart fill={isFlagged ? "currentColor" : "none"} size={22} />
+          </button>
         </div>
 
         {/* 底部导航: PREV & NEXT 均等化设计 */}

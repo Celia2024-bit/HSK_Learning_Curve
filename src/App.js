@@ -48,7 +48,9 @@ export default function App() {
     updateMasteryRecord,
     saveProgress,
     getCurrentProgress,
-    resetData
+    resetData,
+    flaggedWords,
+    toggleWordFlag
   } = useUserProgress(currentUser, level);
   const currentSpeakingLang = progressByLevel[level]?.speaking_lang || 'zh';
 
@@ -288,6 +290,8 @@ export default function App() {
             onBack={() => setMode('menu')}
             onSpeak={speakChinese}
             level={level}
+            flaggedWords={flaggedWords}
+            toggleWordFlag={toggleWordFlag}
             // 修改：从打乱后的列表取当前卡片的熟练度
             currentMastery={mastery[`${level}_${shuffledWords[flashcardIndex]?.char}`]?.score}
             onUpdateMastery={(char, score) => {
