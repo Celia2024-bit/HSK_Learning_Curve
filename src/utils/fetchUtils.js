@@ -242,3 +242,21 @@ export const processTranslationSpeech = async (audioFile, targetMeanings, lang) 
     };
   }
 };
+
+
+// src/fetchUtils.js
+
+// 新增：切换单词标记状态 (isFlagged 为 true 则标记，false 则取消)
+export const toggleFlaggedWord = async (username, level, flaggedWord, isFlagged) => {
+  const endpoint = isFlagged ? '/flag_word' : '/unflag_word';
+  const res = await fetch(`${API_BASE}${endpoint}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, level, flagged_word: flaggedWord })
+  });
+  
+  if (!res.ok) {
+    throw new Error(`Flag operation failed: ${res.status}`);
+  }
+  return await res.json();
+};
