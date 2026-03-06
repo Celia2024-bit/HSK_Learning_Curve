@@ -4,7 +4,8 @@ import {
   fetchUserMastery, 
   fetchWordsByLevel,
   fetchSaveMastery, 
-  fetchSaveProgress
+  fetchSaveProgress,
+  toggleFlaggedWord
 } from '../utils/fetchUtils';
 
 const DEFAULT_QUIZ_COUNT = 20; // 从你的 constants 导入
@@ -22,6 +23,7 @@ export function useUserProgress(currentUser, level) {
   const [allWords, setAllWords] = useState([]);
   const [mastery, setMastery] = useState({});
   const [progressByLevel, setProgressByLevel] = useState({});
+  const [flaggedWords, setFlaggedWords] = useState({});
 
   // 计算已学单词列表
   const masteredWordsList = useMemo(() => {
@@ -43,13 +45,16 @@ export function useUserProgress(currentUser, level) {
       // 1. 获取进度
       const progressMap = await fetchUserProgress(username);
       const flattenedProgress = {};
+      const newFlaggedWords = {};
       if (progressMap) {
         Object.keys(progressMap).forEach(levelKey => {
           // 只保留 record 部分，存入本地状态，这样就完全兼容了你之前的代码逻辑
           flattenedProgress[levelKey] = progressMap[levelKey].record || DEFAULT_PROGRESS;
+          newFlaggedWords[levelKey] = progressMap[levelKey].flagged_words || [];
         });
       }
       setProgressByLevel(flattenedProgress);
+      setFlaggedWords(newFlaggedWords);
 
       // 2. 获取熟练度
       const masteryData = await fetchUserMastery(username);
@@ -142,12 +147,39 @@ export function useUserProgress(currentUser, level) {
     return progressByLevel?.[key] || DEFAULT_PROGRESS;
   }, [level, progressByLevel]);
 
+  const toggleWordFlag = useCallback(async (char, isFlagged) => {
+    if (!currentUser) return;
+
+    const levelKey = String(level);
+
+    // 1. 本地更新 (Optimistic Update)
+    setFlaggedWords(prev => {
+      const currentList = prev[levelKey] || [];
+      if (isFlagged) {
+        // 如果要添加，且不在列表里，就添加
+        return { ...prev, [levelKey]: [...new Set([...currentList, char])] };
+      } else {
+        // 如果要移除，就过滤掉
+        return { ...prev, [levelKey]: currentList.filter(word => word !== char) };
+      }
+    });
+
+    // 2. 发送到后端
+    try {
+      await toggleFlaggedWord(currentUser, level, char, isFlagged);
+    } catch (e) {
+      console.error("后端同步失败，建议回滚或重试", e);
+      // 这里可以加一个简单的回滚逻辑，或者保持原样
+    }
+  }, [currentUser, level]);
+  
   return {
     // 数据
     allWords,
     mastery,
     progressByLevel,
     masteredWordsList,
+    flaggedWords,
     
     // 方法
     fetchUserData,
@@ -155,6 +187,7 @@ export function useUserProgress(currentUser, level) {
     updateMasteryRecord,
     saveProgress,
     getCurrentProgress,
+    toggleWordFlag,
     
     // 重置方法（登出时用）
     resetData: () => {
@@ -164,3 +197,4 @@ export function useUserProgress(currentUser, level) {
     }
   };
 }
+
