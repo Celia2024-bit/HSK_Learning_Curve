@@ -42,7 +42,14 @@ export function useUserProgress(currentUser, level) {
     try {
       // 1. 获取进度
       const progressMap = await fetchUserProgress(username);
-      setProgressByLevel(progressMap || {});
+      const flattenedProgress = {};
+      if (progressMap) {
+        Object.keys(progressMap).forEach(levelKey => {
+          // 只保留 record 部分，存入本地状态，这样就完全兼容了你之前的代码逻辑
+          flattenedProgress[levelKey] = progressMap[levelKey].record || DEFAULT_PROGRESS;
+        });
+      }
+      setProgressByLevel(flattenedProgress);
 
       // 2. 获取熟练度
       const masteryData = await fetchUserMastery(username);
