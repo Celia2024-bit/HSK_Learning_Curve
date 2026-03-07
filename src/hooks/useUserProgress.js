@@ -12,10 +12,13 @@ const DEFAULT_QUIZ_COUNT = 20; // 从你的 constants 导入
 const DEFAULT_PROGRESS = {
   quiz_count: DEFAULT_QUIZ_COUNT,
   current_index: 0,
+  flagged_current_index: 0,
+  unflagged_current_index: 0,
   reading_index: 0,
   quiz_remove_correct: false,
   speaking_lang: 'zh',
   flashcard_random_order: false,
+  flashcard_filter: 'all', // 'all' | 'flagged' | 'unflagged'
 };
 
 
@@ -117,6 +120,10 @@ export function useUserProgress(currentUser, level) {
         overrides.quizCount ?? prevRecord.quiz_count ?? DEFAULT_PROGRESS.quiz_count,
       current_index:
         overrides.index ?? prevRecord.current_index ?? DEFAULT_PROGRESS.current_index,
+      flagged_current_index:
+        overrides.flaggedIndex ?? prevRecord.flagged_current_index ?? DEFAULT_PROGRESS.flagged_current_index,
+      unflagged_current_index:
+        overrides.unflaggedIndex ?? prevRecord.unflagged_current_index ?? DEFAULT_PROGRESS.unflagged_current_index,
       reading_index:
         overrides.readingIndex ?? prevRecord.reading_index ?? DEFAULT_PROGRESS.reading_index,
       quiz_remove_correct:
@@ -125,9 +132,11 @@ export function useUserProgress(currentUser, level) {
         ? 'zh' 
         : (overrides.speakingLang ?? prevRecord.speaking_lang ?? DEFAULT_PROGRESS.speaking_lang),
       flashcard_random_order:
-        overrides.flashcard_random_order ?? prevRecord.flashcard_random_order ?? DEFAULT_PROGRESS.flashcard_random_order
-        };
-    // 本地更新
+        overrides.flashcard_random_order ?? prevRecord.flashcard_random_order ?? DEFAULT_PROGRESS.flashcard_random_order,
+      flashcard_filter:
+        overrides.flashcard_filter ?? prevRecord.flashcard_filter ?? DEFAULT_PROGRESS.flashcard_filter,
+    };
+
     setProgressByLevel(prev => ({
       ...prev,
       [key]: { ...record },

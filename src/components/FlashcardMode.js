@@ -9,7 +9,7 @@ export default function FlashcardMode({
   const [step, setStep] = useState(0);
   const [showWordList, setShowWordList] = useState(false); // 控制单词列表显示/隐藏
   const current = data[currentIndex];
-  const isFlagged = flaggedWords[level]?.includes(current.char);
+
 
   const handleFlag = (e) => {
     e.stopPropagation(); // 阻止点击触发卡片翻转
@@ -40,6 +40,8 @@ export default function FlashcardMode({
   };
 
   if (!current) return null;
+  const isFlagged = flaggedWords[String(level)]?.includes(current.char);
+
 
   return (
     <div className="min-h-screen bg-[#F5F5F7] text-slate-800 p-6 flex flex-col items-center font-sans relative">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Header from './components/Header';
 import Login from './components/Login';
 import Menu from './components/Menu';
@@ -23,18 +23,26 @@ export default function App() {
   // UI 状态
   const [quizCount, setQuizCount] = useState(DEFAULT_QUIZ_COUNT);
   const [quizRemoveCorrect, setQuizRemoveCorrect] = useState(false);
-  const [flashcardIndex, setFlashcardIndex] = useState(0);
+
+  // Flashcard 的三个独立 index
+  const [flashcardIndex, setFlashcardIndex] = useState(0);           // filter = 'all'
+  const [flaggedFlashcardIndex, setFlaggedFlashcardIndex] = useState(0);     // filter = 'flagged'
+  const [unflaggedFlashcardIndex, setUnflaggedFlashcardIndex] = useState(0); // filter = 'unflagged'
+
   const [quizIndex, setQuizIndex] = useState(0);
   const [readingIndex, setReadingIndex] = useState(0);
   
   const [flashcardRandomOrder, setFlashcardRandomOrder] = useState(false);
-  // 新增：存储随机排序后的卡片列表
+  const [flashcardFilter, setFlashcardFilter] = useState('all'); // 'all' | 'flagged' | 'unflagged'
+
+  // 存储随机排序后的完整词库（基于 allWords）
   const [shuffledWords, setShuffledWords] = useState([]);
   
   // 测验相关
   const [quizQueue, setQuizQueue] = useState([]);
   const [quizAnswers, setQuizAnswers] = useState([]);
   const [score, setScore] = useState(0);
+  const [flashcardSessionData, setFlashcardSessionData] = useState([]);
  // const [speakingLang, setSpeakingLang] = useState('zh');
 
   // 使用自定义 hook 管理所有数据持久化逻辑
@@ -59,12 +67,16 @@ export default function App() {
     const p = getCurrentProgress();
     setQuizCount(p.quiz_count ?? DEFAULT_QUIZ_COUNT);
     setFlashcardIndex(p.current_index ?? 0);
+    setFlaggedFlashcardIndex(p.flagged_current_index ?? 0);
+    setUnflaggedFlashcardIndex(p.unflagged_current_index ?? 0);
     setReadingIndex(p.reading_index ?? 0);
     setQuizRemoveCorrect(p.quiz_remove_correct ?? false);
     setFlashcardRandomOrder(p.flashcard_random_order ?? false);
+    setFlashcardFilter(p.flashcard_filter ?? 'all');
   }, [level, progressByLevel, getCurrentProgress]);
   
-   useEffect(() => {
+  // 当 allWords 或 flashcardRandomOrder 变化时，重新生成 shuffledWords（基于全量词库）
+  useEffect(() => {
     if (allWords.length === 0) return;
     
     if (flashcardRandomOrder) {
@@ -77,6 +89,37 @@ export default function App() {
     }
   }, [allWords, flashcardRandomOrder, level]);
 
+  // 根据 filter 从 shuffledWords 中派生出实际展示的单词列表
+  const currentFlaggedSet = flaggedWords[String(level)] || [];
+
+  const filteredFlashcardData = useMemo(() => {
+    if (flashcardFilter === 'flagged') {
+      return allWords.filter(w => currentFlaggedSet.includes(w.char));
+    }
+    if (flashcardFilter === 'unflagged') {
+      return allWords.filter(w => !currentFlaggedSet.includes(w.char));
+    }
+    return allWords;
+  }, [allWords, flashcardFilter, currentFlaggedSet]);
+
+  // 根据 filter 选择对应的 index 和 setter
+  const activeFlashcardIndex = 
+    flashcardFilter === 'flagged'   ? flaggedFlashcardIndex :
+    flashcardFilter === 'unflagged' ? unflaggedFlashcardIndex :
+    flashcardIndex;
+
+  const setActiveFlashcardIndex = (i) => {
+  if (flashcardFilter === 'flagged') {
+    setFlaggedFlashcardIndex(i);
+    if (!flashcardRandomOrder) saveProgress({ flaggedIndex: i });
+  } else if (flashcardFilter === 'unflagged') {
+    setUnflaggedFlashcardIndex(i);
+    if (!flashcardRandomOrder) saveProgress({ unflaggedIndex: i });
+  } else {
+    setFlashcardIndex(i);
+    if (!flashcardRandomOrder) saveProgress({ index: i });
+  }
+};
   // 登录
   const handleLogin = async (username, password) => {
     const res = await fetchLogin(username, password);
@@ -95,14 +138,30 @@ export default function App() {
     setMode('menu');
   };
 
+  const safeFlashcardIndex = filteredFlashcardData.length > 0
+    ? Math.min(activeFlashcardIndex, filteredFlashcardData.length - 1)
+    : 0;
   // 开始某个模式
   const startMode = (newMode) => {
     if (newMode === 'reading' && level === 0) {
       return;
     }
-    if (newMode === 'flashcard' && flashcardRandomOrder) {
-        setFlashcardIndex(0); // 随机模式下强制从第 0 张开始
+    if (newMode === 'flashcard') {
+      let sessionData;
+      
+      if (flashcardRandomOrder) {
+        // shuffle 的是 filteredFlashcardData，不是 allWords
+        sessionData = [...filteredFlashcardData].sort(() => Math.random() - 0.5);
+        setFlashcardIndex(0);
+        setFlaggedFlashcardIndex(0);
+        setUnflaggedFlashcardIndex(0);
+      } else {
+        sessionData = filteredFlashcardData;
+      }
+      
+      setFlashcardSessionData(sessionData);
     }
+    
     if (newMode === 'quiz' || newMode === 'speaking') {
       // === (1) 公共的部分 ===
       let pool = (quizCount === 'ALL') 
@@ -254,6 +313,16 @@ export default function App() {
               setFlashcardRandomOrder(val);
               saveProgress({ flashcard_random_order: val });
             }}
+            flashcardFilter={flashcardFilter}
+            // 1. setFlashcardFilter 时，重置对应 index 到 0
+            setFlashcardFilter={(val) => {
+              setFlashcardFilter(val);
+              // 切换 filter 时重置对应 index，防止越界
+              if (val === 'flagged') setFlaggedFlashcardIndex(0);
+              else if (val === 'unflagged') setUnflaggedFlashcardIndex(0);
+              else setFlashcardIndex(0);
+              saveProgress({ flashcard_filter: val });
+            }}
             speakingLang={currentSpeakingLang} 
             setSpeakingLang={(l) => saveProgress({ speakingLang: l })}
             startMode={startMode} 
@@ -270,22 +339,16 @@ export default function App() {
           />
         )}
 
-       {mode === 'flashcard' && (
+        {mode === 'flashcard' && flashcardSessionData.length > 0 && (
           <FlashcardMode 
-            // 修改：传递打乱后的卡片列表（而非原 allWords）
-            data={shuffledWords}
-            currentIndex={flashcardIndex}
-            setIndex={(i) => { 
-              const currentChar = shuffledWords[flashcardIndex]?.char; // 修改：从打乱后的列表取字符
+            data={flashcardSessionData}
+            currentIndex={safeFlashcardIndex}
+            setIndex={(i) => {
+              const currentChar = filteredFlashcardData[safeFlashcardIndex]?.char;
               if (currentChar) {
-                updateMasteryRecord(currentChar, { 
-                  lastUpdate: new Date().toISOString() 
-                });
+                updateMasteryRecord(currentChar, { lastUpdate: new Date().toISOString() });
               }
-              setFlashcardIndex(i); 
-              if (!flashcardRandomOrder) {
-                saveProgress({ level, index: i }); 
-              }
+              setActiveFlashcardIndex(i);
             }}
             onBack={() => setMode('menu')}
             onSpeak={speakChinese}
@@ -293,11 +356,27 @@ export default function App() {
             flaggedWords={flaggedWords}
             toggleWordFlag={toggleWordFlag}
             // 修改：从打乱后的列表取当前卡片的熟练度
-            currentMastery={mastery[`${level}_${shuffledWords[flashcardIndex]?.char}`]?.score}
+            currentMastery={mastery[`${level}_${filteredFlashcardData[activeFlashcardIndex]?.char}`]?.score}
             onUpdateMastery={(char, score) => {
               updateMasteryRecord(char, { score });
             }}
           />
+        )}
+
+        {mode === 'flashcard' && flashcardSessionData.length === 0 && (
+          <div className="min-h-screen flex items-center justify-center flex-col gap-4">
+            <p className="text-slate-400 font-bold text-lg">
+              {flashcardFilter === 'flagged' ? 'No flagged words yet. Heart some words first! ❤️' 
+               : flashcardFilter === 'unflagged' ? 'All words are flagged!'
+               : 'No words available.'}
+            </p>
+            <button 
+              onClick={() => setMode('menu')}
+              className="px-6 py-3 bg-slate-900 text-white rounded-2xl font-black text-sm"
+            >
+              Back to Menu
+            </button>
+          </div>
         )}
 
         {mode === 'quiz' && (

@@ -10,6 +10,8 @@ export default function Menu({
   setQuizRemoveCorrect,
   flashcardRandomOrder, 
   setFlashcardRandomOrder,
+  flashcardFilter,
+  setFlashcardFilter,
   speakingLang, 
   setSpeakingLang,
   startMode,
@@ -158,6 +160,25 @@ export default function Menu({
 
         {/* Action Modes */}
         <div className="space-y-3">
+
+          {/* Flashcard Filter selector */}
+          <div className="flex justify-between items-center px-4 pt-4">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Flashcard Filter</span>
+            <div className="flex bg-gray-200/50 p-1 rounded-xl">
+              {['all', 'flagged', 'unflagged'].map((f) => (
+                <button
+                  key={f}
+                  onClick={() => setFlashcardFilter(f)}
+                  className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${
+                    flashcardFilter === f ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400'
+                  }`}
+                >
+                  {f === 'all' ? 'ALL' : f === 'flagged' ? '❤️' : '—'}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <button 
             onClick={() => startMode('flashcard')}
             className="w-full group bg-white p-6 rounded-[2rem] shadow-sm border border-transparent hover:border-indigo-100 transition-all flex items-center justify-between"
