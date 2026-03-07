@@ -120,8 +120,8 @@ export default function App() {
     setMode('menu');
   };
 
-  const safeFlashcardIndex = filteredFlashcardData.length > 0
-    ? Math.min(activeFlashcardIndex, filteredFlashcardData.length - 1)
+  const safeFlashcardIndex = flashcardSessionData.length > 0
+    ? Math.min(activeFlashcardIndex, flashcardSessionData.length - 1)  // ✅ 用 session 数据
     : 0;
   // 开始某个模式
   const startMode = (newMode) => {
@@ -138,7 +138,7 @@ export default function App() {
         setFlaggedFlashcardIndex(0);
         setUnflaggedFlashcardIndex(0);
       } else {
-        sessionData = filteredFlashcardData;
+        sessionData = [...filteredFlashcardData];
       }
       
       setFlashcardSessionData(sessionData);
@@ -326,7 +326,7 @@ export default function App() {
             data={flashcardSessionData}
             currentIndex={safeFlashcardIndex}
             setIndex={(i) => {
-              const currentChar = filteredFlashcardData[safeFlashcardIndex]?.char;
+              const currentChar = flashcardSessionData[safeFlashcardIndex]?.char;
               if (currentChar) {
                 updateMasteryRecord(currentChar, { lastUpdate: new Date().toISOString() });
               }
@@ -342,7 +342,7 @@ export default function App() {
             flaggedWords={flaggedWords}
             toggleWordFlag={toggleWordFlag}
             // 修改：从打乱后的列表取当前卡片的熟练度
-            currentMastery={mastery[`${level}_${filteredFlashcardData[activeFlashcardIndex]?.char}`]?.score}
+            currentMastery={mastery[`${level}_${flashcardSessionData[safeFlashcardIndex]?.char}`]?.score}  // ✅
             onUpdateMastery={(char, score) => {
               updateMasteryRecord(char, { score });
             }}
