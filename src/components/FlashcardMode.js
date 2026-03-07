@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, Home, ArrowLeft, ArrowRight, List, X, Heart } from 'lucide-react';
+import { Volume2, Home, ArrowLeft, ArrowRight, List, X, Flag } from 'lucide-react';
 
 export default function FlashcardMode({ 
   data, currentIndex, setIndex, onBack, onSpeak, level, 
@@ -194,7 +194,7 @@ export default function FlashcardMode({
             onClick={handleFlag}
             className={`p-4 rounded-2xl transition-all ${isFlagged ? 'bg-red-50 text-red-500' : 'bg-slate-100 text-slate-400'}`}
             >
-            <Heart fill={isFlagged ? "currentColor" : "none"} size={22} />
+            <Flag fill={isFlagged ? "currentColor" : "none"} size={22} />
           </button>
         </div>
 

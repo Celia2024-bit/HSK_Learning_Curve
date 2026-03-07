@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Brain, ChevronRight, Check, Mic } from 'lucide-react';
+import { BookOpen, Brain, ChevronRight, Check, Mic,Flag, FlagOff } from 'lucide-react';
 
 export default function Menu({
   level,
@@ -169,11 +169,11 @@ export default function Menu({
                 <button
                   key={f}
                   onClick={() => setFlashcardFilter(f)}
-                  className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${
+                  className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all flex items-center justify-center ${
                     flashcardFilter === f ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400'
                   }`}
                 >
-                  {f === 'all' ? 'ALL' : f === 'flagged' ? '❤️' : '—'}
+                  {f === 'all' ? 'ALL' : f === 'flagged' ? <Flag size={12} fill="#ef4444" color="#ef4444" /> : <FlagOff size={12} />}
                 </button>
               ))}
             </div>
