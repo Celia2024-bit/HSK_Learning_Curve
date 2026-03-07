@@ -13,6 +13,7 @@ export default function FlashcardMode({
 
   const handleFlag = (e) => {
     e.stopPropagation(); // 阻止点击触发卡片翻转
+    e.preventDefault();
     toggleWordFlag(current.char, !isFlagged);
   };
 
