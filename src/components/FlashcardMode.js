@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Volume2, Home, ArrowLeft, ArrowRight, List, X, Flag } from 'lucide-react';
 
 export default function FlashcardMode({ 
-  data, currentIndex, setIndex, onBack, onSpeak, level, 
+  data, currentIndex, setIndex, onBack, onComplete, onSpeak, level, 
   currentMastery, onUpdateMastery ,
   flaggedWords, toggleWordFlag // 2. 接收这两个新参数
 }) {
@@ -26,7 +26,7 @@ export default function FlashcardMode({
 
   const handleNext = () => {
     if (currentIndex < data.length - 1) setIndex(currentIndex + 1);
-    else onBack();
+    else onComplete();
   };
 
   const handlePrev = () => {

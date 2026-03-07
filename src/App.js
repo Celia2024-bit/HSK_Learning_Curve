@@ -333,6 +333,10 @@ export default function App() {
               setActiveFlashcardIndex(i);
             }}
             onBack={() => setMode('menu')}
+            onComplete={() => {
+              setActiveFlashcardIndex(0);
+              setMode('menu');
+            }}
             onSpeak={speakChinese}
             level={level}
             flaggedWords={flaggedWords}
