@@ -35,9 +35,6 @@ export default function App() {
   const [flashcardRandomOrder, setFlashcardRandomOrder] = useState(false);
   const [flashcardFilter, setFlashcardFilter] = useState('all'); // 'all' | 'flagged' | 'unflagged'
 
-  // 存储随机排序后的完整词库（基于 allWords）
-  const [shuffledWords, setShuffledWords] = useState([]);
-  
   // 测验相关
   const [quizQueue, setQuizQueue] = useState([]);
   const [quizAnswers, setQuizAnswers] = useState([]);
@@ -75,24 +72,9 @@ export default function App() {
     setFlashcardFilter(p.flashcard_filter ?? 'all');
   }, [level, progressByLevel, getCurrentProgress]);
   
-  // 当 allWords 或 flashcardRandomOrder 变化时，重新生成 shuffledWords（基于全量词库）
-  useEffect(() => {
-    if (allWords.length === 0) return;
-    
-    if (flashcardRandomOrder) {
-      // 深拷贝并打乱数组，避免修改原数组
-      const shuffled = [...allWords].sort(() => Math.random() - 0.5);
-      setShuffledWords(shuffled);
-    } else {
-      // 关闭随机时恢复原顺序
-      setShuffledWords(allWords);
-    }
-  }, [allWords, flashcardRandomOrder, level]);
-
   // 根据 filter 从 shuffledWords 中派生出实际展示的单词列表
-  const currentFlaggedSet = flaggedWords[String(level)] || [];
-
   const filteredFlashcardData = useMemo(() => {
+    const currentFlaggedSet = flaggedWords[String(level)] || []; // ✅ 移进来
     if (flashcardFilter === 'flagged') {
       return allWords.filter(w => currentFlaggedSet.includes(w.char));
     }
@@ -100,7 +82,7 @@ export default function App() {
       return allWords.filter(w => !currentFlaggedSet.includes(w.char));
     }
     return allWords;
-  }, [allWords, flashcardFilter, currentFlaggedSet]);
+  }, [allWords, flashcardFilter, flaggedWords, level]); // ✅ flaggedWords 加入依赖
 
   // 根据 filter 选择对应的 index 和 setter
   const activeFlashcardIndex = 
