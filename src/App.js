@@ -132,7 +132,6 @@ export default function App() {
       let sessionData;
       
       if (flashcardRandomOrder) {
-        // shuffle 的是 filteredFlashcardData，不是 allWords
         sessionData = [...filteredFlashcardData].sort(() => Math.random() - 0.5);
         setFlashcardIndex(0);
         setFlaggedFlashcardIndex(0);
@@ -143,56 +142,53 @@ export default function App() {
       
       setFlashcardSessionData(sessionData);
     }
-    
     if (newMode === 'quiz' || newMode === 'speaking') {
-      // === (1) 公共的部分 ===
-      let pool = (quizCount === 'ALL') 
-        ? allWords 
-        : (masteredWordsList.length > 5 ? masteredWordsList : allWords);
+      // 优先用有mastery记录的词，不够时从allWords补齐
+      let basePool = masteredWordsList.length > 5 ? masteredWordsList : allWords;
+      const countToFetch = quizCount === 'ALL' ? allWords.length : quizCount;
 
-      // === (2) newMode === quiz ===
-      if (newMode === 'quiz') {
-        pool = pool.filter(word => {
-          const key = `${level}_${word.char}`;
-          const record = mastery[key];
+      // 过滤
+      let pool = basePool.filter(word => {
+        const key = `${level}_${word.char}`;
+        const record = mastery[key];
+
+        if (newMode === 'quiz') {
+          if (!record || record.lastQuiz === undefined) return true;
+          if (quizRemoveCorrect && record.lastResult === true) return false;
+          return true;
+        }
+
+        if (newMode === 'speaking') {
           if (!record) return true;
-          
-          const hasRecord = record.lastQuiz !== undefined;
-          const isCorrect = quizRemoveCorrect ? record.lastResult === true : false;
-          return quizCount === 'ALL' ? true : (hasRecord && !isCorrect);
-        });
-      }
-
-      // === (3) newMode === speaking ===
-      if (newMode === 'speaking') {
-        pool = pool.filter(word => {
-          const key = `${level}_${word.char}`;
-          const record = mastery[key];
-          if (!record) return true;
-
-          let hasRecord, isCorrect;
           if (currentSpeakingLang === 'zh') {
-            hasRecord = record.lastSpeakingQuiz !== undefined;
-            isCorrect = quizRemoveCorrect ? record.lastSpeakingResult === true : false;
+            if (record.lastSpeakingQuiz === undefined) return true;
+            if (quizRemoveCorrect && record.lastSpeakingResult === true) return false;
           } else {
-            // 英文和法语目前共用翻译字段 (也可细分)
-            hasRecord = record.lastTranslateQuiz !== undefined;
-            isCorrect = quizRemoveCorrect ? record.lastTranslateResult === true : false;
+            if (record.lastTranslateQuiz === undefined) return true;
+            if (quizRemoveCorrect && record.lastTranslateResult === true) return false;
           }
-          return quizCount === 'ALL' ? true : (hasRecord && !isCorrect);
-        });
+          return true;
+        }
+        return true;
+      });
+
+      // pool 过滤后数量不足 countToFetch，从 allWords 补充
+      if (pool.length < countToFetch) {
+        const poolChars = new Set(pool.map(w => w.char));
+        const extras = allWords.filter(w => !poolChars.has(w.char));
+        pool = [...pool, ...extras];
       }
 
-      // 防御处理与生成队列
-      if (pool.length === 0) pool = allWords;
-      const countToFetch = (quizCount === 'ALL') ? allWords.length : quizCount;
+      // 最终兜底
+      if (pool.length === 0) pool = [...allWords];
+
       const selected = getSmartQuizWords(pool, countToFetch, newMode);
-      
       setQuizQueue(selected);
       setScore(0);
       setQuizAnswers([]);
       setQuizIndex(0);
     }
+    
     
     setMode(newMode);
   };
