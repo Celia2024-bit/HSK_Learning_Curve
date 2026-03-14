@@ -11,6 +11,7 @@ export default function SpeakingMode({ word, currentIndex, total, lang, onSpeak,
 
   const recorderRef = useRef(null);
   const chunksRef = useRef([]);
+  const [zhMode, setZhMode] = useState('precise'); // 'precise' | 'fast'
 
   // 换题重置
   useEffect(() => {
@@ -39,13 +40,45 @@ export default function SpeakingMode({ word, currentIndex, total, lang, onSpeak,
           
           try {
             let analysis;
-            if (lang === 'zh') {
+            if (lang === 'zh' && zhMode === 'precise') {
               analysis = await processAndCompare(file, word.char);
+
+            } else if (lang === 'zh' && zhMode === 'fast') {
+              const res = await processTranslationSpeech(file, word.char, 'zh');
+              
+              // 把 expected（目标汉字）转成拼音数组
+              const { pinyin } = await import('pinyin-pro');
+              const expectedPinyins = pinyin(word.char, { toneType: 'num', type: 'array' });
+              
+              // 把 actual（Whisper识别出的汉字）也转成拼音数组
+              const actualText = res.actual || '';
+              const actualPinyins = actualText
+                ? pinyin(actualText, { toneType: 'num', type: 'array' })
+                : [];
+
+              analysis = word.char.split('').map((char, index) => {
+                const exp = expectedPinyins[index] || '';
+                const act = actualPinyins[index] || '--';
+                return {
+                  char,
+                  expected: exp,
+                  actual: act,
+                  isCorrect: exp === act,
+                  diff: {
+                    initialMatch: true,  // fast 模式不做声母韵母细分，只看整体对不对
+                    finalMatch: true,
+                    toneMatch: exp === act
+                  }
+                };
+              });
+
             } else {
+              // EN / FR
               const targetLang = lang === 'en' ? 'en' : 'fr';
               const res = await processTranslationSpeech(file, word.meaning, targetLang);
               analysis = [{ char: word.char, expected: res.expected, actual: res.actual, isCorrect: res.isCorrect }];
             }
+
             setResults(analysis);
           } catch (err) {
             console.error(err);
@@ -154,18 +187,35 @@ export default function SpeakingMode({ word, currentIndex, total, lang, onSpeak,
             </button>
           </div>
 
-          {/* 2. 中间：语言标签 (放入此处绝不会重叠) */}
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 rounded-xl border border-indigo-100/50">
-            <div className={`w-2 h-2 rounded-full ${isRecording ? 'bg-red-500 animate-pulse' : 'bg-indigo-400'}`}></div>
-            <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest whitespace-nowrap">
-              {
-                {
-                  'zh': 'Chinese',
-                  'en': 'English',
-                  'fr': 'French'
-                }[lang] || lang.toUpperCase()
-              }
-            </span>
+          {/* 2. 中间：语言标签 + zh 模式切换 */}
+          <div className="flex flex-col items-center gap-2">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 rounded-xl border border-indigo-100/50">
+              <div className={`w-2 h-2 rounded-full ${isRecording ? 'bg-red-500 animate-pulse' : 'bg-indigo-400'}`}></div>
+              <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest whitespace-nowrap">
+                {{ 'zh': 'Chinese', 'en': 'English', 'fr': 'French' }[lang] || lang.toUpperCase()}
+              </span>
+            </div>
+
+            {lang === 'zh' && (
+              <div className="flex bg-gray-200/50 p-0.5 rounded-xl">
+                <button
+                  onClick={() => setZhMode('precise')}
+                  className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all ${
+                    zhMode === 'precise' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400'
+                  }`}
+                >
+                  precise
+                </button>
+                <button
+                  onClick={() => setZhMode('fast')}
+                  className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all ${
+                    zhMode === 'fast' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400'
+                  }`}
+                >
+                  fast
+                </button>
+              </div>
+            )}
           </div>
 
           {/* 3. 右侧：进度计数 */}
