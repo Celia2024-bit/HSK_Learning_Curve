@@ -134,14 +134,14 @@ export default function FlashcardMode({
 
             {/* Step 1: 拼音 - 翡翠绿 (纯色原版) */}
             {step === 1 && (
-              <p className="text-3xl font-bold text-emerald-500 animate-in slide-in-from-bottom-8 duration-500 font-sans tracking-tight">
+              <p className="text-4xl font-bold text-emerald-500 animate-in slide-in-from-bottom-8 duration-500 font-sans tracking-tight">
                 {current.pinyin}
               </p>
             )}
 
             {/* Step 2: 英文 - 渐变色 */}
             {step === 2 && (
-              <p className="text-6xl font-black bg-gradient-to-br from-orange-400 to-rose-500 bg-clip-text text-transparent animate-in fade-in duration-500 px-2 leading-tight">
+              <p className="text-4xl font-black bg-gradient-to-br from-orange-400 to-rose-500 bg-clip-text text-transparent animate-in fade-in duration-500 px-2 leading-tight">
                 {current.meaning}
               </p>
             )}
@@ -149,13 +149,13 @@ export default function FlashcardMode({
             {/* Step 3: 总结 - 汉字巨化 + 你满意的渐变色 */}
             {step === 3 && (
               <div className="flex flex-col items-center animate-in fade-in zoom-in-90 duration-500">
-                <h2 className="text-[10rem] font-black bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-4 tracking-tighter">
+                <h2 className="text-5xl font-black bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-4 tracking-tighter">
                   {current.char}
                 </h2>
                 <p className="text-2xl font-bold text-emerald-500 mb-2 font-sans">
                   {current.pinyin}
                 </p>
-                <p className="text-xl font-bold text-slate-300 italic tracking-widest uppercase">
+                <p className="text-2xl font-black bg-gradient-to-br from-orange-400 to-rose-500 bg-clip-text text-transparent animate-in fade-in duration-500 px-2 leading-tight">
                   {current.meaning}
                 </p>
               </div>
