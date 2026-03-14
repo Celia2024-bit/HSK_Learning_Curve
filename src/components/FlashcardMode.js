@@ -134,7 +134,7 @@ export default function FlashcardMode({
 
             {/* Step 1: 拼音 - 翡翠绿 (纯色原版) */}
             {step === 1 && (
-              <p className="text-7xl font-bold text-emerald-500 animate-in slide-in-from-bottom-8 duration-500 font-sans tracking-tight">
+              <p className="text-3xl font-bold text-emerald-500 animate-in slide-in-from-bottom-8 duration-500 font-sans tracking-tight">
                 {current.pinyin}
               </p>
             )}
@@ -152,7 +152,7 @@ export default function FlashcardMode({
                 <h2 className="text-[10rem] font-black bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-4 tracking-tighter">
                   {current.char}
                 </h2>
-                <p className="text-4xl font-bold text-emerald-500 mb-2 font-sans">
+                <p className="text-2xl font-bold text-emerald-500 mb-2 font-sans">
                   {current.pinyin}
                 </p>
                 <p className="text-xl font-bold text-slate-300 italic tracking-widest uppercase">
