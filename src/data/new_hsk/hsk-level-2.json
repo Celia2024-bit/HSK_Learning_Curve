@@ -1,0 +1,3822 @@
+[
+  {
+    "char": "啊",
+    "pinyin": "ā",
+    "meaning": "particle: used in direct address and exclamation; indicating obviousness/impatience/suggestion; used for confirmation"
+  },
+  {
+    "char": "爱情",
+    "pinyin": "àiqíng",
+    "meaning": "god, warmheartedness, affection, love_affair, heart, kindness, tenderness, bosom, love, fondness, romantic love, affectionateness"
+  },
+  {
+    "char": "爱人",
+    "pinyin": "ài ren",
+    "meaning": "spouse (PRC), lover (non-PRC), CL:個|个[ge4]"
+  },
+  {
+    "char": "安静",
+    "pinyin": "ānjìng",
+    "meaning": "lull, quieten, quiesce, dummy, quiet down, quiet, hush, pipe down, peaceful"
+  },
+  {
+    "char": "安全",
+    "pinyin": "ānquán",
+    "meaning": "safe, secure"
+  },
+  {
+    "char": "白色",
+    "pinyin": "báisè",
+    "meaning": "White, white, whiteness, White (as symbol of anticommunism), white (color)"
+  },
+  {
+    "char": "班长",
+    "pinyin": "bānzhǎng",
+    "meaning": "monitor, (work) team leader, squad leader, team leader, class monitor"
+  },
+  {
+    "char": "办",
+    "pinyin": "bàn",
+    "meaning": "punish (by law), manage, get ... ready, set_up, buy a fair amount of, set up, run, management, handle, tackle, attend to, do, punish, bring ... to justice"
+  },
+  {
+    "char": "办法",
+    "pinyin": "bànfǎ",
+    "meaning": "road, expedient, policy, agency, measure, way, method, means"
+  },
+  {
+    "char": "办公室",
+    "pinyin": "bàngōngshì",
+    "meaning": "agency, office, authority, government agency, bureau"
+  },
+  {
+    "char": "半夜",
+    "pinyin": "bàn yè",
+    "meaning": "midnight, in the middle of the night"
+  },
+  {
+    "char": "帮助",
+    "pinyin": "bāngzhù",
+    "meaning": "aid, bridge_over, help, bestead, bring_on, tide_over, serve, support, facilitate, accommodate, carry_through, assist, administer, attend_to, assistance, befriend, further, favour"
+  },
+  {
+    "char": "饱",
+    "pinyin": "bǎo",
+    "meaning": "to eat till full, satisfied"
+  },
+  {
+    "char": "报名",
+    "pinyin": "bàomíng",
+    "meaning": "register, inscribe, enter, enroll, enrol, enter one's name, sign up, recruit"
+  },
+  {
+    "char": "报纸",
+    "pinyin": "bàozhǐ",
+    "meaning": "paper, headliner, newspaper publisher, tabloid, copyreader, newspaper, rag, courant, newsprint, sheet, gazette, dailies"
+  },
+  {
+    "char": "北方",
+    "pinyin": "běifāng",
+    "meaning": "norland, septentrion, compass north, northern part of country, northernness, northern, magnetic north, northward, north, the North, the northern part of the country"
+  },
+  {
+    "char": "背",
+    "pinyin": "bèi",
+    "meaning": "learn by heart, recite from memory"
+  },
+  {
+    "char": "比如",
+    "pinyin": "bǐ rú",
+    "meaning": "for example, for instance, such as"
+  },
+  {
+    "char": "比如说",
+    "pinyin": "bǐrúshuō",
+    "meaning": "For example"
+  },
+  {
+    "char": "笔",
+    "pinyin": "bǐ",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "笔记",
+    "pinyin": "bǐjì",
+    "meaning": "short sketches, adversaria, notes, note"
+  },
+  {
+    "char": "笔记本",
+    "pinyin": "bǐ jì běn",
+    "meaning": "notebook (stationery), CL:本[ben3], notebook (computing)"
+  },
+  {
+    "char": "必须",
+    "pinyin": "bìxū",
+    "meaning": "must"
+  },
+  {
+    "char": "边",
+    "pinyin": "biān",
+    "meaning": "border, boundary"
+  },
+  {
+    "char": "变",
+    "pinyin": "biàn",
+    "meaning": "change, transform"
+  },
+  {
+    "char": "变成",
+    "pinyin": "biànchéng",
+    "meaning": "grow_into, change into, go, form, grow into, change state, develop into, turn to, fall, turn_into, be, turn, become, turn into, grow, run, get"
+  },
+  {
+    "char": "遍",
+    "pinyin": "biàn",
+    "meaning": "m.[activity]"
+  },
+  {
+    "char": "表",
+    "pinyin": "biǎo",
+    "meaning": "table, form, list"
+  },
+  {
+    "char": "示",
+    "pinyin": "shì",
+    "meaning": "to show, to reveal"
+  },
+  {
+    "char": "不错",
+    "pinyin": "búcuò",
+    "meaning": "not bad, pretty good;correct, right"
+  },
+  {
+    "char": "不但",
+    "pinyin": "búdàn",
+    "meaning": "conj.: not only"
+  },
+  {
+    "char": "不够",
+    "pinyin": "bù goù",
+    "meaning": "not enough, insufficient, inadequate"
+  },
+  {
+    "char": "不过",
+    "pinyin": "búguò",
+    "meaning": "conj.: but, however, only"
+  },
+  {
+    "char": "不太",
+    "pinyin": "butài",
+    "meaning": "Not too"
+  },
+  {
+    "char": "不要",
+    "pinyin": "búyào",
+    "meaning": "never, noway, don't want, don't (do sth.)"
+  },
+  {
+    "char": "不好意思",
+    "pinyin": "bùhǎoyìsī",
+    "meaning": "embarrassed, be ill at ease, find it embarrassing, feel embarrassed"
+  },
+  {
+    "char": "不久",
+    "pinyin": "bù jiǔ",
+    "meaning": "not long (after), before too long, soon, soon after"
+  },
+  {
+    "char": "不满",
+    "pinyin": "bùmǎn",
+    "meaning": "resentful, dissatisfied"
+  },
+  {
+    "char": "不如",
+    "pinyin": "bùrú",
+    "meaning": "be unequal/inferior to"
+  },
+  {
+    "char": "不少",
+    "pinyin": "bùshǎo",
+    "meaning": "det.: a lot of"
+  },
+  {
+    "char": "不同",
+    "pinyin": "bùtóng",
+    "meaning": "different"
+  },
+  {
+    "char": "不行",
+    "pinyin": "bù xíng",
+    "meaning": "won't do, be out of the question, be no good, not work, not be capable"
+  },
+  {
+    "char": "不一定",
+    "pinyin": "bùyīdìng",
+    "meaning": "not sure, maybe"
+  },
+  {
+    "char": "不一会儿",
+    "pinyin": "buyīhuìér",
+    "meaning": "Take a short while"
+  },
+  {
+    "char": "部分",
+    "pinyin": "bùfèn",
+    "meaning": "partial, department, section, partialness, slice, pars, part, det.: part, percent, partage, sphere, component, divvy, segment, portion, fraction, sector, chapter, share, percentage, piece, division, sectional, parcel"
+  },
+  {
+    "char": "才",
+    "pinyin": "cái",
+    "meaning": "then and only then, just now, only (before a number)"
+  },
+  {
+    "char": "菜单",
+    "pinyin": "cài dān",
+    "meaning": "menu, CL:份[fen4],張|张[zhang1]"
+  },
+  {
+    "char": "参观",
+    "pinyin": "cānguān",
+    "meaning": "visit, tour"
+  },
+  {
+    "char": "参加",
+    "pinyin": "cānjiā",
+    "meaning": "join, attend, take part in, give (advice/etc.)"
+  },
+  {
+    "char": "草",
+    "pinyin": "cǎo",
+    "meaning": "female (of animals), herb, herbage, female, careless, hasty, grass, rough, wort, draft, straw"
+  },
+  {
+    "char": "草地",
+    "pinyin": "cǎo dì",
+    "meaning": "lawn, meadow, sod, turf, CL:片[pian4]"
+  },
+  {
+    "char": "层",
+    "pinyin": "céng",
+    "meaning": "m.[proximation]"
+  },
+  {
+    "char": "查",
+    "pinyin": "chá",
+    "meaning": "look into, consult, look up, search, investigate, consultation, audit, examination, investigation, check, examine"
+  },
+  {
+    "char": "差不多",
+    "pinyin": "chābùduō",
+    "meaning": "good enough"
+  },
+  {
+    "char": "长",
+    "pinyin": "cháng",
+    "meaning": "long, be strong/good (in/at)"
+  },
+  {
+    "char": "常见",
+    "pinyin": "chángjiàn",
+    "meaning": "commonly seen"
+  },
+  {
+    "char": "常用",
+    "pinyin": "cháng yòng",
+    "meaning": "in common usage"
+  },
+  {
+    "char": "场",
+    "pinyin": "cháng",
+    "meaning": "m.[event]"
+  },
+  {
+    "char": "超过",
+    "pinyin": "chāoguò",
+    "meaning": "overpass, overreach, outwalk, outstrip, overstep, outmarch, distance, pass, overstride, outpace, overtop, surpass, crown, exceed, overtake, preponderate, overrun, top, outrun, go_over, transcend, outrange, transgress, go past, break, excess, overhaul, overshine"
+  },
+  {
+    "char": "超市",
+    "pinyin": "chāo shì",
+    "meaning": "supermarket, abbr. for 超級市場|超级市场, CL:家[jia1]"
+  },
+  {
+    "char": "车辆",
+    "pinyin": "chēliàng",
+    "meaning": "voiture, vehicular traffic, vehicle, cars, vehicle traffic, car, vehicles, carriage, rolling_stock, equipment"
+  },
+  {
+    "char": "称",
+    "pinyin": "chēng",
+    "meaning": "call"
+  },
+  {
+    "char": "成",
+    "pinyin": "chéng",
+    "meaning": "become, turn into"
+  },
+  {
+    "char": "成绩",
+    "pinyin": "chéngjī",
+    "meaning": "execution, carrying into action, achievement, result, showing, carrying out, performance, grade, success, doing, batting average"
+  },
+  {
+    "char": "成为",
+    "pinyin": "chéngwéi",
+    "meaning": "find, join, comprise, turn to, commemorate, sample, entomb, come_up, commence, get hold, learn, add up, necessitate, run, make up, constitute, make, form, come, amount, represent, fall, presage, change, be, turn, turn into, become, line up, come up, shape, portend, foretell, get"
+  },
+  {
+    "char": "重复",
+    "pinyin": "chóngfù",
+    "meaning": "repeat, duplicate"
+  },
+  {
+    "char": "重新",
+    "pinyin": "chóngxīn",
+    "meaning": "over_again, newly, afresh, anew, again"
+  },
+  {
+    "char": "出发",
+    "pinyin": "chūfā",
+    "meaning": "depart, get_off, proceed, take_the_road, part, set out, start from, start out, sidetrack, start/proceed from, stray, take the road, sally out, sally_forth, proceed from, set_off, sally forth, take off, start, set forth, set off, digress, straggle, start off, move"
+  },
+  {
+    "char": "出国",
+    "pinyin": "chūguó",
+    "meaning": "go abroad (from one's own country)"
+  },
+  {
+    "char": "出口",
+    "pinyin": "chūkǒu",
+    "meaning": "export"
+  },
+  {
+    "char": "出门",
+    "pinyin": "chūmén",
+    "meaning": "go_out, go on journey, go out, go on a journey, be away from home"
+  },
+  {
+    "char": "出生",
+    "pinyin": "chūshēng",
+    "meaning": "be born"
+  },
+  {
+    "char": "出现",
+    "pinyin": "chūxiàn",
+    "meaning": "appear, arise, emerge"
+  },
+  {
+    "char": "出院",
+    "pinyin": "chū yuàn",
+    "meaning": "to leave hospital, to be discharged from hospital"
+  },
+  {
+    "char": "出租",
+    "pinyin": "chūzū",
+    "meaning": "hire, let, rent"
+  },
+  {
+    "char": "出租车",
+    "pinyin": "chū zū chē",
+    "meaning": "taxi, (Taiwan) rental car"
+  },
+  {
+    "char": "船",
+    "pinyin": "chuán",
+    "meaning": "bottom, body, ship, catcher, bow, bark, boat, shipboard, prow, watercraft, craft, drone, vessel, keel, sailer"
+  },
+  {
+    "char": "吹",
+    "pinyin": "chuī",
+    "meaning": "fall through (of plans), wind, fall through, tout, play, gasconade, shoot a line, blow, break up, chuff, vaunt, boast, brag, gas, bluster, talk big, break off, toot, swash, play (wind instruments), huff, puff, land"
+  },
+  {
+    "char": "春节",
+    "pinyin": "Chūn jié",
+    "meaning": "Spring Festival (Chinese New Year)"
+  },
+  {
+    "char": "春天",
+    "pinyin": "chūn tiān",
+    "meaning": "spring (season), CL:個|个[ge4]"
+  },
+  {
+    "char": "词",
+    "pinyin": "cí",
+    "meaning": "vocable, words, phrase, a kind of poetry originating in Tang dyn, statement, a form of classical poetry, part of speech, speech, Ci, Chinese poetry, term, word"
+  },
+  {
+    "char": "词典",
+    "pinyin": "cídiǎn",
+    "meaning": "lexicon, dictionary"
+  },
+  {
+    "char": "词语",
+    "pinyin": "cí yǔ",
+    "meaning": "word (general term including monosyllables through to short phrases), term (e.g. technical term), expression"
+  },
+  {
+    "char": "从小",
+    "pinyin": "cóngxiǎo",
+    "meaning": "from childhood, as a child"
+  },
+  {
+    "char": "答应",
+    "pinyin": "dāyìng",
+    "meaning": "agree, promise"
+  },
+  {
+    "char": "打工",
+    "pinyin": "dǎgōng",
+    "meaning": "work part-time while studying in college, work as an employee, etc."
+  },
+  {
+    "char": "打算",
+    "pinyin": "dǎsuàn",
+    "meaning": "mean, specify, plan, think, intention, propose, design, purpose, contemplate, allot, destine, calculate, intend, designate, be after"
+  },
+  {
+    "char": "打印",
+    "pinyin": "dǎ yìn",
+    "meaning": "to print, to seal, to stamp"
+  },
+  {
+    "char": "大部分",
+    "pinyin": "dàbùfèn",
+    "meaning": "det.: most of, the majority of"
+  },
+  {
+    "char": "大大",
+    "pinyin": "dà dà",
+    "meaning": "greatly, enormously, (dialect) dad, uncle"
+  },
+  {
+    "char": "大多数",
+    "pinyin": "dàduōshù",
+    "meaning": "det.: most of, the majority of"
+  },
+  {
+    "char": "大海",
+    "pinyin": "dàhǎi",
+    "meaning": "seaway, sea, the open sea"
+  },
+  {
+    "char": "大家",
+    "pinyin": "dàjiā",
+    "meaning": "sundry, great master, rich and influential family, pontiff, all of us, everyone, authority, master, distinguished family"
+  },
+  {
+    "char": "大量",
+    "pinyin": "dàliàng",
+    "meaning": "det.: any numer of, a great many"
+  },
+  {
+    "char": "大门",
+    "pinyin": "dàmén",
+    "meaning": "barndoor, portal, main entrance, front_door, gate, door, entry, main door/gate, front door, main entrance/door/gate, entrance"
+  },
+  {
+    "char": "大人",
+    "pinyin": "dàrén",
+    "meaning": "grownup, adult, milord, respectful salutation for one's seniors/, grown-up, respectful salutation for one's parents, Your Excellency, panjandrum, Highness, respectful salutation for one's parents/seniors/etc., Tuan, Bahadur, bahadur, sahib"
+  },
+  {
+    "char": "大声",
+    "pinyin": "dàshēng",
+    "meaning": "loud, loud voice"
+  },
+  {
+    "char": "大小",
+    "pinyin": "dàxiǎo",
+    "meaning": "calibre, measurement, admeasurement, bulk, proportion, magnitude, extent, degree of seniority, dimension, girth, size, adults and children"
+  },
+  {
+    "char": "大衣",
+    "pinyin": "dà yī",
+    "meaning": "overcoat, topcoat, cloak, CL:件[jian4]"
+  },
+  {
+    "char": "大自然",
+    "pinyin": "dàzìrán",
+    "meaning": "wild, earth, nature, natural state, state of nature"
+  },
+  {
+    "char": "带",
+    "pinyin": "dài",
+    "meaning": "look after, raise"
+  },
+  {
+    "char": "带来",
+    "pinyin": "dàilái",
+    "meaning": "bring, redound, impart, bring_on, bring on, express, fetch, lend, convey, contribute, bring about, bestow, carry, bring oneself, add, usher, incur, land"
+  },
+  {
+    "char": "单位",
+    "pinyin": "dānwèi",
+    "meaning": "department, unit, denomination, module, building block, unit of measurement, monad, unit (in measurement or organization)"
+  },
+  {
+    "char": "但",
+    "pinyin": "dàn",
+    "meaning": "conj.: but, yet, still, nevertheless, only, merely"
+  },
+  {
+    "char": "但是",
+    "pinyin": "dànshì",
+    "meaning": "conj.: but, however, yet, still"
+  },
+  {
+    "char": "蛋",
+    "pinyin": "dàn",
+    "meaning": "clump, egg, lump, bunch, an egg-shaped thing"
+  },
+  {
+    "char": "当",
+    "pinyin": "dāng",
+    "meaning": "when, while"
+  },
+  {
+    "char": "当时",
+    "pinyin": "dāng shí",
+    "meaning": "dàng shí"
+  },
+  {
+    "char": "倒",
+    "pinyin": "dào",
+    "meaning": "actually"
+  },
+  {
+    "char": "到处",
+    "pinyin": "dàochù",
+    "meaning": "universally, everywhere, everyplace, far and near, about, around, far and wide, all_over, high_and_low, all over, throughout, high and low, far_and_near, passim, abroad, at all places"
+  },
+  {
+    "char": "道",
+    "pinyin": "dào",
+    "meaning": "say, speak, talk, think, suppose"
+  },
+  {
+    "char": "道理",
+    "pinyin": "dàolǐ",
+    "meaning": "thread, principle, the right way, theory, reason, argument, sense, order, truth, rationality"
+  },
+  {
+    "char": "道路",
+    "pinyin": "dàolù",
+    "meaning": "track, path, runway, steps, route, course, toby, road, thoroughfare, way"
+  },
+  {
+    "char": "得",
+    "pinyin": "děi",
+    "meaning": "should be, need"
+  },
+  {
+    "char": "得出",
+    "pinyin": "dé chū",
+    "meaning": "to obtain (results), to arrive at (a conclusion)"
+  },
+  {
+    "char": "的话",
+    "pinyin": "dehuà",
+    "meaning": "conj.: if"
+  },
+  {
+    "char": "灯",
+    "pinyin": "dēng",
+    "meaning": "blowlamp, lantern, light source, light, lamp, tube, valve, burner"
+  },
+  {
+    "char": "等",
+    "pinyin": "děng",
+    "meaning": "conj.: and so on, etc"
+  },
+  {
+    "char": "等到",
+    "pinyin": "děngdào",
+    "meaning": "until"
+  },
+  {
+    "char": "等于",
+    "pinyin": "děngyū",
+    "meaning": "be equal to, tantamount to, equal, be equal, amount, reach, be, be equivalent to"
+  },
+  {
+    "char": "低",
+    "pinyin": "dī",
+    "meaning": "let droop, hang down, lower"
+  },
+  {
+    "char": "地球",
+    "pinyin": "dìqiú",
+    "meaning": "the earth/globe, globe, world, Earth, ball, terrene, earth, the globe, the earth"
+  },
+  {
+    "char": "地铁",
+    "pinyin": "dì tiě",
+    "meaning": "subway, metro"
+  },
+  {
+    "char": "地铁站",
+    "pinyin": "dì tiě zhàn",
+    "meaning": "subway station"
+  },
+  {
+    "char": "点头",
+    "pinyin": "diǎntóu",
+    "meaning": "take a bow, nod one's head, noddle, nod"
+  },
+  {
+    "char": "店",
+    "pinyin": "diàn",
+    "meaning": "shop, store, inn"
+  },
+  {
+    "char": "掉",
+    "pinyin": "diào",
+    "meaning": "drop, reduce, exchange, lose, fall behind, be missing, fall, knock, come off, change, shed, turn"
+  },
+  {
+    "char": "东北",
+    "pinyin": "dōngběi",
+    "meaning": "Northeast China, Manchuria"
+  },
+  {
+    "char": "东方",
+    "pinyin": "dōngfāng",
+    "meaning": "oriental, dawning, northeast, eastward, E, Orient, orient, orientation, the Orient, Surname, sunrise, eastern, eastern hemisphere, Dongfang, due east, East, the East, east, the east"
+  },
+  {
+    "char": "东南",
+    "pinyin": "dōngnán",
+    "meaning": "sou'-east, Southeast China, southeast, SE"
+  },
+  {
+    "char": "冬天",
+    "pinyin": "dōng tiān",
+    "meaning": "winter, CL:個|个[ge4]"
+  },
+  {
+    "char": "懂",
+    "pinyin": "dǒng",
+    "meaning": "have, comprehend, understanding, understand, compass, grasp, get the picture, glom, know, apprehend, twig, savvy, follow, make out, dig"
+  },
+  {
+    "char": "懂得",
+    "pinyin": "dǒngde",
+    "meaning": "experience, know, live, understanding, understand, twig, gaum, grasp"
+  },
+  {
+    "char": "动物",
+    "pinyin": "dòngwù",
+    "meaning": "thing, critter, crittur, zoic, anthropomorphism, animal, deer, animate being, beast, creature, burrow, sire, worker, fauna, brute"
+  },
+  {
+    "char": "动物园",
+    "pinyin": "dòngwùyuán",
+    "meaning": "zoological_garden, zoo, zoological garden, menagerie"
+  },
+  {
+    "char": "读音",
+    "pinyin": "dú yīn",
+    "meaning": "pronunciation, literary (rather than colloquial) pronunciation of a Chinese character"
+  },
+  {
+    "char": "度",
+    "pinyin": "dù",
+    "meaning": "m.[activity]"
+  },
+  {
+    "char": "短",
+    "pinyin": "duǎn",
+    "meaning": "short, brief"
+  },
+  {
+    "char": "短信",
+    "pinyin": "duǎn xìn",
+    "meaning": "text message, SMS"
+  },
+  {
+    "char": "段",
+    "pinyin": "duàn",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "队",
+    "pinyin": "duì",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "队长",
+    "pinyin": "duìzhǎng",
+    "meaning": "captain, chieftain, skipper, police chief, header, headman, commandant, police captain, sirdar, team leader"
+  },
+  {
+    "char": "对",
+    "pinyin": "duì",
+    "meaning": "correct, true, toward"
+  },
+  {
+    "char": "对话",
+    "pinyin": "duìhuà",
+    "meaning": "dialogue"
+  },
+  {
+    "char": "对面",
+    "pinyin": "duìmiàn",
+    "meaning": "opposite"
+  },
+  {
+    "char": "多",
+    "pinyin": "duō",
+    "meaning": "many, much, more, more than the correct/required number, excessive, too much, much/far more"
+  },
+  {
+    "char": "多久",
+    "pinyin": "duō jiǔ",
+    "meaning": "how long?"
+  },
+  {
+    "char": "多么",
+    "pinyin": "duóme",
+    "meaning": "to what extent, to what degree, however, what, how"
+  },
+  {
+    "char": "多数",
+    "pinyin": "duōshù",
+    "meaning": "trillions, millions, mort, relative majority, throng, det : majority, prevalence, multitude, lac, Host, host, bulk, horde, raft, million, lakh, rimption, pack, skit, strength, acre, generality, ruck, chunk, number, shoal, multiplicity, billions, preponderance, jillions, zillions, grist, world, majority, meiny, regiment, legion, mass, plurality"
+  },
+  {
+    "char": "多云",
+    "pinyin": "duō yún",
+    "meaning": "cloudy (meteorology)"
+  },
+  {
+    "char": "而且",
+    "pinyin": "érqiě",
+    "meaning": "conj.: furthermore, and"
+  },
+  {
+    "char": "发",
+    "pinyin": "fā",
+    "meaning": "distribute"
+  },
+  {
+    "char": "发现",
+    "pinyin": "fāxiàn",
+    "meaning": "find, discover"
+  },
+  {
+    "char": "饭馆",
+    "pinyin": "fàn guǎn",
+    "meaning": "restaurant, CL:家[jia1]"
+  },
+  {
+    "char": "方便",
+    "pinyin": "fāngbiàn",
+    "meaning": "convenient"
+  },
+  {
+    "char": "方便面",
+    "pinyin": "fāng biàn miàn",
+    "meaning": "instant noodles"
+  },
+  {
+    "char": "方法",
+    "pinyin": "fāngfǎ",
+    "meaning": "know-how, plan, attack, system, stepping-stone, manner, method, gateway, idea, measure, way, guise, key, wise, quomodo, plan of attack, tack, machinery, process, avenue, modus, how, means, channel, gate, approach, agency, gamesmanship, mode, medium, sort"
+  },
+  {
+    "char": "方面",
+    "pinyin": "fāngmiàn",
+    "meaning": "side, aspect, sector, part, light, facet, behalf, way, respect, direction, bearing, field, phase, sphere, angle, hand"
+  },
+  {
+    "char": "方向",
+    "pinyin": "fāngxiàng",
+    "meaning": "path, set, directional, aspect, tenor, course, lay, exposure, way, range, aim, trend, direction, bearing, orientation, hand, tack, way of life, quarter, channel, line, heading"
+  },
+  {
+    "char": "放下",
+    "pinyin": "fàngxià",
+    "meaning": "set_down, set down, lay/put down, lay, lower, lay_down, draw, lay down, dismount, put_down, plank, drop_away, deposit, digress, drop_off, depose, put down, place down"
+  },
+  {
+    "char": "放心",
+    "pinyin": "fàngxīn",
+    "meaning": "disburden, set one's mind at rest, set one's mood at rest, be at ease, feel relieved, rest assured"
+  },
+  {
+    "char": "分",
+    "pinyin": "fèn",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "分开",
+    "pinyin": "fēnkāi",
+    "meaning": "rive, uncouple, unyoke, divaricate, detach, disjoint, cleave, shift, break_up, cut, segregate, isolate, divorce, severalize, unclasp, divide, dissever, disjoin, break, come off, demarcate, fork, sever, sequester, disconnect, part, come away, sunder, break up, keep apart, separate, diverge, branch, set_off, ramify, split, sequestrate, untwine, separation, set apart, parcel"
+  },
+  {
+    "char": "分数",
+    "pinyin": "fēnshù",
+    "meaning": "point, score, mark, grade, fraction, football score, numeric"
+  },
+  {
+    "char": "分钟",
+    "pinyin": "fēnzhōng",
+    "meaning": "m.[standard]"
+  },
+  {
+    "char": "份",
+    "pinyin": "fèn",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "封",
+    "pinyin": "fēng",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "服务",
+    "pinyin": "fúwù",
+    "meaning": "be in the service of, serve"
+  },
+  {
+    "char": "复习",
+    "pinyin": "fù xí",
+    "meaning": "fù xí"
+  },
+  {
+    "char": "该",
+    "pinyin": "gāi",
+    "meaning": "det.: this, that"
+  },
+  {
+    "char": "改",
+    "pinyin": "gǎi",
+    "meaning": "alteration, rectification, transformation, change, correct, put ... right, transform, rectify, revision, switch over to, ameliorate, revise, put right, amend, correction, gybe, alter"
+  },
+  {
+    "char": "改变",
+    "pinyin": "gǎibiàn",
+    "meaning": "change, transform"
+  },
+  {
+    "char": "干杯",
+    "pinyin": "gān bēi",
+    "meaning": "to drink a toast, Cheers! (proposing a toast), Here's to you!, Bottoms up!, lit. dry cup"
+  },
+  {
+    "char": "感到",
+    "pinyin": "gǎndào",
+    "meaning": "feel, sense"
+  },
+  {
+    "char": "感动",
+    "pinyin": "gǎndòng",
+    "meaning": "be touched, be moved, affect, feel, stir, thrill, melt, magnetize, inspire, touch, reach, move"
+  },
+  {
+    "char": "感觉",
+    "pinyin": "gǎnjué",
+    "meaning": "sense perception, feeling"
+  },
+  {
+    "char": "感谢",
+    "pinyin": "gǎnxiè",
+    "meaning": "thank, be grateful"
+  },
+  {
+    "char": "干活儿",
+    "pinyin": "gànhuór",
+    "meaning": "to work, manual labor"
+  },
+  {
+    "char": "刚",
+    "pinyin": "gāng",
+    "meaning": "exactly, only a short while ago, just now, barely, only just, just"
+  },
+  {
+    "char": "刚才",
+    "pinyin": "gāng cái",
+    "meaning": "gāng cái"
+  },
+  {
+    "char": "刚刚",
+    "pinyin": "gānggāng",
+    "meaning": "just now, scarcely, fresh, only, exactly, a moment ago, hardly, but, just"
+  },
+  {
+    "char": "高级",
+    "pinyin": "gāojí",
+    "meaning": "high-level, high-class, quality"
+  },
+  {
+    "char": "高中",
+    "pinyin": "gāozhōng",
+    "meaning": "senior middle school, senior high school, senior_high_school"
+  },
+  {
+    "char": "个子",
+    "pinyin": "gèzi5",
+    "meaning": "height, stature, build"
+  },
+  {
+    "char": "更",
+    "pinyin": "gèng",
+    "meaning": "more, still/even more, further, furthermore"
+  },
+  {
+    "char": "公共汽车",
+    "pinyin": "gōng gòng qì chē",
+    "meaning": "bus, CL:輛|辆[liang4],班[ban1]"
+  },
+  {
+    "char": "公交车",
+    "pinyin": "gōng jiāo chē",
+    "meaning": "public transport vehicle, town bus, CL:輛|辆[liang4]"
+  },
+  {
+    "char": "公斤",
+    "pinyin": "gōngjīn",
+    "meaning": "m.[standard]"
+  },
+  {
+    "char": "公里",
+    "pinyin": "gōnglǐ",
+    "meaning": "m.[standard]"
+  },
+  {
+    "char": "公路",
+    "pinyin": "gōnglù",
+    "meaning": "trunk road, calzada, route, main road, highroad, highway, road, thoroughfare, causeway, chaussee"
+  },
+  {
+    "char": "公平",
+    "pinyin": "gōngpíng",
+    "meaning": "fair, just, impartial"
+  },
+  {
+    "char": "公司",
+    "pinyin": "gōngsī",
+    "meaning": "place of business, business organization, incorporation, establishment, business concern, office, concern, business establishment, business, enterprise, company, corporation"
+  },
+  {
+    "char": "公园",
+    "pinyin": "gōngyuán",
+    "meaning": "common, green, garden, commons, park"
+  },
+  {
+    "char": "狗",
+    "pinyin": "gǒu",
+    "meaning": "dog"
+  },
+  {
+    "char": "够",
+    "pinyin": "gòu",
+    "meaning": "be enough/sufficient/adequate"
+  },
+  {
+    "char": "故事",
+    "pinyin": "gùshì",
+    "meaning": "spiel, recital, relation, scam, rede, plot, yarn, narration, story, fiction, tale, history, legend, narrative"
+  },
+  {
+    "char": "故意",
+    "pinyin": "gùyì",
+    "meaning": "purposive, deliberate, willful, intentional"
+  },
+  {
+    "char": "顾客",
+    "pinyin": "gùkè",
+    "meaning": "chap, client, shopper, correspondent, constituency, patronage, trade, market, guest, clientele, newspaperman, newspaperwoman, newswriter, pressman, customer agent, customer, business"
+  },
+  {
+    "char": "关机",
+    "pinyin": "guān jī",
+    "meaning": "to turn off (a machine or device), to finish shooting a film"
+  },
+  {
+    "char": "关心",
+    "pinyin": "guānxīn",
+    "meaning": "be concerned about"
+  },
+  {
+    "char": "观点",
+    "pinyin": "guāndiǎn",
+    "meaning": "view, aspect, stand, point_of_view, light, eyes, framework, sentiment, bet, standpoint, point of view, eye, viewpoint, slant, perspective, position, angle"
+  },
+  {
+    "char": "广场",
+    "pinyin": "guǎngchǎng",
+    "meaning": "mews, agora, public square, concourse, carrefour, piazza, plaza, square, campus, place"
+  },
+  {
+    "char": "广告",
+    "pinyin": "guǎnggào",
+    "meaning": "advertisement"
+  },
+  {
+    "char": "国际",
+    "pinyin": "guójì",
+    "meaning": "international"
+  },
+  {
+    "char": "过来",
+    "pinyin": "guòlái",
+    "meaning": "come over/up, up, come over, come up, come_over, come here"
+  },
+  {
+    "char": "过年",
+    "pinyin": "guònián",
+    "meaning": "celebrate/spend New Year"
+  },
+  {
+    "char": "过去",
+    "pinyin": "guòqù",
+    "meaning": "go over, pass by"
+  },
+  {
+    "char": "过",
+    "pinyin": "guò",
+    "meaning": "[aspect]"
+  },
+  {
+    "char": "海",
+    "pinyin": "hǎi",
+    "meaning": "water, foam, bottom, main, huge group of people, Surname, sea catfish, the sea, sea, mare, drink, fishpond, briny, great capacity, Neptune, billow, huge group of things, depth, waters, pond, wave, brine, big lake"
+  },
+  {
+    "char": "海边",
+    "pinyin": "hǎi biān",
+    "meaning": "coast, seaside, seashore, beach"
+  },
+  {
+    "char": "喊",
+    "pinyin": "hǎn",
+    "meaning": "cry out, yell"
+  },
+  {
+    "char": "好",
+    "pinyin": "hǎo",
+    "meaning": "good"
+  },
+  {
+    "char": "好处",
+    "pinyin": "hǎochù",
+    "meaning": "pull, profit, advantage, stead, benefit, virtu, welfare, virtue, good, behoof, goodness, gain, pap, beauty, beaut"
+  },
+  {
+    "char": "好多",
+    "pinyin": "hǎoduō",
+    "meaning": "det : many, much"
+  },
+  {
+    "char": "好久",
+    "pinyin": "hǎo jiǔ",
+    "meaning": "quite a while"
+  },
+  {
+    "char": "好人",
+    "pinyin": "hǎorén",
+    "meaning": "a healthy person, good person, goodman, sb. who tries to get along with everyone, bawcock, good, agreeable individual, good egg, a person who tries to get along with everyone (oft"
+  },
+  {
+    "char": "好事",
+    "pinyin": "hǎo shì",
+    "meaning": "hào shì"
+  },
+  {
+    "char": "好像",
+    "pinyin": "hǎoxiàng",
+    "meaning": "seem, be like"
+  },
+  {
+    "char": "合适",
+    "pinyin": "héshì",
+    "meaning": "set, fit, accommodate, befit, suitable, right, appropriate, belong, beseem, becoming, suit"
+  },
+  {
+    "char": "河",
+    "pinyin": "hé",
+    "meaning": "watercourse, stream, Yellow River, fluvial, river, drink"
+  },
+  {
+    "char": "黑",
+    "pinyin": "hēi",
+    "meaning": "black, dark, wicked, sinister, vicious, be greedy, extort"
+  },
+  {
+    "char": "黑板",
+    "pinyin": "hēi bǎn",
+    "meaning": "blackboard, CL:塊|块[kuai4],個|个[ge4]"
+  },
+  {
+    "char": "黑色",
+    "pinyin": "hēisè",
+    "meaning": "black"
+  },
+  {
+    "char": "红",
+    "pinyin": "hóng",
+    "meaning": "in vogue, famous, redden, red, popular"
+  },
+  {
+    "char": "红色",
+    "pinyin": "hóngsè",
+    "meaning": "red color"
+  },
+  {
+    "char": "后来",
+    "pinyin": "hoù lái",
+    "meaning": "afterwards, later"
+  },
+  {
+    "char": "忽然",
+    "pinyin": "hūrán",
+    "meaning": "suddenly"
+  },
+  {
+    "char": "湖",
+    "pinyin": "hú",
+    "meaning": "water, waterfront, a name referring to the provinces of Hunan and Hub, lacustrine, loch, mere, lake, lough, Hunan and Hubei, laky"
+  },
+  {
+    "char": "护照",
+    "pinyin": "hùzhào",
+    "meaning": "passport"
+  },
+  {
+    "char": "花",
+    "pinyin": "huā",
+    "meaning": "spend, expend, cost"
+  },
+  {
+    "char": "花园",
+    "pinyin": "huāyuán",
+    "meaning": "flower garden"
+  },
+  {
+    "char": "画",
+    "pinyin": "huà",
+    "meaning": "painting, pictures"
+  },
+  {
+    "char": "画家",
+    "pinyin": "huàjiā",
+    "meaning": "painterly, creative person, artist, painter, penman, artists"
+  },
+  {
+    "char": "画儿",
+    "pinyin": "huàr",
+    "meaning": "picture, drawing, painting"
+  },
+  {
+    "char": "坏处",
+    "pinyin": "huài chu",
+    "meaning": "harm, troubles, CL:個|个[ge4]"
+  },
+  {
+    "char": "坏人",
+    "pinyin": "huàirén",
+    "meaning": "hellion, bad person, scoundrel, badman, baddie, villain, malefactor, evildoer"
+  },
+  {
+    "char": "欢迎",
+    "pinyin": "huānyíng",
+    "meaning": "invite, greet, take in, receive, welcome, gratulate, embrace, salute"
+  },
+  {
+    "char": "换",
+    "pinyin": "huàn",
+    "meaning": "adjourn, barter, exchange, commute, reseat, trade, conversion, convert, change"
+  },
+  {
+    "char": "黄",
+    "pinyin": "huáng",
+    "meaning": "Surname"
+  },
+  {
+    "char": "黄色",
+    "pinyin": "huángsè",
+    "meaning": "chrome, yellowness, yellow, salacity, or"
+  },
+  {
+    "char": "回",
+    "pinyin": "huí",
+    "meaning": "return, go back"
+  },
+  {
+    "char": "回国",
+    "pinyin": "huíguó",
+    "meaning": "return to one's country"
+  },
+  {
+    "char": "会",
+    "pinyin": "huì",
+    "meaning": "to be able, can, will, to meet"
+  },
+  {
+    "char": "活动",
+    "pinyin": "huódòng",
+    "meaning": "activity, maneuver, behavior"
+  },
+  {
+    "char": "或",
+    "pinyin": "huò",
+    "meaning": "conj.: or, either or"
+  },
+  {
+    "char": "或者",
+    "pinyin": "huòzhě",
+    "meaning": "conj.: or, either...or..."
+  },
+  {
+    "char": "机会",
+    "pinyin": "jīhuì",
+    "meaning": "scouth, occasion, good luck, hap, liberty, fortune, opportunity, chance, joss, hazard, happy chance, probability, luck, scope, room, break, turn, opening"
+  },
+  {
+    "char": "鸡",
+    "pinyin": "jī",
+    "meaning": "capercailzie, Gallus gallus, giblets, chook, horse of the wood, capercaillie, gallinaceous, Tetrao urogallus, sultan, chicken"
+  },
+  {
+    "char": "级",
+    "pinyin": "jí",
+    "meaning": "level, rank, grade"
+  },
+  {
+    "char": "急",
+    "pinyin": "jí",
+    "meaning": "rapid, fast, violent"
+  },
+  {
+    "char": "计划",
+    "pinyin": "jìhuà",
+    "meaning": "plan, project, program"
+  },
+  {
+    "char": "计算机",
+    "pinyin": "jì suàn jī",
+    "meaning": "computer, (Tw) calculator, CL:臺|台[tai2]"
+  },
+  {
+    "char": "加",
+    "pinyin": "jiā",
+    "meaning": "dramatise, plant, embroider, intercalate, lard, put in, blow up, inflict, deliver, aggrandize, plus, dramatize, increase, augment, embellish, augmentation, confer, append, add, pad, summate"
+  },
+  {
+    "char": "加油",
+    "pinyin": "jiāyóu",
+    "meaning": "gas, lubricate, oil, refuel, gas up, embolden, accelerate, lubrication, fuel, cheer, recreate, hearten, make an extra effort"
+  },
+  {
+    "char": "家",
+    "pinyin": "jiā",
+    "meaning": "family, household, home, house"
+  },
+  {
+    "char": "家庭",
+    "pinyin": "jiātíng",
+    "meaning": "hearthstone, background, fireside, establishment, household, hearth, domestic, hearthside, menage, home, family unit, family, house"
+  },
+  {
+    "char": "家长",
+    "pinyin": "jiāzhǎng",
+    "meaning": "masterman, housemaster, graybeard, patriarch, parent of schoolchildren, patriarchal, goodman, patriarchate, paterfamilias, the head of a family, genearch, patriarchy, householder, head of household, the parent or guadian of a child"
+  },
+  {
+    "char": "假",
+    "pinyin": "jiǎ",
+    "meaning": "false, fake, phony, artificial"
+  },
+  {
+    "char": "假期",
+    "pinyin": "jiàqí",
+    "meaning": "season, holiday, leave, period of leave, vacation"
+  },
+  {
+    "char": "检查",
+    "pinyin": "jiǎnchá",
+    "meaning": "check, inspect, examine"
+  },
+  {
+    "char": "见到",
+    "pinyin": "jiàndào",
+    "meaning": "see, meet, perceive"
+  },
+  {
+    "char": "见过",
+    "pinyin": "jiànguò",
+    "meaning": "See"
+  },
+  {
+    "char": "件",
+    "pinyin": "jiàn",
+    "meaning": "correspondence, paper, document, bit, m.[general], , single item, letter, piece"
+  },
+  {
+    "char": "健康",
+    "pinyin": "jiànkāng",
+    "meaning": "healthy, sound"
+  },
+  {
+    "char": "讲",
+    "pinyin": "jiǎng",
+    "meaning": "discourse, utter, talk, negotiation, make clear, negotiate, parley, pay attention to, speak, syllable, discuss, explain, tell, be particular about, explanation, interpretation, interpret, relate, discussion, stress, mouth, say, remark, verbalize"
+  },
+  {
+    "char": "讲话",
+    "pinyin": "jiǎnghuà",
+    "meaning": "parley, jaw, turn to, address, talk, speak, say, speak to"
+  },
+  {
+    "char": "交",
+    "pinyin": "jiāo",
+    "meaning": "associate with, make friends, fall in with, mate"
+  },
+  {
+    "char": "交给",
+    "pinyin": "jiāogěi",
+    "meaning": "relinquish, give_away, submit, give to, hand/give to, hand to, give_up, reach, hand"
+  },
+  {
+    "char": "交朋友",
+    "pinyin": "jiāo péng you",
+    "meaning": "to make friends, (dialect) to start an affair with sb"
+  },
+  {
+    "char": "交通",
+    "pinyin": "jiāotōng",
+    "meaning": "intercourse, commutation, transportation, communication, commuting, traffic, traffic_light, liaison man, communications, dealings, liaison"
+  },
+  {
+    "char": "角",
+    "pinyin": "jiǎo",
+    "meaning": "horn, bugle, sth. horn-shaped"
+  },
+  {
+    "char": "角度",
+    "pinyin": "jiǎodù",
+    "meaning": "aspect, perspective, degree, arcdegree, point of view, angle"
+  },
+  {
+    "char": "饺子",
+    "pinyin": "jiǎo zi",
+    "meaning": "dumpling, pot-sticker, CL:個|个[ge4],隻|只[zhi1]"
+  },
+  {
+    "char": "脚",
+    "pinyin": "jiǎo",
+    "meaning": "foot, leg, base"
+  },
+  {
+    "char": "叫作",
+    "pinyin": "jiào zuò",
+    "meaning": "to call, to be called"
+  },
+  {
+    "char": "教师",
+    "pinyin": "jiàoshī",
+    "meaning": "beak, don, school teacher, schoolman, teacher, schoolmaster, preceptor, professor, pedagogue, schoolteacher, coach, master, instructor, educator, preceptorship"
+  },
+  {
+    "char": "教室",
+    "pinyin": "jiàoshì",
+    "meaning": "classroom, schoolroom"
+  },
+  {
+    "char": "教学",
+    "pinyin": "jiāoxué",
+    "meaning": "teach and study"
+  },
+  {
+    "char": "教育",
+    "pinyin": "jiàoyū",
+    "meaning": "education"
+  },
+  {
+    "char": "接",
+    "pinyin": "jiē",
+    "meaning": "to receive, to answer (the phone), to meet or welcome sb, to connect, to catch, to join, to extend, to take one's turn on duty, to take over for sb"
+  },
+  {
+    "char": "接到",
+    "pinyin": "jiēdào",
+    "meaning": "welcome, receive, meet"
+  },
+  {
+    "char": "接受",
+    "pinyin": "jiēshòu",
+    "meaning": "receive (honors, have, receive, acknowledge, sweep up, espouse, etc.), come to grips, adopt, embrace, greet, welcome, hook on, seize on, take up, accede, taken, entertain, latch on, buy, fasten on, swallow, imbibe, accept, receive (honors/etc.), undergo, get to grips, take, adapt, acceptance, thole"
+  },
+  {
+    "char": "接下来",
+    "pinyin": "jiēxiàlái",
+    "meaning": "next, immediately after"
+  },
+  {
+    "char": "接着",
+    "pinyin": "jiēzhe",
+    "meaning": "next, immediately after"
+  },
+  {
+    "char": "街",
+    "pinyin": "jiē",
+    "meaning": "county fair, fair, place, market, toby, street"
+  },
+  {
+    "char": "节",
+    "pinyin": "jié",
+    "meaning": "m.[event]"
+  },
+  {
+    "char": "节目",
+    "pinyin": "jiémù",
+    "meaning": "item, item (on program), programme, act, telecast, number, program"
+  },
+  {
+    "char": "节日",
+    "pinyin": "jiérì",
+    "meaning": "festival, holiday"
+  },
+  {
+    "char": "结果",
+    "pinyin": "jiéguǒ",
+    "meaning": "result, outcome, consequence"
+  },
+  {
+    "char": "借",
+    "pinyin": "jiè",
+    "meaning": "lend"
+  },
+  {
+    "char": "斤",
+    "pinyin": "jīn",
+    "meaning": "m.[standard]"
+  },
+  {
+    "char": "今后",
+    "pinyin": "jīn hoù",
+    "meaning": "hereafter, henceforth, in the future, from now on"
+  },
+  {
+    "char": "进入",
+    "pinyin": "jìnrù",
+    "meaning": "go_into, get_in, debouch, get in, go into, move into, come_into, pass, step_in, lapse, get_into, set in, go in, get into, kick in, penetrate, intromission, pierce, come_in, come in, enter, entry, sink, impenetrate"
+  },
+  {
+    "char": "进行",
+    "pinyin": "jìnxíng",
+    "meaning": "be in progress, go on, carry on/out"
+  },
+  {
+    "char": "近",
+    "pinyin": "jìn",
+    "meaning": "almost"
+  },
+  {
+    "char": "经常",
+    "pinyin": "jīngcháng",
+    "meaning": "everyday, daily, alway, often, a great deal, frequently, sempre, much, regularly, constantly, evermore, day-to-day"
+  },
+  {
+    "char": "经过",
+    "pinyin": "jīngguò",
+    "meaning": "pass, go through, undergo"
+  },
+  {
+    "char": "经理",
+    "pinyin": "jīnglǐ",
+    "meaning": "amaldar, intendant, manager, steward, executive, managing director, exec, director, skipper, syndic, executive director"
+  },
+  {
+    "char": "酒",
+    "pinyin": "jiǔ",
+    "meaning": "libation, bracer, plonk, wine, tipple, poison, pottle, spirits, creature, vin, cup, drink, hooch, arrack, medicine, alcohol, bottle, hootch, alcoholic drink, rum, bibble, potation, belly-wash, alcoholic beverage, Bacchus, booze, liquor, juice, fortifier, inebriant, lotion, intoxicant"
+  },
+  {
+    "char": "酒店",
+    "pinyin": "jiǔdiàn",
+    "meaning": "wineshop, public house"
+  },
+  {
+    "char": "就要",
+    "pinyin": "jiù yào",
+    "meaning": "will, shall, to be going to"
+  },
+  {
+    "char": "举",
+    "pinyin": "jǔ",
+    "meaning": "lift, raise, hold up, cite, propose"
+  },
+  {
+    "char": "举手",
+    "pinyin": "jǔshǒu",
+    "meaning": "raise one's hand, haul_off, raise one's hand(s), show, put up one's hand"
+  },
+  {
+    "char": "举行",
+    "pinyin": "jǔxíng",
+    "meaning": "hold (meeting/etc.)"
+  },
+  {
+    "char": "句",
+    "pinyin": "jù",
+    "meaning": "sentence, m.[general],"
+  },
+  {
+    "char": "句子",
+    "pinyin": "jùzi",
+    "meaning": "sentence"
+  },
+  {
+    "char": "卡",
+    "pinyin": "kǎ",
+    "meaning": "qiǎ"
+  },
+  {
+    "char": "开机",
+    "pinyin": "kāi jī",
+    "meaning": "to start an engine, to boot up (a computer), to press Ctrl-Alt-Delete, to begin shooting a film or TV show"
+  },
+  {
+    "char": "开心",
+    "pinyin": "kāixīn",
+    "meaning": "feel happy, rejoice"
+  },
+  {
+    "char": "开学",
+    "pinyin": "kāixué",
+    "meaning": "start school, begin term"
+  },
+  {
+    "char": "看法",
+    "pinyin": "kànfǎ",
+    "meaning": "side, view, mentality, idea, outlook, a way of looking at a thing, opinion, thought, sight, standpoint, hypothesis, attitude, hobbyhorse, viewpoint, possibility, theory, slant, pronouncement, way of looking at sth., thinking, supposition, supposal"
+  },
+  {
+    "char": "考生",
+    "pinyin": "kǎoshēng",
+    "meaning": "candidate for an entrance examination, examinee"
+  },
+  {
+    "char": "靠",
+    "pinyin": "kào",
+    "meaning": "depend/rely on"
+  },
+  {
+    "char": "科",
+    "pinyin": "kē",
+    "meaning": "department, section, rules, laws, a branch of academic or vocational study, stage directions, (animal) family, a division or subdivision of an administrative uni, family, branch of study, faculty, administrative section"
+  },
+  {
+    "char": "科学",
+    "pinyin": "kēxué",
+    "meaning": "ology, scientific, science, scientific knowledge"
+  },
+  {
+    "char": "可爱",
+    "pinyin": "kěài",
+    "meaning": "lovable, likeable, lovely"
+  },
+  {
+    "char": "可能",
+    "pinyin": "kěnéng",
+    "meaning": "probably, maybe"
+  },
+  {
+    "char": "可怕",
+    "pinyin": "kěpà",
+    "meaning": "fearful, terrible"
+  },
+  {
+    "char": "可是",
+    "pinyin": "kěshì",
+    "meaning": "conj.: but, yet, however"
+  },
+  {
+    "char": "可以",
+    "pinyin": "kěyǐ",
+    "meaning": "can, may"
+  },
+  {
+    "char": "克",
+    "pinyin": "kè",
+    "meaning": "Kè"
+  },
+  {
+    "char": "刻",
+    "pinyin": "kè",
+    "meaning": "m.[standard]"
+  },
+  {
+    "char": "客人",
+    "pinyin": "kèrén",
+    "meaning": "stranger, guest, caller, client, visitant, invitee, company, visitor"
+  },
+  {
+    "char": "课堂",
+    "pinyin": "kè táng",
+    "meaning": "classroom, CL:間|间[jian1]"
+  },
+  {
+    "char": "空气",
+    "pinyin": "kōngqì",
+    "meaning": "air, airspace, atmosphere, aerial, deflector, atmospherics"
+  },
+  {
+    "char": "哭",
+    "pinyin": "kū",
+    "meaning": "greet, cry, weep"
+  },
+  {
+    "char": "快餐",
+    "pinyin": "kuài cān",
+    "meaning": "fast food, snack, quick meal"
+  },
+  {
+    "char": "快点儿",
+    "pinyin": "kuàidiǎnr",
+    "meaning": "erhua variant of 快點|快点[kuai4 dian3]"
+  },
+  {
+    "char": "快乐",
+    "pinyin": "kuàilè",
+    "meaning": "happy, cheerful"
+  },
+  {
+    "char": "快要",
+    "pinyin": "kuài yào",
+    "meaning": "almost, nearly, almost all"
+  },
+  {
+    "char": "筷子",
+    "pinyin": "kuài zi",
+    "meaning": "chopsticks, CL:對|对[dui4],根[gen1],把[ba3],雙|双[shuang1]"
+  },
+  {
+    "char": "拉",
+    "pinyin": "lā",
+    "meaning": "slit, press-gang, help, solicit, lend a helping hand, canvass, draw, zoom, transport by vehicle, pull, release, press, cut, schlep, play (bowed instruments), tote, tug, gash, tow, bend, snake, schlepp, move (troops), solicitation, haul, chat, solicit (business), give a helping hand, drag out, force, play, slash, drum_up, claw, implicate, overstretch, empty the bowels, drag, trail, drag"
+  },
+  {
+    "char": "来自",
+    "pinyin": "láizì",
+    "meaning": "come from, originate from, come, stem/originate from, attach_to, stem, come/stem/originate from, hail"
+  },
+  {
+    "char": "蓝",
+    "pinyin": "lán",
+    "meaning": "blue"
+  },
+  {
+    "char": "蓝色",
+    "pinyin": "lánsè",
+    "meaning": "blue, blue (color), blueness"
+  },
+  {
+    "char": "篮球",
+    "pinyin": "lánqiú",
+    "meaning": "basketball"
+  },
+  {
+    "char": "老",
+    "pinyin": "lǎo",
+    "meaning": "old, aged;of long standing, outdated, tough, overgrown, dark (of colors)"
+  },
+  {
+    "char": "老年",
+    "pinyin": "lǎonián",
+    "meaning": "senescence, caducity, senility, old_age, agedness, hoariness, age, old age"
+  },
+  {
+    "char": "老朋友",
+    "pinyin": "lǎo péng you",
+    "meaning": "old friend, (slang) period, menstruation"
+  },
+  {
+    "char": "老是",
+    "pinyin": "lǎoshì",
+    "meaning": "always"
+  },
+  {
+    "char": "离",
+    "pinyin": "lí",
+    "meaning": "distant/apart from"
+  },
+  {
+    "char": "离开",
+    "pinyin": "líkāi",
+    "meaning": "leave, depart/deviate from"
+  },
+  {
+    "char": "礼物",
+    "pinyin": "lǐwù",
+    "meaning": "tribute, giving, proffer, gift, compliment, box, benefice, acknowledgment, present, souvenir"
+  },
+  {
+    "char": "里头",
+    "pinyin": "lǐtóu",
+    "meaning": "inside, interior"
+  },
+  {
+    "char": "理想",
+    "pinyin": "lǐxiǎng",
+    "meaning": "ideal,"
+  },
+  {
+    "char": "例如",
+    "pinyin": "lìrú",
+    "meaning": "for instance/example, e.g., such as"
+  },
+  {
+    "char": "例子",
+    "pinyin": "lìzi",
+    "meaning": "exemplification, example, representative, illustration, instance, piece, case"
+  },
+  {
+    "char": "脸",
+    "pinyin": "liǎn",
+    "meaning": "map, mug, kisser, puss, visage, snoot, frontispiece, pan, smiler, mazzard, mush, facial, countenance, phiz, figurehead, face, physiognomy, front, human face"
+  },
+  {
+    "char": "练",
+    "pinyin": "liàn",
+    "meaning": "practice, exercise, boil and scour raw silk, educate, reeducate, nurture, coach, hone, drill, school, lunge, break, breed, train"
+  },
+  {
+    "char": "练习",
+    "pinyin": "liànxí",
+    "meaning": "practice, exercise"
+  },
+  {
+    "char": "凉",
+    "pinyin": "liáng",
+    "meaning": "cool, cold, discouraged, disappointed"
+  },
+  {
+    "char": "凉快",
+    "pinyin": "liáng kuai",
+    "meaning": "nice and cold, pleasantly cool"
+  },
+  {
+    "char": "两",
+    "pinyin": "liǎng",
+    "meaning": "det.: two, both (sides), either (side), a few, some"
+  },
+  {
+    "char": "亮",
+    "pinyin": "liàng",
+    "meaning": "bright, light, loud and clear"
+  },
+  {
+    "char": "辆",
+    "pinyin": "liàng",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "零下",
+    "pinyin": "líng xià",
+    "meaning": "below zero"
+  },
+  {
+    "char": "留",
+    "pinyin": "liú",
+    "meaning": "continue, stay, keep, leave behind, leave, grow, accept, (let) grow, leave (sth.), let grow, ask ... to stay, take, bide, wear, study in a foreign country, save, reserve, reservation, ask sb. to stay, remain"
+  },
+  {
+    "char": "留下",
+    "pinyin": "liúxià",
+    "meaning": "stay, leave behind, leave, allocate, devote, entail, stick, stay behind, leave_behind, stay put, stick around, remain"
+  },
+  {
+    "char": "留学生",
+    "pinyin": "liúxuéshēng",
+    "meaning": "student studying abroad, returned student"
+  },
+  {
+    "char": "流",
+    "pinyin": "liú",
+    "meaning": "spread, circulate"
+  },
+  {
+    "char": "流利",
+    "pinyin": "liú lì",
+    "meaning": "fluent"
+  },
+  {
+    "char": "流行",
+    "pinyin": "liúxíng",
+    "meaning": "prevalent, popular, fashionable, in vogue, spread, rage (of contagious disease)"
+  },
+  {
+    "char": "路边",
+    "pinyin": "lù biān",
+    "meaning": "curb, roadside, wayside"
+  },
+  {
+    "char": "旅客",
+    "pinyin": "lǔkè",
+    "meaning": "journeyer, guest, hotel guest, traveler, traffic, wayfarer, viator, rider, traveller, passer, passenger"
+  },
+  {
+    "char": "旅行",
+    "pinyin": "lǔxíng",
+    "meaning": "travel, journey, tour"
+  },
+  {
+    "char": "旅游",
+    "pinyin": "lǚ yoú",
+    "meaning": "trip, journey, tourism, travel, tour, to travel"
+  },
+  {
+    "char": "绿",
+    "pinyin": "lù",
+    "meaning": "green"
+  },
+  {
+    "char": "绿色",
+    "pinyin": "lùsè",
+    "meaning": "verdure, green, greenness, green color, verdancy, bice, virescence, vert, pistachio, viridity"
+  },
+  {
+    "char": "卖",
+    "pinyin": "mài",
+    "meaning": "bring, parade, prostitute, make living at, go, sell out, show off, negotiate, exert to the utmost, tout, not spare, deal, betray, make living by, at, sell, make living by/at, betrayal, trade, fetch, market, bring in"
+  },
+  {
+    "char": "满",
+    "pinyin": "mǎn",
+    "meaning": "det.: entirely, wholly"
+  },
+  {
+    "char": "满意",
+    "pinyin": "mǎnyì",
+    "meaning": "satisfy, well-pleasing, pleased, satisfied"
+  },
+  {
+    "char": "猫",
+    "pinyin": "māo",
+    "meaning": "pussycat, puss, malkin, cat, kitty, tabby, felid, feline, true cat, pussy"
+  },
+  {
+    "char": "米",
+    "pinyin": "mǐ",
+    "meaning": "rice, shelled/husked seed"
+  },
+  {
+    "char": "面",
+    "pinyin": "miàn",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "面前",
+    "pinyin": "miànqián",
+    "meaning": "in_front, in front of, in the front of, in the face of, front, presence, before"
+  },
+  {
+    "char": "名",
+    "pinyin": "míng",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "名称",
+    "pinyin": "míngchēng",
+    "meaning": "title, denotation, compellation, appellative, designation, name, denomination, calling, rubric, appellation"
+  },
+  {
+    "char": "名单",
+    "pinyin": "míngdān",
+    "meaning": "checklist, register, registry, list, roll, listing, roster, name list"
+  },
+  {
+    "char": "明星",
+    "pinyin": "míngxīng",
+    "meaning": "headliner, lucida, (movie/etc.) star, impersonator, (movie, famous performer, stardom, Venus, star, etc.) star, movie_star"
+  },
+  {
+    "char": "目的",
+    "pinyin": "mùdì",
+    "meaning": "view, pretence, objective, goal, purport, intention, bourn, object, motive, motivation, meaning, aim, end point, hent, target, scope, sense of purpose, errand, purposefulness, sake, function, end, purpose, quaesitum, intent"
+  },
+  {
+    "char": "拿出",
+    "pinyin": "náchū",
+    "meaning": "ante, produce, take_out, get out, pose, take out, bring forth, take away, bring out"
+  },
+  {
+    "char": "拿到",
+    "pinyin": "nádào",
+    "meaning": "take, get_hold_of, get"
+  },
+  {
+    "char": "那",
+    "pinyin": "nà",
+    "meaning": "det.: that"
+  },
+  {
+    "char": "那会儿",
+    "pinyin": "nàhuìér",
+    "meaning": "Then"
+  },
+  {
+    "char": "那么",
+    "pinyin": "nàmo",
+    "meaning": "so"
+  },
+  {
+    "char": "那时候",
+    "pinyin": "nà shí hou",
+    "meaning": "at that time"
+  },
+  {
+    "char": "那样",
+    "pinyin": "nàyàng",
+    "meaning": "that kind of, like that"
+  },
+  {
+    "char": "南方",
+    "pinyin": "nánfāng",
+    "meaning": "S, due south, the southern part of the country, South, south, southern part of country, the South, southern"
+  },
+  {
+    "char": "难过",
+    "pinyin": "nánguò",
+    "meaning": "uncomfortable, feel bad, feel sorry, have hard time, bad, sad, have a hard time, be grieved, sorry"
+  },
+  {
+    "char": "难看",
+    "pinyin": "nán kàn",
+    "meaning": "ugly, unsightly"
+  },
+  {
+    "char": "难受",
+    "pinyin": "nán shoù",
+    "meaning": "to feel unwell, to suffer pain, to be difficult to bear"
+  },
+  {
+    "char": "难题",
+    "pinyin": "nántí",
+    "meaning": "problem, Gordian knot, grief, sticker, question, enigma, difficult problem, puzzler, spinosity, stickler, a hard nut to crack, puzzle, toughie, poser, difficulty, crux, nut, challenge, tickler, conundrum, knot, hump, knottiness, stinker, puzzlement, teaser, stumper, twister"
+  },
+  {
+    "char": "难听",
+    "pinyin": "nán tīng",
+    "meaning": "unpleasant to hear, coarse, vulgar, offensive, shameful"
+  },
+  {
+    "char": "能够",
+    "pinyin": "nénggòu",
+    "meaning": "can, able, would, may"
+  },
+  {
+    "char": "年级",
+    "pinyin": "nián jí",
+    "meaning": "grade, year (in school, college etc), CL:個|个[ge4]"
+  },
+  {
+    "char": "年轻",
+    "pinyin": "niánqīng",
+    "meaning": "junior, young"
+  },
+  {
+    "char": "鸟",
+    "pinyin": "niǎo",
+    "meaning": "beak, caprimulgiform bird, jay, carinate bird, birdie, bird, carinate, chaffinch, flying bird, fowl"
+  },
+  {
+    "char": "弄",
+    "pinyin": "nòng",
+    "meaning": "play with, make, do, handle, engage in, obtain, get, fetch, play tricks"
+  },
+  {
+    "char": "努力",
+    "pinyin": "nǔlì",
+    "meaning": "make great effort, try hard"
+  },
+  {
+    "char": "爬",
+    "pinyin": "pá",
+    "meaning": "swarm, creep, shin, grabble, crawl, climb, go up, trail, climb up, mount, clamber, scramble"
+  },
+  {
+    "char": "爬山",
+    "pinyin": "páshān",
+    "meaning": "mountaineer, climb mountain, climb"
+  },
+  {
+    "char": "怕",
+    "pinyin": "pà",
+    "meaning": "I'm afraid, dread, funk, I suppose, be afraid of, fear"
+  },
+  {
+    "char": "排",
+    "pinyin": "pái",
+    "meaning": "stand in line, arrange, put in order, sequence"
+  },
+  {
+    "char": "排队",
+    "pinyin": "páiduì",
+    "meaning": "stand in line, queue"
+  },
+  {
+    "char": "排球",
+    "pinyin": "páiqiú",
+    "meaning": "volleyball"
+  },
+  {
+    "char": "碰",
+    "pinyin": "pèng",
+    "meaning": "explore, stub, paw, encounter, knock against, partake, run into, take one's chance, knock, disturb, touch, meet, bump"
+  },
+  {
+    "char": "碰到",
+    "pinyin": "pèngdào",
+    "meaning": "come across, run_into, encounter, come_across, run into, touch, run_across, meet"
+  },
+  {
+    "char": "碰见",
+    "pinyin": "pèng jiàn",
+    "meaning": "to run into, to meet (unexpectedly), to bump into"
+  },
+  {
+    "char": "篇",
+    "pinyin": "piān",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "便宜",
+    "pinyin": "piányí",
+    "meaning": "cheap"
+  },
+  {
+    "char": "片",
+    "pinyin": "piàn",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "漂亮",
+    "pinyin": "piàoliàng",
+    "meaning": "posh, handsome, brilliant, remarkable, splendid, beautiful, smart"
+  },
+  {
+    "char": "平",
+    "pinyin": "píng",
+    "meaning": "flat, level, even, ordinary, common, uniform, safe and sound, peaceful, calm, fair, just, objective"
+  },
+  {
+    "char": "平安",
+    "pinyin": "píngān",
+    "meaning": "safe and sound, quiet and stable"
+  },
+  {
+    "char": "平常",
+    "pinyin": "píngcháng",
+    "meaning": "ordinary, common"
+  },
+  {
+    "char": "平等",
+    "pinyin": "píngděng",
+    "meaning": "equal"
+  },
+  {
+    "char": "平时",
+    "pinyin": "píng shí",
+    "meaning": "ordinarily, in normal times, in peacetime"
+  },
+  {
+    "char": "瓶",
+    "pinyin": "píng",
+    "meaning": "cruse, flask, vase, bottle, ninepin, jug, jar, pot, ampulla, m.[container],"
+  },
+  {
+    "char": "瓶子",
+    "pinyin": "píng zi",
+    "meaning": "bottle, CL:個|个[ge4]"
+  },
+  {
+    "char": "普通",
+    "pinyin": "pǔtōng",
+    "meaning": "ordinary, common, average"
+  },
+  {
+    "char": "普通话",
+    "pinyin": "pǔ tōng huà",
+    "meaning": "Mandarin (common language), Putonghua (common speech of the Chinese language), ordinary speech"
+  },
+  {
+    "char": "其他",
+    "pinyin": "qítā",
+    "meaning": "det.: others, the rest, other, else"
+  },
+  {
+    "char": "其中",
+    "pinyin": "qízhōng",
+    "meaning": "among, of them, in it, among them, which, them, det.: it, in, in which"
+  },
+  {
+    "char": "骑",
+    "pinyin": "qí",
+    "meaning": "ride/sit astride, ride astride, override, get_onto, sit on the back of, sit, stride, ride_on, ride, mount, pedal, sit astride, bestraddle"
+  },
+  {
+    "char": "骑车",
+    "pinyin": "qí chē",
+    "meaning": "to cycle"
+  },
+  {
+    "char": "起飞",
+    "pinyin": "qǐfēi",
+    "meaning": "take off (of planes/etc.)"
+  },
+  {
+    "char": "气",
+    "pinyin": "qì",
+    "meaning": "air, gas, smell, atmosphere, spirit"
+  },
+  {
+    "char": "气温",
+    "pinyin": "qìwēn",
+    "meaning": "atmospheric temperature, mercury, temperature, air temperature"
+  },
+  {
+    "char": "千",
+    "pinyin": "qiān",
+    "meaning": "det.: thousand"
+  },
+  {
+    "char": "千克",
+    "pinyin": "qiān kè",
+    "meaning": "kilogram"
+  },
+  {
+    "char": "前年",
+    "pinyin": "qián nián",
+    "meaning": "the year before last"
+  },
+  {
+    "char": "墙",
+    "pinyin": "qiáng",
+    "meaning": "wall"
+  },
+  {
+    "char": "青年",
+    "pinyin": "qīngnián",
+    "meaning": "young people, adolescent, youngster, springal, boy, youth, youths, stripling, young, hobbledehoy, younker"
+  },
+  {
+    "char": "青少年",
+    "pinyin": "qīngshàonián",
+    "meaning": "adolescent, stilyaga, teens, young person, teenager, teenagers, young people and teenagers, youths, youth, stripling, hobbledehoy, youngsters, younker"
+  },
+  {
+    "char": "轻",
+    "pinyin": "qīng",
+    "meaning": "light, agile, alert, easy, simple, rash, reckless, unimportant, frivolous, slight, neglect"
+  },
+  {
+    "char": "清楚",
+    "pinyin": "qīngchǔ",
+    "meaning": "clear"
+  },
+  {
+    "char": "晴",
+    "pinyin": "qíng",
+    "meaning": "clear, fine (weather)"
+  },
+  {
+    "char": "晴天",
+    "pinyin": "qíng tiān",
+    "meaning": "clear sky, sunny day"
+  },
+  {
+    "char": "请客",
+    "pinyin": "qǐng kè",
+    "meaning": "to give a dinner party, to entertain guests, to invite to dinner"
+  },
+  {
+    "char": "请求",
+    "pinyin": "qǐngqiú",
+    "meaning": "ask, request, entreat"
+  },
+  {
+    "char": "秋天",
+    "pinyin": "qiū tiān",
+    "meaning": "autumn, CL:個|个[ge4]"
+  },
+  {
+    "char": "求",
+    "pinyin": "qiú",
+    "meaning": "seek, try, strive for"
+  },
+  {
+    "char": "球场",
+    "pinyin": "qiúchǎng",
+    "meaning": "playing_field, gridiron, court, ball field, field, pitch, course, park, ballpark"
+  },
+  {
+    "char": "球队",
+    "pinyin": "qiúduì",
+    "meaning": "side, team, ball game team"
+  },
+  {
+    "char": "球鞋",
+    "pinyin": "qiú xié",
+    "meaning": "athletic shoes"
+  },
+  {
+    "char": "取",
+    "pinyin": "qǔ",
+    "meaning": "have, withdraw, choose, assume, take away, adopt, assumption, select, draw_out, withdrawal, obtain, remove, take, fetch, get, aim at, pick_up, sponge, adoption"
+  },
+  {
+    "char": "取得",
+    "pinyin": "qǔdé",
+    "meaning": "gain, acquire, obtain"
+  },
+  {
+    "char": "全",
+    "pinyin": "quán",
+    "meaning": "det.: all, Surname, whole, Quan"
+  },
+  {
+    "char": "全部",
+    "pinyin": "quánbù",
+    "meaning": "lot, aggregate, all, gross, entirety, allness, shebang, caboodle, complete, bunch, sum, total, gamut, entire, det.: all, totality, whole, everything"
+  },
+  {
+    "char": "全国",
+    "pinyin": "quán guó",
+    "meaning": "whole nation, nationwide, countrywide, national"
+  },
+  {
+    "char": "全家",
+    "pinyin": "quán jiā",
+    "meaning": "whole family"
+  },
+  {
+    "char": "全年",
+    "pinyin": "quán nián",
+    "meaning": "the whole year, all year long"
+  },
+  {
+    "char": "全身",
+    "pinyin": "quánshēn",
+    "meaning": "mutton, the whole body, em, whole body, mut"
+  },
+  {
+    "char": "全体",
+    "pinyin": "quántǐ",
+    "meaning": "great, entirety, general, ensemble, altogether, collectivity, entire, totality, whole body, whole, all, pie, crew, be-all, plenary assembly, en_bloc, wholeness, gamut"
+  },
+  {
+    "char": "然后",
+    "pinyin": "ránhòu",
+    "meaning": "therewith, and so, and_then, and then, thereupon, after that, so, then, with that"
+  },
+  {
+    "char": "让",
+    "pinyin": "ràng",
+    "meaning": "allow, induce sb. to do sth."
+  },
+  {
+    "char": "热情",
+    "pinyin": "rèqíng",
+    "meaning": "enthusiastic"
+  },
+  {
+    "char": "人口",
+    "pinyin": "rénkǒu",
+    "meaning": "population"
+  },
+  {
+    "char": "人们",
+    "pinyin": "rénmen",
+    "meaning": "workforce, hands, work force, folk, people, they, the people, men, manpower, common people"
+  },
+  {
+    "char": "人数",
+    "pinyin": "rénshù",
+    "meaning": "number of people"
+  },
+  {
+    "char": "认为",
+    "pinyin": "rènwéi",
+    "meaning": "find, treat, deem, suppose, look_on, repute, discount, esteem, accredit, feel, account, calculate, estimate, take to be, reckon, expect, think, hold, trust, recognise, opine, sound off, adjudge, consideration, consider, regard as, look upon, believe_in, disbelieve, allow, conceive, regard, call, imagine, view, forecast, believe, suspect, rate, animadvert, look on, listen, speak up, figure, c"
+  },
+  {
+    "char": "日报",
+    "pinyin": "rì bào",
+    "meaning": "daily newspaper"
+  },
+  {
+    "char": "日子",
+    "pinyin": "rìzi",
+    "meaning": "yom, day, a particular day, livelihood, life, date, days, time"
+  },
+  {
+    "char": "如果",
+    "pinyin": "rúguǒ",
+    "meaning": "conj.: if"
+  },
+  {
+    "char": "入口",
+    "pinyin": "rùkǒu",
+    "meaning": "adit, window, gateway, propylaeum, entranceway, \"in\" door, entree, entrance, portal, in door, threshold, inlet, approach, door, entry, entering, access, entryway, intake, ingress"
+  },
+  {
+    "char": "商量",
+    "pinyin": "shāngliáng",
+    "meaning": "talk, consult, arrange, confer, talk over, discussion, advise, discuss, concert"
+  },
+  {
+    "char": "商人",
+    "pinyin": "shāngrén",
+    "meaning": "merchandiser, trader, businessman, merchant, monger, trafficker, chapman, dealer, cit, merchantman, tradespeople, merchantry, bargainer, man of affairs"
+  },
+  {
+    "char": "上周",
+    "pinyin": "shàng zhoū",
+    "meaning": "last week"
+  },
+  {
+    "char": "少数",
+    "pinyin": "shǎoshù",
+    "meaning": "det.: a few"
+  },
+  {
+    "char": "少年",
+    "pinyin": "shàonián",
+    "meaning": "nipper, covey, early youth (10-16), juvenility, adolescent, youngster, teens, gossoon, boy, boy or girl of early youth, spalpeen, juvenile, callan, callant, shaver, lad, laddie, juvenile person, teenager, stripling, young boy, early youth, younker"
+  },
+  {
+    "char": "身边",
+    "pinyin": "shēnbiān",
+    "meaning": "nearby, side, at hand"
+  },
+  {
+    "char": "什么样",
+    "pinyin": "shén me yàng",
+    "meaning": "what kind?, what sort?, what appearance?"
+  },
+  {
+    "char": "生",
+    "pinyin": "shēng",
+    "meaning": "give birth to, bear, grow, get, have, cause to happen, make (a fire), exist, live"
+  },
+  {
+    "char": "生词",
+    "pinyin": "shēng cí",
+    "meaning": "new word (in textbook), word that is unfamiliar or not yet studied, CL:組|组[zu3],個|个[ge4]"
+  },
+  {
+    "char": "生活",
+    "pinyin": "shēnghuó",
+    "meaning": "life, existence, livelihood"
+  },
+  {
+    "char": "声音",
+    "pinyin": "shēngyīn",
+    "meaning": "voice, vocal, language, huskiness, vox, vocalization, audio, noise, sonic, tone, sound, phone, audio frequency"
+  },
+  {
+    "char": "省",
+    "pinyin": "shěng",
+    "meaning": "xǐng"
+  },
+  {
+    "char": "十分",
+    "pinyin": "shífēn",
+    "meaning": "very, fully, utterly, extremely"
+  },
+  {
+    "char": "实际",
+    "pinyin": "shíjì",
+    "meaning": "practical, literal"
+  },
+  {
+    "char": "实习",
+    "pinyin": "shíxí",
+    "meaning": "practice, do fieldwork"
+  },
+  {
+    "char": "实现",
+    "pinyin": "shíxiàn",
+    "meaning": "realize, achieve, bring about"
+  },
+  {
+    "char": "实在",
+    "pinyin": "shízài",
+    "meaning": "indeed, really, honestly, in fact, as a matter of fact"
+  },
+  {
+    "char": "食物",
+    "pinyin": "shíwù",
+    "meaning": "scran, board, ingesta, sustentation, provender, viand, chow, aliment, pabulum, edibles, prog, nurture, cheer, eatable, edible, alimentary, eatables, chowchow, nutrient, diet, bread, trencher, sustenance, nutriment, nosh, nutrition, victuals, cib., vivers, eating, toke, meat, cib, grub, peck, viands, comestible, nourishment, fare, victual, food, commons, fodder, scoff, victualage, muckamuck, ta"
+  },
+  {
+    "char": "使用",
+    "pinyin": "shǐyòng",
+    "meaning": "use, employ, apply"
+  },
+  {
+    "char": "市",
+    "pinyin": "shì",
+    "meaning": "market, city, CL:個|个[ge4]"
+  },
+  {
+    "char": "市长",
+    "pinyin": "shìzhǎng",
+    "meaning": "alcalde, city manager, mayor, portreeve, mayoral, civic leader, provost, civil leader, burgomaster"
+  },
+  {
+    "char": "事情",
+    "pinyin": "shìqíng",
+    "meaning": "proposition, pie, shebang, thing, affair, occasions, undertaking, concern, question, business, schmear, matter"
+  },
+  {
+    "char": "收",
+    "pinyin": "shōu",
+    "meaning": "receive, accept, take in/back, gather in, conclude, stop"
+  },
+  {
+    "char": "收到",
+    "pinyin": "shōudào",
+    "meaning": "hear, find, achievement, receive, receipt, obtain, achieve, incur, get, come_to"
+  },
+  {
+    "char": "收入",
+    "pinyin": "shōurù",
+    "meaning": "earning, incoming, gainings, finance, ingathering, proceed, receipts, income, coming-in, taking, pocket, earnings, fruit, revenue, proceeds, living"
+  },
+  {
+    "char": "手表",
+    "pinyin": "shǒubiǎo",
+    "meaning": "wristwatch"
+  },
+  {
+    "char": "受到",
+    "pinyin": "shòudào",
+    "meaning": "experience, receive, come in for, suffer, undergo, come_in_for, be given, come_to, be subjected to"
+  },
+  {
+    "char": "舒服",
+    "pinyin": "shūfú",
+    "meaning": "comfortable"
+  },
+  {
+    "char": "熟",
+    "pinyin": "shú",
+    "meaning": "ripe, cooked, done, deep (sleep, thoughts, etc.)"
+  },
+  {
+    "char": "数",
+    "pinyin": "shù",
+    "meaning": "det.: several"
+  },
+  {
+    "char": "数字",
+    "pinyin": "shùzì",
+    "meaning": "numeral, numerical, digit, amount, number, numeric, figure, digital, quantity"
+  },
+  {
+    "char": "水平",
+    "pinyin": "shuǐpíng",
+    "meaning": "level, horizontal, grade, degree, standard, horizontality"
+  },
+  {
+    "char": "顺利",
+    "pinyin": "shùnlì",
+    "meaning": "smooth, successful, without a hitch"
+  },
+  {
+    "char": "说明",
+    "pinyin": "shuōmíng",
+    "meaning": "explain, illustrate, show"
+  },
+  {
+    "char": "司机",
+    "pinyin": "sījī",
+    "meaning": "driver"
+  },
+  {
+    "char": "送到",
+    "pinyin": "sòngdào",
+    "meaning": "Deliver"
+  },
+  {
+    "char": "送给",
+    "pinyin": "sònggěi",
+    "meaning": "present to, to give as a present, send to, give, send/present to, to present"
+  },
+  {
+    "char": "算",
+    "pinyin": "suàn",
+    "meaning": "consider, regard/count as"
+  },
+  {
+    "char": "虽然",
+    "pinyin": "suīrán",
+    "meaning": "conj.: though, although"
+  },
+  {
+    "char": "随便",
+    "pinyin": "suíbiàn",
+    "meaning": "informal, willful, do as one pleases, wanton, casual, random, careless"
+  },
+  {
+    "char": "随时",
+    "pinyin": "suíshí",
+    "meaning": "whenever, whene'er, always, readily, whenever necessary, at all times, as occasion demands, at any time"
+  },
+  {
+    "char": "所以",
+    "pinyin": "suǒyǐ",
+    "meaning": "conj.: so, therefore, as a result"
+  },
+  {
+    "char": "所有",
+    "pinyin": "suǒyǒu",
+    "meaning": "det.: all"
+  },
+  {
+    "char": "它",
+    "pinyin": "tā",
+    "meaning": "they (neologism for {1ta1}[3] [4]), [4]), ), this, that, it"
+  },
+  {
+    "char": "它们",
+    "pinyin": "tāmen",
+    "meaning": "they, they (non-human)"
+  },
+  {
+    "char": "太太",
+    "pinyin": "tàitài",
+    "meaning": "lady, memsahib, Dona, dona, Mrs, mum, Senora, senora, Mrs., mistress of a household, madam, Frau, goodwife, missus, senhora, married woman, wife, vrouw, Madame, madame, missis, wahine, Signora, signora"
+  },
+  {
+    "char": "太阳",
+    "pinyin": "tàiyáng",
+    "meaning": "Apollo, luminary, daystar, digit, sunlight, solar, sunshine, Phoebus, lamp, sun, Sol, fireball"
+  },
+  {
+    "char": "态度",
+    "pinyin": "tàidù",
+    "meaning": "stance, treatment, demeanor, dealing, deportment, pose, behavior, manner, demeanour, way, bearing, attitude, air, behaviour, front, mien, conduct, mental attitude, approach, posture, address, position, bedside_manner, movement, gesture, comportment, presence, sort"
+  },
+  {
+    "char": "讨论",
+    "pinyin": "tǎolùn",
+    "meaning": "to discuss, to take something up with someone, to talk about"
+  },
+  {
+    "char": "套",
+    "pinyin": "tào",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "特别",
+    "pinyin": "tèbié",
+    "meaning": "unusual, specially"
+  },
+  {
+    "char": "特点",
+    "pinyin": "tèdiǎn",
+    "meaning": "distinctive feature, trait, point, flavor, singularity, flavour, distinction, characteristic, excellence, speciality, specialty, idiosyncrasy, salience, distinctiveness, specialness, feature, spot, peculiarity"
+  },
+  {
+    "char": "疼",
+    "pinyin": "téng",
+    "meaning": "(it) hurts, sore, to love dearly"
+  },
+  {
+    "char": "提",
+    "pinyin": "tí",
+    "meaning": "mention, refer to, promote, bring up"
+  },
+  {
+    "char": "提出",
+    "pinyin": "tíchū",
+    "meaning": "put forward, pose, raise"
+  },
+  {
+    "char": "提到",
+    "pinyin": "tídào",
+    "meaning": "mention, refer to"
+  },
+  {
+    "char": "提高",
+    "pinyin": "tígāo",
+    "meaning": "raise, heighten, enhance, increase, improve"
+  },
+  {
+    "char": "题",
+    "pinyin": "tí",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "体育",
+    "pinyin": "tǐyū",
+    "meaning": "training, physical education, athletics, sports, gymnastic, physical_education, physical training, physical culture, physical education/training, gym"
+  },
+  {
+    "char": "体育场",
+    "pinyin": "tǐ yù chǎng",
+    "meaning": "stadium, CL:個|个[ge4],座[zuo4]"
+  },
+  {
+    "char": "体育馆",
+    "pinyin": "tǐyūguǎn",
+    "meaning": "stadium, coliseum, gym, turnhall, palestra, gymnasium"
+  },
+  {
+    "char": "天上",
+    "pinyin": "tiān shàng",
+    "meaning": "celestial, heavenly"
+  },
+  {
+    "char": "条",
+    "pinyin": "tiáo",
+    "meaning": "bar, item, short note, a long narrow piece, streak, clause, stripe, sth. long and narrow, filet, m.[general], , article, strip, assize, twig, ingot, slip"
+  },
+  {
+    "char": "条件",
+    "pinyin": "tiáojiàn",
+    "meaning": "mood, formula, conditional, precondition, prerequisite, requisition, factor, qualification, requirement, stipulation, proviso, circumstances, provision, term, reservation, if, condition"
+  },
+  {
+    "char": "听讲",
+    "pinyin": "tīng jiǎng",
+    "meaning": "to attend a lecture, to listen to a talk"
+  },
+  {
+    "char": "听说",
+    "pinyin": "tīngshuō",
+    "meaning": "hear, understand, learn, rumor, hear that..., hear/understand that..., be told, understand that..., hear of"
+  },
+  {
+    "char": "停",
+    "pinyin": "tíng",
+    "meaning": "stay, cease, put_off, cessation, stop, switch off, cheese, stop over, cut off, halt, turn off, lie at anchor, pause, park"
+  },
+  {
+    "char": "停车",
+    "pinyin": "tíngchē",
+    "meaning": "park the car"
+  },
+  {
+    "char": "停车场",
+    "pinyin": "tíngchēchǎng",
+    "meaning": "parking_lot, parking area, parking, car_park, parking lot, car park, halt, yard, park"
+  },
+  {
+    "char": "挺",
+    "pinyin": "tǐng",
+    "meaning": "very, rather, quite"
+  },
+  {
+    "char": "挺好",
+    "pinyin": "tǐng hǎo",
+    "meaning": "very good"
+  },
+  {
+    "char": "通",
+    "pinyin": "tōng",
+    "meaning": "m.[event]"
+  },
+  {
+    "char": "通过",
+    "pinyin": "tōngguò",
+    "meaning": "adopt, pass, carry (motion/legislation)"
+  },
+  {
+    "char": "通知",
+    "pinyin": "tōngzhī",
+    "meaning": "notify, inform"
+  },
+  {
+    "char": "同时",
+    "pinyin": "tóng shí",
+    "meaning": "at the same time, simultaneously"
+  },
+  {
+    "char": "同事",
+    "pinyin": "tóngshì",
+    "meaning": "brother, coadjutor, workmate, friend, yokefellow, co-worker, fellow worker, confrere, colleague, stablemate, companion, crew, workfellow, staff, socius, coworker, bedfellow, fellow, haver, rival, comrade"
+  },
+  {
+    "char": "同样",
+    "pinyin": "tóngyàng",
+    "meaning": "same, equal, similar"
+  },
+  {
+    "char": "头",
+    "pinyin": "tóu",
+    "meaning": "head, hair (style), top/end of sth., chief"
+  },
+  {
+    "char": "头发",
+    "pinyin": "tóufǎ",
+    "meaning": "barba, chevelure, lock, head of hair, hair, tress, mane, hair (on human head)"
+  },
+  {
+    "char": "图片",
+    "pinyin": "túpiàn",
+    "meaning": "pictorial matter, picture, photograph, pic, artwork"
+  },
+  {
+    "char": "推",
+    "pinyin": "tuī",
+    "meaning": "push, decline, refuse, reject, put off, postpone, delay"
+  },
+  {
+    "char": "腿",
+    "pinyin": "tuǐ",
+    "meaning": "ham, a leg-like support, underpinning, thigh, gamb, shank, supporter, leg"
+  },
+  {
+    "char": "外地",
+    "pinyin": "wàidì",
+    "meaning": "parts of the country other than where one is, place other than where one is"
+  },
+  {
+    "char": "外卖",
+    "pinyin": "wài mài",
+    "meaning": "to go, take out (relates to food bought at a restaurant)"
+  },
+  {
+    "char": "完",
+    "pinyin": "wán",
+    "meaning": "exhaust, run_out, wipe_out, run out, pay, complete, completion, finish, be through, be over, use_up, wind up, payment, use up, pay (taxes), end up"
+  },
+  {
+    "char": "完成",
+    "pinyin": "wánchéng",
+    "meaning": "fill in, finish out, fulfil, practice, complete, finish, encompass, clear_up, top_off, cleave, top off, accomplishment, make out, effect, perfective, fulfill, go through, exercise, discharge, fill out, completion, end, run, bring ... to fruition, round_out, achieve, execute, round out, make, cap off, accomplish, practise, follow through, come, finalize, fulfilment, dispatch, bring ..."
+  },
+  {
+    "char": "完全",
+    "pinyin": "wánquán",
+    "meaning": "completely, fully, wholly, absolutely"
+  },
+  {
+    "char": "晚安",
+    "pinyin": "wǎn ān",
+    "meaning": "Good night!, Good evening!"
+  },
+  {
+    "char": "晚报",
+    "pinyin": "wǎn bào",
+    "meaning": "evening newspaper, (in a newspaper's name) Evening News"
+  },
+  {
+    "char": "晚餐",
+    "pinyin": "wǎncān",
+    "meaning": "dinner, supper"
+  },
+  {
+    "char": "晚会",
+    "pinyin": "wǎnhuì",
+    "meaning": "evening entertainment, soiree, evening party, social evening, party, evening, evening entertainment/party"
+  },
+  {
+    "char": "碗",
+    "pinyin": "wǎn",
+    "meaning": "m.[container]"
+  },
+  {
+    "char": "万",
+    "pinyin": "wàn",
+    "meaning": "det.: ten thousand, myriad, multitudinous"
+  },
+  {
+    "char": "网",
+    "pinyin": "wǎng",
+    "meaning": "net"
+  },
+  {
+    "char": "网球",
+    "pinyin": "wǎngqiú",
+    "meaning": "lawn tennis, tennis, follow-through, tennis ball"
+  },
+  {
+    "char": "网站",
+    "pinyin": "wǎng zhàn",
+    "meaning": "website, network station, node"
+  },
+  {
+    "char": "往",
+    "pinyin": "wǎng",
+    "meaning": "go toward"
+  },
+  {
+    "char": "为",
+    "pinyin": "wéi",
+    "meaning": "by"
+  },
+  {
+    "char": "为什么",
+    "pinyin": "wèishéme",
+    "meaning": "why, why?, how come, why is it that?, whereat, whereto"
+  },
+  {
+    "char": "位",
+    "pinyin": "wèi",
+    "meaning": "location, digit, m.[general], , status, figure, throne, position, place, condition"
+  },
+  {
+    "char": "味道",
+    "pinyin": "wèidào",
+    "meaning": "gustatory perception, gust, tang, taste perception, feeling, savor, flavor, taste sensation, savour, streak, flavour, relish, sapidity, smatch, soupcon, tincture, tasting, smell, smack, gustatory sensation, suggestion, snack, taste"
+  },
+  {
+    "char": "喂",
+    "pinyin": "wèi",
+    "meaning": "hello, hey"
+  },
+  {
+    "char": "温度",
+    "pinyin": "wēndù",
+    "meaning": "barothermohygrograph, temperature, barothermohygrogram"
+  },
+  {
+    "char": "闻",
+    "pinyin": "wén",
+    "meaning": "smell"
+  },
+  {
+    "char": "问路",
+    "pinyin": "wèn lù",
+    "meaning": "to ask for directions, to ask the way (to some place)"
+  },
+  {
+    "char": "问题",
+    "pinyin": "wèntí",
+    "meaning": "problem, mishap, query, job, interface, question, inquiry, matter, enquiry, trouble, issue, worry, subject, topic, hang-up, business, quaere"
+  },
+  {
+    "char": "午餐",
+    "pinyin": "wǔcān",
+    "meaning": "midday meal, lunch"
+  },
+  {
+    "char": "午睡",
+    "pinyin": "wǔ shuì",
+    "meaning": "to take a nap, siesta"
+  },
+  {
+    "char": "西北",
+    "pinyin": "xīběi",
+    "meaning": "northwest, Northwest China, the Northwest"
+  },
+  {
+    "char": "西餐",
+    "pinyin": "xī cān",
+    "meaning": "Western-style food, CL:份[fen4],頓|顿[dun4]"
+  },
+  {
+    "char": "西方",
+    "pinyin": "xīfāng",
+    "meaning": "the Occident, West, New World, occidental, westward, west, the West, the west, Hesperian, occident, Western, sunset, western hemisphere, western"
+  },
+  {
+    "char": "西南",
+    "pinyin": "xī nán",
+    "meaning": "southwest"
+  },
+  {
+    "char": "西医",
+    "pinyin": "xī yī",
+    "meaning": "Western medicine, a doctor trained in Western medicine"
+  },
+  {
+    "char": "习惯",
+    "pinyin": "xíguàn",
+    "meaning": "habit, custom"
+  },
+  {
+    "char": "洗衣机",
+    "pinyin": "xǐ yī jī",
+    "meaning": "washer, washing machine, CL:臺|台[tai2]"
+  },
+  {
+    "char": "洗澡",
+    "pinyin": "xǐzǎo",
+    "meaning": "have a bath, lave, take a bath, tub, bath, wash, bathing, bathe"
+  },
+  {
+    "char": "下",
+    "pinyin": "xià",
+    "meaning": "under (condition/fact etc.)"
+  },
+  {
+    "char": "下雪",
+    "pinyin": "xià xuě",
+    "meaning": "to snow"
+  },
+  {
+    "char": "下周",
+    "pinyin": "xià zhoū",
+    "meaning": "next week"
+  },
+  {
+    "char": "夏天",
+    "pinyin": "xià tiān",
+    "meaning": "summer, CL:個|个[ge4]"
+  },
+  {
+    "char": "相同",
+    "pinyin": "xiāngtóng",
+    "meaning": "be identical/alike, uniform, be identical, overlap, alike, identical, be alike"
+  },
+  {
+    "char": "相信",
+    "pinyin": "xiāngxìn",
+    "meaning": "deem, believe, credit, esteem, accredit, feel, trow, count, have faith in, guess, lippen, buy, be convinced of, hold, think, trust, accept, know, hone, believe_in, favour, believe in, hope"
+  },
+  {
+    "char": "响",
+    "pinyin": "xiǎng",
+    "meaning": "make a sound"
+  },
+  {
+    "char": "想到",
+    "pinyin": "xiǎngdào",
+    "meaning": "imagine, ideate, think, envisage, anticipate, bethink, dream, recollect, think_of, call to mind, think of, occur, conceive of"
+  },
+  {
+    "char": "想法",
+    "pinyin": "xiǎngfǎ",
+    "meaning": "view, stance, mentality, idea, notion, sentiment, judgment, construct, thought, opinion, conception, viewpoint, judgement, belief, mind-set, what one has in mind, persuasion, perspective, concept, mind, impression"
+  },
+  {
+    "char": "想起",
+    "pinyin": "xiǎngqǐ",
+    "meaning": "retrieve, think back, envisage, hit, echo, remember, think_of, call to mind, recall, recollect, think of"
+  },
+  {
+    "char": "向",
+    "pinyin": "xiàng",
+    "meaning": "to, towards"
+  },
+  {
+    "char": "相机",
+    "pinyin": "xiàngjī",
+    "meaning": "camera"
+  },
+  {
+    "char": "像",
+    "pinyin": "xiàng",
+    "meaning": "be like"
+  },
+  {
+    "char": "小",
+    "pinyin": "xiǎo",
+    "meaning": "small, little, petty, minor;young"
+  },
+  {
+    "char": "小声",
+    "pinyin": "xiǎo shēng",
+    "meaning": "in a low voice, (speak) in whispers"
+  },
+  {
+    "char": "小时候",
+    "pinyin": "xiǎo shí hou",
+    "meaning": "in one's childhood"
+  },
+  {
+    "char": "小说",
+    "pinyin": "xiǎoshuō",
+    "meaning": "novel, offprint, fiction"
+  },
+  {
+    "char": "小心",
+    "pinyin": "xiǎoxīn",
+    "meaning": "beware, watch_out, keep one's eyes skinned, keep one's eyes peeled, careful, cautious, be careful, see, watch, guard, ware, cautionary, keep one's eyes open, take care, look_out, look out"
+  },
+  {
+    "char": "小组",
+    "pinyin": "xiǎozǔ",
+    "meaning": "squad, section, unit, group"
+  },
+  {
+    "char": "校园",
+    "pinyin": "xiàoyuán",
+    "meaning": "schoolyard, campus"
+  },
+  {
+    "char": "校长",
+    "pinyin": "xiàozhǎng",
+    "meaning": "prexy, head, principal, headteacher, schoolmaster, master, warden, president, beak, rector, superintendent, director, head teacher, preceptor, headmaster, chancellor, school principal"
+  },
+  {
+    "char": "笑话",
+    "pinyin": "xiàohuà",
+    "meaning": "joke, jest"
+  },
+  {
+    "char": "笑话儿",
+    "pinyin": "xiàohuà r",
+    "meaning": "Joke"
+  },
+  {
+    "char": "鞋",
+    "pinyin": "xié",
+    "meaning": "xié"
+  },
+  {
+    "char": "心里",
+    "pinyin": "xīn li",
+    "meaning": "chest, heart, mind"
+  },
+  {
+    "char": "心情",
+    "pinyin": "xīnqíng",
+    "meaning": "cognitive state, cue, frame of mind, form, stomach, pulse, humor, feeling, temper, state of mind, cheer, humour, frame/state of mind, mood, vein, spirit, feelings, frame, frame_of_mind, habit of mind, mind, tune"
+  },
+  {
+    "char": "心中",
+    "pinyin": "xīn zhōng",
+    "meaning": "central point, in one's thoughts, in one's heart"
+  },
+  {
+    "char": "新闻",
+    "pinyin": "xīnwén",
+    "meaning": "unco, leak, intelligence, newsworthiness, witting, journalistic, information, journalism, courant, news"
+  },
+  {
+    "char": "信",
+    "pinyin": "xìn",
+    "meaning": "letter, mail, message"
+  },
+  {
+    "char": "信号",
+    "pinyin": "xìnhào",
+    "meaning": "sign, cue, beacon, code, beacon fire, messenger, signal, semaphore, signaling, waft"
+  },
+  {
+    "char": "信息",
+    "pinyin": "xìn xī",
+    "meaning": "information, news, message"
+  },
+  {
+    "char": "信心",
+    "pinyin": "xìnxīn",
+    "meaning": "trustfulness, trustingness, confidence, belief, affiance, religion, feeling, fay, trust, positiveness, notion, reliance, religious belief, faith, hope, impression"
+  },
+  {
+    "char": "信用卡",
+    "pinyin": "xìnyòngkǎ",
+    "meaning": "charge plate, charge card, credit card, credit_card, charge_card, bank card"
+  },
+  {
+    "char": "星星",
+    "pinyin": "xīngxīng",
+    "meaning": "star"
+  },
+  {
+    "char": "行动",
+    "pinyin": "xíngdòng",
+    "meaning": "action, operation"
+  },
+  {
+    "char": "行人",
+    "pinyin": "xíngrén",
+    "meaning": "foot traffic, passerby, goer, pedestrian, pedestrian traffic, passenger"
+  },
+  {
+    "char": "行为",
+    "pinyin": "xíngwéi",
+    "meaning": "fact, demeanor, form, deportment, dealing, behavior, doings, course, act, point, goings-on, demeanour, procedure, lapse, going, bearing, turn, behaviour, activity, ongoing, thing, human action, conduct, commitment, human activity, behavioral, agency, deed, comportment, action"
+  },
+  {
+    "char": "姓",
+    "pinyin": "xìng",
+    "meaning": "name"
+  },
+  {
+    "char": "姓名",
+    "pinyin": "xìngmíng",
+    "meaning": "surname and personal name, name, full name"
+  },
+  {
+    "char": "休假",
+    "pinyin": "xiūjià",
+    "meaning": "have holiday/vacation/leave"
+  },
+  {
+    "char": "许多",
+    "pinyin": "xǔduō",
+    "meaning": "lot, scores, lots, sight, pot, heap, quantity, plenty, slews, ton, battalion, many, scads, tidy sum, power, spate, chunk, pile, crowd, vastness, batch, lashings, whole lot, mint, mound, pocketful, large number, trunkful, ream, mickle, great deal, flock, mass, slew, heaps, a lot of, piles, whole slew, mess, raff, slue, gobs, much, lotta, multitude, volume, wad, store, raft, tons, satiety, rafts, doze"
+  },
+  {
+    "char": "选",
+    "pinyin": "xuǎn",
+    "meaning": "select, pick, elect, choose, take, pick out, van"
+  },
+  {
+    "char": "学期",
+    "pinyin": "xuéqí",
+    "meaning": "school term, semester"
+  },
+  {
+    "char": "雪",
+    "pinyin": "xuě",
+    "meaning": "snow"
+  },
+  {
+    "char": "颜色",
+    "pinyin": "yánsè",
+    "meaning": "companion, countenance, pigment, coloring, tincture, dyestuff, colour, facial expression, tinct, grain, colouring, color"
+  },
+  {
+    "char": "眼",
+    "pinyin": "yǎn",
+    "meaning": "eye, small hole, aperture, salient/weighted point, salient/weighted point"
+  },
+  {
+    "char": "眼睛",
+    "pinyin": "yǎnjīng",
+    "meaning": "eye"
+  },
+  {
+    "char": "养",
+    "pinyin": "yǎng",
+    "meaning": "keep in good repair, keep, cultivate, cultivation, form, maintenance, foster, give birth to, convalesce, sustain, nourish, support, provide for, convalescence, grow, raise, maintain, acquire, rest, recuperate"
+  },
+  {
+    "char": "样子",
+    "pinyin": "yàngzi",
+    "meaning": "tendency, pattern, form, manner, likelihood, way, resemblance, semblance, sample, guise, fashion, wise, model, air, mien, appearance, shape, suggestion, gesture, sort"
+  },
+  {
+    "char": "要求",
+    "pinyin": "yāoqiú",
+    "meaning": "request, demand"
+  },
+  {
+    "char": "药",
+    "pinyin": "yào",
+    "meaning": "healer, medicine, certain chemicals, drug, medicament, medicinal drug, aspirin, medication, remedy, physic"
+  },
+  {
+    "char": "药店",
+    "pinyin": "yào diàn",
+    "meaning": "pharmacy"
+  },
+  {
+    "char": "药片",
+    "pinyin": "yào piàn",
+    "meaning": "a (medicine) pill or tablet, CL:片[pian4]"
+  },
+  {
+    "char": "药水",
+    "pinyin": "Yào shuǐ",
+    "meaning": "yào shuǐ"
+  },
+  {
+    "char": "也许",
+    "pinyin": "yěxǔ",
+    "meaning": "possibly, peradventure, conceivably, assumedly, mayhap, doubtless, ablings, perhaps, perchance, potentially, probably, maybe, presumably, ablins, just"
+  },
+  {
+    "char": "夜",
+    "pinyin": "yè",
+    "meaning": "yè"
+  },
+  {
+    "char": "夜里",
+    "pinyin": "yè li",
+    "meaning": "during the night, at night, nighttime"
+  },
+  {
+    "char": "一部分",
+    "pinyin": "yī bù fèn",
+    "meaning": "portion, part of, subset"
+  },
+  {
+    "char": "一定",
+    "pinyin": "yīdìng",
+    "meaning": "must"
+  },
+  {
+    "char": "一共",
+    "pinyin": "yīgòng",
+    "meaning": "altogether, in all, all told"
+  },
+  {
+    "char": "一会儿",
+    "pinyin": "yīhuìr",
+    "meaning": "a moment, a while, in a moment, now...now..., also pr. [yi1 hui3 r5]"
+  },
+  {
+    "char": "一路平安",
+    "pinyin": "yī lù píng ān",
+    "meaning": "to have a pleasant journey, Bon voyage!"
+  },
+  {
+    "char": "一路顺风",
+    "pinyin": "yī lù shùn fēng",
+    "meaning": "to have a pleasant journey (idiom)"
+  },
+  {
+    "char": "已经",
+    "pinyin": "yǐjīng",
+    "meaning": "already"
+  },
+  {
+    "char": "以后",
+    "pinyin": "yǐhòu",
+    "meaning": "afterwards, later, future, in the future, hereafter"
+  },
+  {
+    "char": "以前",
+    "pinyin": "yǐqián",
+    "meaning": "langsyne, ago, in the past, formerly, prevenient, before, previously"
+  },
+  {
+    "char": "以上",
+    "pinyin": "yǐshàng",
+    "meaning": "the above/foregoing/above-mentioned"
+  },
+  {
+    "char": "以外",
+    "pinyin": "yǐwài",
+    "meaning": "other than, except, beyond, outside"
+  },
+  {
+    "char": "以为",
+    "pinyin": "yǐwéi",
+    "meaning": "imagine, think/believe/consider erroneously, treat, deem, believe, suspect, suppose, consider erroneously, repute, animadvert, esteem, trow, speak up, feel, count, believe/consider erroneously, calculate, view as, guess, ween, look, expect, think erroneously, think, hold, opine, interpret, sound off, take_for, consider, take for"
+  },
+  {
+    "char": "以下",
+    "pinyin": "yǐxià",
+    "meaning": "the following"
+  },
+  {
+    "char": "椅子",
+    "pinyin": "yǐzi5",
+    "meaning": "chair"
+  },
+  {
+    "char": "一般",
+    "pinyin": "yībān",
+    "meaning": "general, ordinary, common"
+  },
+  {
+    "char": "一点点",
+    "pinyin": "yī diǎn diǎn",
+    "meaning": "a little bit"
+  },
+  {
+    "char": "一生",
+    "pinyin": "yīshēng",
+    "meaning": "lifetime, all, existence, life, throughout one's life, all one's life, career, all/throughout one's life"
+  },
+  {
+    "char": "一直",
+    "pinyin": "yīzhí",
+    "meaning": "e'er, away, continuously, all the way, right, forever, all_along, always, the whole way, all along, straight, slap, through, ever, evermore"
+  },
+  {
+    "char": "亿",
+    "pinyin": "yì",
+    "meaning": "det.: hundred million"
+  },
+  {
+    "char": "意见",
+    "pinyin": "yìjiàn",
+    "meaning": "latitude, point_of_view, estimation, sight, conceit, verdict, hypothesis, attitude, estimate, possibility, judgement, appraisal, ground, slant, differing opinion, ruling, complaint, thinking, suggestion, comment, advisement, mind, apprehension, say, vote, impression, deliverance, view, understanding, feeling, idea, notion, sentiment, judgment, advice, current, opinion, advert, theory, v"
+  },
+  {
+    "char": "意思",
+    "pinyin": "yìsī",
+    "meaning": "significance, token of infection, intention, interest, idea, trace, meaning, thought, opinion, substance, etc., import, a token of appreciation/etc., indirect request, wish, a token of affection, desire, appreciation, fun, signification, gratitude, sense, hint, a token of affection/appreciation/etc., suggestion, mind, intent"
+  },
+  {
+    "char": "因为",
+    "pinyin": "yīnwèi",
+    "meaning": "conj.: because, for, on account of"
+  },
+  {
+    "char": "阴",
+    "pinyin": "Yīn",
+    "meaning": "yīn"
+  },
+  {
+    "char": "阴天",
+    "pinyin": "yīn tiān",
+    "meaning": "cloudy day, overcast sky"
+  },
+  {
+    "char": "音节",
+    "pinyin": "yīnjié",
+    "meaning": "syllable, key, pitch"
+  },
+  {
+    "char": "音乐",
+    "pinyin": "yīnyuè",
+    "meaning": "music"
+  },
+  {
+    "char": "音乐会",
+    "pinyin": "yīnyuèhuì",
+    "meaning": "musicale, philharmonic, concert"
+  },
+  {
+    "char": "银行",
+    "pinyin": "yínháng",
+    "meaning": "jug, depository financial institution, bank building, banking company, banking concern, bank"
+  },
+  {
+    "char": "银行卡",
+    "pinyin": "yín háng kǎ",
+    "meaning": "bank card, ATM card"
+  },
+  {
+    "char": "应该",
+    "pinyin": "yīnggāi",
+    "meaning": "should, ought to"
+  },
+  {
+    "char": "英文",
+    "pinyin": "yīngwén",
+    "meaning": "English, English (language), English language, English_language"
+  },
+  {
+    "char": "英语",
+    "pinyin": "yīngyǔ",
+    "meaning": "English, English (language), profit, surplus"
+  },
+  {
+    "char": "影片",
+    "pinyin": "yǐngpiàn",
+    "meaning": "celluloid, movie_film, flick, production, film, pic, movie"
+  },
+  {
+    "char": "影响",
+    "pinyin": "yǐngxiǎng",
+    "meaning": "influence"
+  },
+  {
+    "char": "永远",
+    "pinyin": "yǒngyuǎn",
+    "meaning": "e'er, always, for_good, evermore, ever, forever"
+  },
+  {
+    "char": "油",
+    "pinyin": "yóu",
+    "meaning": "oil, fat, grease"
+  },
+  {
+    "char": "游客",
+    "pinyin": "yoú kè",
+    "meaning": "traveler, tourist, (online gaming) guest player"
+  },
+  {
+    "char": "友好",
+    "pinyin": "Yoǔ hǎo",
+    "meaning": "yoǔ hǎo"
+  },
+  {
+    "char": "有空儿",
+    "pinyin": "yǒu kòngr",
+    "meaning": "available"
+  },
+  {
+    "char": "有人",
+    "pinyin": "yoǔ rén",
+    "meaning": "someone, people, anyone, there is someone there, occupied (as in restroom)"
+  },
+  {
+    "char": "有点儿",
+    "pinyin": "yǒudiǎnr",
+    "meaning": "slightly, a little, somewhat"
+  },
+  {
+    "char": "有意思",
+    "pinyin": "yǒuyìsī",
+    "meaning": "interesting, meaningful, enjoyable"
+  },
+  {
+    "char": "又",
+    "pinyin": "yòu",
+    "meaning": "again, moreover"
+  },
+  {
+    "char": "鱼",
+    "pinyin": "yū",
+    "meaning": "paella, variegated carp, gudgeon, bighead, Yu, Surname, Argonaut, salmon, fish, catfish"
+  },
+  {
+    "char": "语言",
+    "pinyin": "yǔyán",
+    "meaning": "linguistic communication, lingual, language, idiom, tongue, oral communication, speech, perspicuity, lingo, contumely, Fortran, parole, natural language, spoken language, linguistic process"
+  },
+  {
+    "char": "原来",
+    "pinyin": "yuánlái",
+    "meaning": "originally, formerly"
+  },
+  {
+    "char": "原因",
+    "pinyin": "yuányīn",
+    "meaning": "origin, causation, reason, wherefore, causal, breeder, spore, cause, causal agent, whence, causal agency, occasion, root, subject, causality, why, starter"
+  },
+  {
+    "char": "院",
+    "pinyin": "yuàn",
+    "meaning": "public facility, college, courtyard, designation for certain government offices and pub, hospital, clinic, branch of government, university, institutes, compound, abbey, academy, institute, yard, educational institution, faculty"
+  },
+  {
+    "char": "院长",
+    "pinyin": "yuànzhǎng",
+    "meaning": "director/president (of museum/institute/etc.), head of branch of government"
+  },
+  {
+    "char": "院子",
+    "pinyin": "yuànzi5",
+    "meaning": "patio, court, courtyard, yard, compound"
+  },
+  {
+    "char": "愿意",
+    "pinyin": "yuànyì",
+    "meaning": "will, be willing, please, wish, like, care"
+  },
+  {
+    "char": "月份",
+    "pinyin": "yuèfèn",
+    "meaning": "month"
+  },
+  {
+    "char": "月亮",
+    "pinyin": "yuèliàng",
+    "meaning": "moonlight, Cynthia, moon, lune, Phoebe, Diana, lunar"
+  },
+  {
+    "char": "越",
+    "pinyin": "yuè",
+    "meaning": "~A~B) the more A the more B"
+  },
+  {
+    "char": "越来越",
+    "pinyin": "yuèláiyuè",
+    "meaning": "more_and_more, more and more"
+  },
+  {
+    "char": "云",
+    "pinyin": "yún",
+    "meaning": "cloud"
+  },
+  {
+    "char": "运动",
+    "pinyin": "yùndòng",
+    "meaning": "sports, athletics, exercise, movement, campaign"
+  },
+  {
+    "char": "咱",
+    "pinyin": "zán",
+    "meaning": "zá"
+  },
+  {
+    "char": "咱们",
+    "pinyin": "zánmen",
+    "meaning": "we, you and I"
+  },
+  {
+    "char": "脏",
+    "pinyin": "zāng",
+    "meaning": "dirty, squalid, smudge, filthy, smutch, blur, smear"
+  },
+  {
+    "char": "早餐",
+    "pinyin": "zǎocān",
+    "meaning": "breaker, petit dejeuner, brekker, dejeuner, breakfast, morning tea"
+  },
+  {
+    "char": "早晨",
+    "pinyin": "zǎo chén",
+    "meaning": "early morning, CL:個|个[ge4]"
+  },
+  {
+    "char": "早就",
+    "pinyin": "zǎo jiù",
+    "meaning": "already at an earlier time"
+  },
+  {
+    "char": "怎么办",
+    "pinyin": "zěnmebàn",
+    "meaning": "what should someone do?"
+  },
+  {
+    "char": "怎么样",
+    "pinyin": "zěnmeyàng",
+    "meaning": "How are things?"
+  },
+  {
+    "char": "怎样",
+    "pinyin": "zěnyàng",
+    "meaning": "no matter how, in any way, in a certain way, how?, what, how"
+  },
+  {
+    "char": "占",
+    "pinyin": "zhàn",
+    "meaning": "constitute, make up, account for"
+  },
+  {
+    "char": "站",
+    "pinyin": "zhàn",
+    "meaning": "to stand"
+  },
+  {
+    "char": "站住",
+    "pinyin": "zhàn zhù",
+    "meaning": "to stand"
+  },
+  {
+    "char": "长大",
+    "pinyin": "zhǎngdà",
+    "meaning": "vegetate, be brought up, grow_up, maturate, grow, grow up, bulk, age, mature"
+  },
+  {
+    "char": "找出",
+    "pinyin": "zhǎochū",
+    "meaning": "rout out, find, unearth, rout up, rout, quest, observe, notice, grub, seek_out, dig_out, seek out, discover, find_out, root_out, spy, spot, detect, smoke out"
+  },
+  {
+    "char": "照顾",
+    "pinyin": "zhàogù",
+    "meaning": "look after, care for, attend to, patronize (as customer)"
+  },
+  {
+    "char": "照片",
+    "pinyin": "zhàopiàn",
+    "meaning": "snapshot, shot, likeness, picture, photo, icon, image, caption, exposure, photograph, pic, ikon"
+  },
+  {
+    "char": "照相",
+    "pinyin": "zhào xiàng",
+    "meaning": "to take a photograph"
+  },
+  {
+    "char": "这么",
+    "pinyin": "zhèmo",
+    "meaning": "so, such, this way, like this"
+  },
+  {
+    "char": "这时候",
+    "pinyin": "zhèshíhòu",
+    "meaning": "At this moment"
+  },
+  {
+    "char": "这样",
+    "pinyin": "zhèyàng",
+    "meaning": "so, such, like this, this way"
+  },
+  {
+    "char": "真正",
+    "pinyin": "zhēnzhèng",
+    "meaning": "true, indeed, certainty"
+  },
+  {
+    "char": "正常",
+    "pinyin": "zhèngcháng",
+    "meaning": "normal, regular"
+  },
+  {
+    "char": "正好",
+    "pinyin": "zhènghǎo",
+    "meaning": "just, exactly"
+  },
+  {
+    "char": "正确",
+    "pinyin": "zhèngquè",
+    "meaning": "correct, true, exact, proper, right"
+  },
+  {
+    "char": "正是",
+    "pinyin": "zhèng shì",
+    "meaning": "(emphasizes that sth is precisely or exactly as stated), precisely, exactly, even, if, just like, in the same way as"
+  },
+  {
+    "char": "直接",
+    "pinyin": "zhíjiē",
+    "meaning": "direct, immediate"
+  },
+  {
+    "char": "只",
+    "pinyin": "zhǐ",
+    "meaning": "only, merely"
+  },
+  {
+    "char": "只能",
+    "pinyin": "zhǐ néng",
+    "meaning": "can only, obliged to do sth, to have no other choice"
+  },
+  {
+    "char": "只要",
+    "pinyin": "zhǐyào",
+    "meaning": "conj.: so long as, provided"
+  },
+  {
+    "char": "纸",
+    "pinyin": "zhǐ",
+    "meaning": "paper"
+  },
+  {
+    "char": "中餐",
+    "pinyin": "Zhōng cān",
+    "meaning": "Chinese meal, Chinese food, CL:份[fen4],頓|顿[dun4]"
+  },
+  {
+    "char": "中级",
+    "pinyin": "zhōng jí",
+    "meaning": "middle level (in a hierarchy)"
+  },
+  {
+    "char": "中年",
+    "pinyin": "zhōngnián",
+    "meaning": "middle age"
+  },
+  {
+    "char": "中小学",
+    "pinyin": "zhōngxiǎoxué",
+    "meaning": "primary and middle school"
+  },
+  {
+    "char": "中心",
+    "pinyin": "zhōngxīn",
+    "meaning": "center, heart, hub"
+  },
+  {
+    "char": "中医",
+    "pinyin": "zhōngyī",
+    "meaning": "trad. Ch. medicine, doctor of trad. Ch. medicine"
+  },
+  {
+    "char": "重点",
+    "pinyin": "zhòngdiǎn",
+    "meaning": "taproot, accent, emphasis, focal point, point, keystone, hinge, salient point, stress, gravity"
+  },
+  {
+    "char": "重视",
+    "pinyin": "zhòngshì",
+    "meaning": "attach importance to, take sth. seriously, value"
+  },
+  {
+    "char": "周",
+    "pinyin": "zhōu",
+    "meaning": "Surname"
+  },
+  {
+    "char": "周末",
+    "pinyin": "zhoū mò",
+    "meaning": "weekend"
+  },
+  {
+    "char": "周年",
+    "pinyin": "zhoū nián",
+    "meaning": "anniversary, annual"
+  },
+  {
+    "char": "主人",
+    "pinyin": "zhǔrén",
+    "meaning": "lord, housemaster, host, symposiarch, marse, bwana, padrone, boss, master, baas, provider, mast, owner, landlord"
+  },
+  {
+    "char": "主要",
+    "pinyin": "zhǔyào",
+    "meaning": "main, chief, principal, major"
+  },
+  {
+    "char": "住房",
+    "pinyin": "zhù fáng",
+    "meaning": "housing"
+  },
+  {
+    "char": "住院",
+    "pinyin": "zhùyuàn",
+    "meaning": "be hospitalized"
+  },
+  {
+    "char": "装",
+    "pinyin": "zhuāng",
+    "meaning": "install, fit, assemble, load, pack, hold"
+  },
+  {
+    "char": "准确",
+    "pinyin": "zhǔnquè",
+    "meaning": "accurate, exact, precise"
+  },
+  {
+    "char": "自己",
+    "pinyin": "zìjǐ",
+    "meaning": "lonesome, number_one, own, ego, self, oneself, name"
+  },
+  {
+    "char": "自行车",
+    "pinyin": "zìxíngchē",
+    "meaning": "two-wheeler, roadster, machine, bicycle, wheel, push-bike, cycle, motorcycle, bike, velocipede"
+  },
+  {
+    "char": "自由",
+    "pinyin": "zìyóu",
+    "meaning": "free, unrestrained"
+  },
+  {
+    "char": "字典",
+    "pinyin": "zìdiǎn",
+    "meaning": "lexicon, wordbook, lexical, thesaurus, chararter dictionary, dictionary"
+  },
+  {
+    "char": "走过",
+    "pinyin": "zoǔ guò",
+    "meaning": "to walk past, to pass by"
+  },
+  {
+    "char": "走进",
+    "pinyin": "zǒujìn",
+    "meaning": "enter, step_in, walk in, go in"
+  },
+  {
+    "char": "走开",
+    "pinyin": "zoǔ kāi",
+    "meaning": "to leave, to walk away, to beat it, to move aside"
+  },
+  {
+    "char": "租",
+    "pinyin": "zū",
+    "meaning": "rent out"
+  },
+  {
+    "char": "组",
+    "pinyin": "zǔ",
+    "meaning": "m.[general]"
+  },
+  {
+    "char": "组成",
+    "pinyin": "zǔchéng",
+    "meaning": "form, make up (into), compose"
+  },
+  {
+    "char": "组长",
+    "pinyin": "zǔzhǎng",
+    "meaning": "chief/head of group/section"
+  },
+  {
+    "char": "嘴",
+    "pinyin": "zuǐ",
+    "meaning": "spigot, mug, rattletrap, kisser, trap, puss, visage, spile, nib, smiler, beak, countenance, snout, physiognomy, bill, cake-hole, bazoo, spout, anything shaped or functioning like a mouth, mouth, gob, neb"
+  },
+  {
+    "char": "最近",
+    "pinyin": "zuì jìn",
+    "meaning": "recent, recently, these days, latest, soon, nearest (of locations), shortest (of routes)"
+  },
+  {
+    "char": "作家",
+    "pinyin": "zuòjiā",
+    "meaning": "penster, scribe, ink-slinger, pen, inkslinger, writer, wright, novelist, litterateur, literator, tragedian, composer, author, penman, biobibliography, bookman"
+  },
+  {
+    "char": "作文",
+    "pinyin": "zuòwén",
+    "meaning": "composition"
+  },
+  {
+    "char": "作业",
+    "pinyin": "zuòyè",
+    "meaning": "school assignment, work, task, operation, production"
+  },
+  {
+    "char": "作用",
+    "pinyin": "zuòyòng",
+    "meaning": "action, function, effect, intention, motive"
+  },
+  {
+    "char": "座",
+    "pinyin": "zuò",
+    "meaning": "fare, stand, base, constellation, footstall, pedestal, m.[general], , customer, Aquarius, seating, plinth, place, seat"
+  },
+  {
+    "char": "座位",
+    "pinyin": "zuò wèi",
+    "meaning": "seat, CL:個|个[ge4]"
+  },
+  {
+    "char": "做到",
+    "pinyin": "zuòdào",
+    "meaning": "achievement, accomplishment, achieve, accomplish"
+  },
+  {
+    "char": "做法",
+    "pinyin": "zuòfǎ",
+    "meaning": "way of doing sth., modus_operandi, practice, manner, method, making sth., way of making sth., shtick, way, way of doing, way of doing/making sth., personal manner"
+  },
+  {
+    "char": "做饭",
+    "pinyin": "zuòfàn",
+    "meaning": "do the cooking, prepare a meal, prepare meal"
+  }
+]
