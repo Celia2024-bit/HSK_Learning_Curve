@@ -161,7 +161,12 @@ export const fetchWordsByLevel = async (level, username = null) => {
       if (!username) throw new Error('username is required when level = 0');
       return await fetchCustomCards(username);
     }
-    // 其它 level 保持原逻辑（读取本地 JSON）
+    // New HSK (11–17) → new_hsk/hsk-level-1.json ~ hsk-level-7.json
+    if (Number(level) >= 11) {
+      const res = await import(`../data/new_hsk/hsk-level-${level - 10}.json`);
+      return res.default;
+    }
+    // Old HSK (1–3) → hsk-level-1.json ~ hsk-level-3.json（原路径不动）
     const res = await import(`../data/hsk-level-${level}.json`);
     return res.default;
   } catch (e) {

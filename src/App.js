@@ -18,7 +18,7 @@ import { useUserProgress } from './hooks/useUserProgress';
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [mode, setMode] = useState('menu');
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState(1); // 0=Custom, 1-7=New HSK, 11-13=Old HSK
   
   // UI 状态
   const [quizCount, setQuizCount] = useState(DEFAULT_QUIZ_COUNT);
@@ -204,8 +204,12 @@ export default function App() {
     if (level === 0) {
       // Level 0: 调用 Render 后端 TTS
       targetUrl = getTtsUrl(text, isSlow);
+    } else if (level >= 11) {
+      // New HSK (11–17): new_hsk/hsk_audio 目录，实际 level 为 level-10
+      const fileName = encodeURIComponent(text.trim());
+      targetUrl = `/data/new_hsk/hsk_audio/hsk_audio_${level - 10}/${fileName}.mp3`;
     } else {
-      // Level 1-3: Vercel 上的本地 MP3
+      // Old HSK (1–3): 原有音频目录不动
       const fileName = encodeURIComponent(text.trim());
       targetUrl = `/data/hsk_audio/hsk_audio_${level}/${fileName}.mp3`;
     }
@@ -269,7 +273,7 @@ export default function App() {
             setLevel={(l) => { 
               // ✅ 新增逻辑：如果切换到 HSK 1-3 且当前是法语，强制切回中文
               let newLang = currentSpeakingLang;
-              if (l !== 0 && currentSpeakingLang === 'fr') {
+              if (l !== 0 && currentSpeakingLang === 'fr') { // l=0 custom 支持法语，其他不支持
                 newLang = 'zh'; 
               }
               

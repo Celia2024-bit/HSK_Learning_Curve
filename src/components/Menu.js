@@ -20,12 +20,23 @@ export default function Menu({
 }) {
 
   // 定义每个级别的名称和对应的标准单词量
+  // Old HSK: 1–3 | New HSK: 11–17 | Custom: 0
   const levelDetails = {
-    0: { name: "Custom", count: null }, // ✅ 新增：Level 0（自定义词库）
-    1: { name: "HSK 1", count: 150 },
-    2: { name: "HSK 2", count: 150 },
-    3: { name: "HSK 3", count: 300 }
+    0:  { name: "Custom", count: null },
+    1:  { name: "HSK 1",  count: 150  },
+    2:  { name: "HSK 2",  count: 150  },
+    3:  { name: "HSK 3",  count: 300  },
+    11: { name: "HSK 1",  count: 479  },
+    12: { name: "HSK 2",  count: 764  },
+    13: { name: "HSK 3",  count: 966  },
+    14: { name: "HSK 4",  count: 995  },
+    15: { name: "HSK 5",  count: 1067 },
+    16: { name: "HSK 6",  count: 1134 },
+    17: { name: "HSK 7",  count: 5618 },
   };
+
+  // 当前选中的词库组（level=0 是 custom，不属于任何组）
+  const currentGroup = level >= 11 ? 'new' : level === 0 ? null : 'old';
 
   return (
     <div className="min-h-screen bg-gradient-to-tr from-slate-50 via-gray-100 to-indigo-50 flex flex-col items-center justify-center p-8 text-gray-900">
@@ -40,27 +51,75 @@ export default function Menu({
           <p className="text-[10px] font-bold text-slate-400 mt-2 tracking-[0.2em] uppercase opacity-70">Smart Spaced Repetition</p>
         </div>
 
-        {/* Level Switcher - 增加了单词总量显示 */}
-        <div className="bg-white/60 backdrop-blur-md p-1.5 rounded-[2.5rem] flex mb-10 shadow-sm border border-white">
-          {[0, 1, 2, 3].map((l) => (
+        {/* Level Switcher — My Cards / Old HSK / New HSK */}
+        <div className="mb-10 space-y-3">
+
+          {/* 顶部 Group 切换 */}
+          <div className="bg-white/60 backdrop-blur-md p-1 rounded-[2rem] flex shadow-sm border border-white">
             <button
-              key={l}
-              onClick={() => setLevel(l)}
-              className={`flex-1 py-3 px-2 rounded-[2rem] transition-all duration-300 flex flex-col items-center ${
-                level === l 
-                ? 'bg-indigo-600 text-white shadow-xl scale-[1.02]' 
-                : 'text-slate-400 hover:bg-white/40'
+              onClick={() => setLevel(0)}
+              className={`flex-1 py-2.5 px-2 rounded-[1.8rem] transition-all duration-300 flex flex-col items-center ${
+                level === 0 ? 'bg-indigo-600 text-white shadow-xl scale-[1.02]' : 'text-slate-400 hover:bg-white/40'
               }`}
             >
-              <span className="text-[10px] font-black uppercase tracking-tighter">
-                {l === 0 ? 'Level 0' : `Level ${l}`}
-              </span>
-              <span className={`text-[9px] font-bold mt-0.5 opacity-60 ${level === l ? 'text-indigo-100' : 'text-slate-400'}`}>
-                {/* Level 0 不显示固定词数，避免误导 */}
-                {l === 0 ? 'MY CARDS' : `${levelDetails[l].count} WORDS`}
-              </span>
+              <span className="text-[10px] font-black uppercase tracking-tighter">My Cards</span>
+              <span className={`text-[9px] font-bold mt-0.5 opacity-60 ${level === 0 ? 'text-indigo-100' : 'text-slate-400'}`}>CUSTOM</span>
             </button>
-          ))}
+            <button
+              onClick={() => setLevel(1)}
+              className={`flex-1 py-2.5 px-2 rounded-[1.8rem] transition-all duration-300 flex flex-col items-center ${
+                currentGroup === 'old' ? 'bg-indigo-600 text-white shadow-xl scale-[1.02]' : 'text-slate-400 hover:bg-white/40'
+              }`}
+            >
+              <span className="text-[10px] font-black uppercase tracking-tighter">Old HSK</span>
+              <span className={`text-[9px] font-bold mt-0.5 opacity-60 ${currentGroup === 'old' ? 'text-indigo-100' : 'text-slate-400'}`}>1–3</span>
+            </button>
+            <button
+              onClick={() => setLevel(11)}
+              className={`flex-1 py-2.5 px-2 rounded-[1.8rem] transition-all duration-300 flex flex-col items-center ${
+                currentGroup === 'new' && level !== 0 ? 'bg-indigo-600 text-white shadow-xl scale-[1.02]' : 'text-slate-400 hover:bg-white/40'
+              }`}
+            >
+              <span className="text-[10px] font-black uppercase tracking-tighter">New HSK</span>
+              <span className={`text-[9px] font-bold mt-0.5 opacity-60 ${currentGroup === 'new' && level !== 0 ? 'text-indigo-100' : 'text-slate-400'}`}>1–7</span>
+            </button>
+          </div>
+
+          {/* 二级 level 选择 */}
+          {level !== 0 && (
+            <div className="bg-white/60 backdrop-blur-md p-1 rounded-[2rem] flex shadow-sm border border-white">
+              {currentGroup === 'old'
+                ? [1, 2, 3].map((l) => (
+                    <button
+                      key={l}
+                      onClick={() => setLevel(l)}
+                      className={`flex-1 py-2.5 px-2 rounded-[1.8rem] transition-all duration-300 flex flex-col items-center ${
+                        level === l ? 'bg-indigo-600 text-white shadow-xl scale-[1.02]' : 'text-slate-400 hover:bg-white/40'
+                      }`}
+                    >
+                      <span className="text-[10px] font-black uppercase tracking-tighter">HSK {l}</span>
+                      <span className={`text-[9px] font-bold mt-0.5 opacity-60 ${level === l ? 'text-indigo-100' : 'text-slate-400'}`}>
+                        {levelDetails[l].count} WORDS
+                      </span>
+                    </button>
+                  ))
+                : [11, 12, 13, 14, 15, 16, 17].map((l) => (
+                    <button
+                      key={l}
+                      onClick={() => setLevel(l)}
+                      className={`flex-1 py-2 px-1 rounded-[1.8rem] transition-all duration-300 flex flex-col items-center ${
+                        level === l ? 'bg-indigo-600 text-white shadow-xl scale-[1.02]' : 'text-slate-400 hover:bg-white/40'
+                      }`}
+                    >
+                      <span className="text-[10px] font-black uppercase tracking-tighter">{l - 10}</span>
+                      <span className={`text-[9px] font-bold mt-0.5 opacity-60 ${level === l ? 'text-indigo-100' : 'text-slate-400'}`}>
+                        {levelDetails[l].count}
+                      </span>
+                    </button>
+                  ))
+              }
+            </div>
+          )}
         </div>
 
         {/* Settings Card */}
