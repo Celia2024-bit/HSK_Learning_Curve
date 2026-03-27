@@ -112,20 +112,22 @@ export default function FlashcardMode({
             </button>
           </div>
         </div>
-        {/* 核心卡片 */}
-        <div 
-          onClick={handleCardClick}
-          className="relative bg-white rounded-[3.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.04)] border border-white p-7 min-h-[360px] flex flex-col items-center justify-center text-center cursor-pointer transition-all active:scale-[0.98] overflow-hidden"
-        >
-          {/* Back to Menu - 卡片内左上角 */}
+        {/* 核心卡片 wrapper */}
+        <div className="relative">
+          {/* Back to Menu - 浮在卡片上，完全独立于卡片点击事件 */}
           <button
-            onClick={(e) => { e.stopPropagation(); onBack(); }}
-            className="absolute top-5 left-5 flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-2xl text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all"
+            onClick={onBack}
+            className="absolute top-5 left-5 z-20 flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-2xl text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all"
           >
             <Home size={14} />
             <span className="text-[10px] font-black uppercase tracking-widest">Menu</span>
           </button>
 
+        {/* 核心卡片 */}
+        <div 
+          onClick={handleCardClick}
+          className="relative bg-white rounded-[3.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.04)] border border-white p-7 min-h-[360px] flex flex-col items-center justify-center text-center cursor-pointer transition-all active:scale-[0.98] overflow-hidden"
+        >
           <div className="flex-1 flex flex-col items-center justify-center w-full relative z-10">
             {/* Step 0: 汉字 - 渐变色 */}
             {step === 0 && (
@@ -175,6 +177,7 @@ export default function FlashcardMode({
           </button>
           
         </div>
+        </div>{/* end 核心卡片 wrapper */}
 
         {/* 底部掌握度按钮 */}
         <div className="flex items-center justify-between gap-4 px-2">
