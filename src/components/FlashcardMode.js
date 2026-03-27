@@ -79,17 +79,17 @@ export default function FlashcardMode({
     const field = order[step]; // 'char' | 'pinyin' | 'meaning'
 
     if (field === 'char') return (
-      <h2 className="text-7xl font-black bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-in fade-in zoom-in-95 duration-500 uppercase">
+      <h2 className="text-5xl font-black bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-in fade-in zoom-in-95 duration-500 uppercase">
         {current.char}
       </h2>
     );
     if (field === 'pinyin') return (
-      <p className="text-4xl font-bold text-emerald-500 animate-in slide-in-from-bottom-8 duration-500 font-sans tracking-tight">
+      <p className="text-2xl font-bold text-emerald-500 animate-in slide-in-from-bottom-8 duration-500 font-sans tracking-tight">
         {current.pinyin}
       </p>
     );
     if (field === 'meaning') return (
-      <p className="text-4xl font-black bg-gradient-to-br from-orange-400 to-rose-500 bg-clip-text text-transparent animate-in fade-in duration-500 px-2 leading-tight">
+      <p className="text-2xl font-black bg-gradient-to-br from-orange-400 to-rose-500 bg-clip-text text-transparent animate-in fade-in duration-500 px-2 leading-tight">
         {current.meaning}
       </p>
     );
@@ -99,7 +99,7 @@ export default function FlashcardMode({
   const isFlagged = flaggedWords[String(level)]?.includes(current.char);
 
   return (
-    <div className="min-h-screen bg-[#F5F5F7] text-slate-800 p-4 pt-3 flex flex-col items-center font-sans relative">
+    <div className="min-h-screen bg-[#F5F5F7] text-slate-800 p-4 pt-16 flex flex-col items-center font-sans relative">
 
       {/* ── 单词列表弹窗（不变）── */}
       {showWordList && (
@@ -258,7 +258,7 @@ export default function FlashcardMode({
         </div>
 
         {/* 底部导航 */}
-        <div className="mt-auto pt-5 flex gap-4 px-2">
+        <div className="mt-6 flex gap-4 px-2">
           <button onClick={handlePrev} disabled={currentIndex === 0}
             className="flex-1 h-16 bg-slate-200 text-slate-700 rounded-[2rem] font-black text-xs tracking-widest disabled:opacity-30 disabled:bg-slate-100 disabled:text-slate-300 hover:bg-slate-300 transition-all shadow-sm flex items-center justify-center gap-2">
             <ArrowLeft size={18} strokeWidth={3} />
