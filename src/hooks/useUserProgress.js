@@ -19,6 +19,7 @@ const DEFAULT_PROGRESS = {
   speaking_lang: 'zh',
   flashcard_random_order: false,
   flashcard_filter: 'all', // 'all' | 'flagged' | 'unflagged'
+  flashcard_reveal_order: 'char', 
 };
 
 
@@ -135,6 +136,8 @@ export function useUserProgress(currentUser, level) {
         overrides.flashcard_random_order ?? prevRecord.flashcard_random_order ?? DEFAULT_PROGRESS.flashcard_random_order,
       flashcard_filter:
         overrides.flashcard_filter ?? prevRecord.flashcard_filter ?? DEFAULT_PROGRESS.flashcard_filter,
+      flashcard_reveal_order:
+        overrides.flashcard_reveal_order ?? prevRecord.flashcard_reveal_order ?? 'char',
     };
 
     setProgressByLevel(prev => ({

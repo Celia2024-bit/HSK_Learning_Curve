@@ -346,6 +346,10 @@ export default function App() {
             onUpdateMastery={(char, score) => {
               updateMasteryRecord(char, { score });
             }}
+            revealOrder={getCurrentProgress().flashcard_reveal_order ?? 'char'}
+            onSaveRevealOrder={(value) =>
+              saveProgress({ flashcard_reveal_order: value })
+            }
           />
         )}
 
