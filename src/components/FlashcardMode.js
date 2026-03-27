@@ -190,7 +190,9 @@ export default function FlashcardMode({
         <div className="flex justify-end items-center mb-4 px-2">
           <div className="flex items-center gap-2">
             <div className="text-right">
-              <div className="text-[10px] font-black text-slate-300 tracking-[0.2em] uppercase">HSK Level {level}</div>
+              <div className="text-[10px] font-black text-slate-300 tracking-[0.2em] uppercase">
+                HSK Level {level >= 11 ? level - 10 : level}
+              </div>
               <div className="text-sm font-black text-slate-600">
                 {currentIndex + 1} <span className="text-slate-200 mx-0.5">/</span> {data.length}
               </div>
