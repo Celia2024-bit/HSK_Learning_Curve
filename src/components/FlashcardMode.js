@@ -10,9 +10,9 @@ const REVEAL_ORDERS = {
 };
 
 const ORDER_LABELS = {
-  char:    { label: '汉字优先', seq: ['汉字', '拼音', '英文'] },
-  pinyin:  { label: '拼音优先', seq: ['拼音', '汉字', '英文'] },
-  meaning: { label: '英文优先', seq: ['英文', '汉字', '拼音'] },
+  char:    { label: 'Character first', seq: ['Character', 'Pinyin', 'Meaning'] },
+  pinyin:  { label: 'Pinyin first',    seq: ['Pinyin', 'Character', 'Meaning'] },
+  meaning: { label: 'Meaning first',   seq: ['Meaning', 'Character', 'Pinyin'] },
 };
 
 export default function FlashcardMode({ 
@@ -140,7 +140,7 @@ export default function FlashcardMode({
           <div className="bg-white w-full max-w-md rounded-t-3xl p-6 pb-8"
             onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-5">
-              <h3 className="text-base font-black text-slate-800">首张显示内容</h3>
+              <h3 className="text-base font-black text-slate-800">First reveal</h3>
               <button onClick={() => setShowOrderSettings(false)}
                 className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500">
                 <X size={16} />
@@ -179,7 +179,7 @@ export default function FlashcardMode({
             ))}
 
             <p className="text-[10px] text-slate-400 text-center mt-3 font-bold tracking-wide">
-              第 4 步始终显示完整总结
+                Step 4 always shows the full summary
             </p>
           </div>
         </div>
