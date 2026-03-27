@@ -207,7 +207,7 @@ export default function App() {
     } else if (level >= 11) {
       // New HSK (11–17): new_hsk/hsk_audio 目录，实际 level 为 level-10
       const fileName = encodeURIComponent(text.trim());
-      targetUrl = `/data/new_hsk/hsk_audio/hsk_audio_${level - 10}/${fileName}.mp3`;
+      targetUrl = `/data/new_hsk_audio/hsk_audio_${level - 10}/${fileName}.mp3`;
     } else {
       // Old HSK (1–3): 原有音频目录不动
       const fileName = encodeURIComponent(text.trim());
