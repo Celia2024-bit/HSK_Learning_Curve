@@ -45,7 +45,7 @@ export default function FlashcardMode({
 
 
   return (
-    <div className="min-h-screen bg-[#F5F5F7] text-slate-800 p-6 flex flex-col items-center font-sans relative">
+    <div className="min-h-screen bg-[#F5F5F7] text-slate-800 p-4 pt-3 flex flex-col items-center font-sans relative">
       {/* 单词列表弹窗 */}
       {showWordList && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
@@ -93,15 +93,8 @@ export default function FlashcardMode({
       )}
 
       <div className="max-w-md w-full flex flex-col h-full">
-        {/* Header - 新增单词列表按钮 */}
-        <div className="flex justify-between items-center mb-8 px-2">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 px-4 py-2 bg-white rounded-2xl shadow-sm text-slate-400 hover:text-indigo-600 transition-all border border-white"
-        >
-          <Home size={18} />
-          <span className="text-xs font-black uppercase tracking-widest">Back to Menu</span>
-        </button>
+        {/* Header - 只保留进度和单词列表 */}
+        <div className="flex justify-end items-center mb-4 px-2">
           <div className="flex items-center gap-3">
             <div className="text-right">
               <div className="text-[10px] font-black text-slate-300 tracking-[0.2em] uppercase">HSK Level {level}</div>
@@ -122,8 +115,17 @@ export default function FlashcardMode({
         {/* 核心卡片 */}
         <div 
           onClick={handleCardClick}
-          className="relative bg-white rounded-[3.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.04)] border border-white p-10 min-h-[480px] flex flex-col items-center justify-center text-center cursor-pointer transition-all active:scale-[0.98] overflow-hidden"
+          className="relative bg-white rounded-[3.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.04)] border border-white p-7 min-h-[360px] flex flex-col items-center justify-center text-center cursor-pointer transition-all active:scale-[0.98] overflow-hidden"
         >
+          {/* Back to Menu - 卡片内左上角 */}
+          <button
+            onClick={(e) => { e.stopPropagation(); onBack(); }}
+            className="absolute top-5 left-5 flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-2xl text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all"
+          >
+            <Home size={14} />
+            <span className="text-[10px] font-black uppercase tracking-widest">Menu</span>
+          </button>
+
           <div className="flex-1 flex flex-col items-center justify-center w-full relative z-10">
             {/* Step 0: 汉字 - 渐变色 */}
             {step === 0 && (
@@ -165,7 +167,7 @@ export default function FlashcardMode({
           {/* 发音按钮 */}
           <button 
             onClick={(e) => { e.stopPropagation(); onSpeak(current.char, true); }}
-            className="mt-8 relative group"
+            className="mt-5 relative group"
           >
             <div className="relative w-16 h-16 bg-gradient-to-br from-orange-400 to-rose-500 text-white rounded-full flex items-center justify-center shadow-lg transition-all active:scale-90">
               <Volume2 size={28} />
@@ -200,7 +202,7 @@ export default function FlashcardMode({
         </div>
 
         {/* 底部导航: PREV & NEXT 均等化设计 */}
-        <div className="mt-auto pt-8 flex gap-4 px-2">
+        <div className="mt-auto pt-5 flex gap-4 px-2">
           {/* PREV: 换成了深灰色背景，与 NEXT 形成明显的深浅层级 */}
           <button 
             onClick={handlePrev} 
